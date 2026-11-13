@@ -211,3 +211,9 @@ button, select, input, textarea { max-width:100%; }
 @media(max-width:390px){
  .topbar-tagline{font-size:10px;max-width:220px}
 }
+
+.workspace-picker{margin-bottom:12px}
+.workspace-picker .select{max-width:min(100%,22rem)}
+#newWorkspace label{min-width:0}
+#newWorkspace label .field{display:block;width:100%;margin-top:5px}
+#newWorkspace [hidden]{display:none}
