@@ -1,0 +1,1280 @@
+{
+  "intake": {
+    "title": {
+      "meaning": "Short name of the proposed investment or change, not the Jira story title.",
+      "example": "Add / Replace Vehicle self-service capability.",
+      "verify": "Requestor and product management.",
+      "impact": "Lets portfolio leaders identify and compare demand without confusing an idea with an approved project."
+    },
+    "type": {
+      "meaning": "Level of demand being considered; distinguish portfolio idea, independently managed project, and program.",
+      "example": "Project — enhancement to an existing customer portal.",
+      "verify": "PMO or portfolio intake owner.",
+      "impact": "Determines which governance and funding path is appropriate; several teams do not automatically make a program."
+    },
+    "sponsor": {
+      "meaning": "Business executive or organization accountable for sponsoring the proposed investment.",
+      "example": "Personal Lines Digital sponsor.",
+      "verify": "Business leadership / portfolio office.",
+      "impact": "Identifies who must justify value and seek initial funding approval."
+    },
+    "value": {
+      "meaning": "Business problem or outcome expected, not a description of software screens.",
+      "example": "Reduce agent-assisted vehicle changes by enabling eligible customers to self-serve.",
+      "verify": "Business sponsor and Product Owner.",
+      "impact": "Enables business-value comparison and later benefits measurement."
+    },
+    "priority": {
+      "meaning": "Relative urgency agreed in an intake process; avoid treating requester enthusiasm as a funded commitment.",
+      "example": "High — planned digital-servicing objective, subject to capacity review.",
+      "verify": "Portfolio governance and business owner.",
+      "impact": "Supports sequencing against competing Okta, portal, and claims initiatives."
+    },
+    "status": {
+      "meaning": "Current intake stage, rather than team sprint status.",
+      "example": "Assessing; Approved for discovery; In delivery; Deferred.",
+      "verify": "Portfolio intake owner.",
+      "impact": "Distinguishes an idea under evaluation from one authorized for execution."
+    },
+    "decision": {
+      "meaning": "Exact portfolio decision and rationale, with approval scope if known.",
+      "example": "Discovery funded; delivery authorization still requires an approved business case.",
+      "verify": "Named investment authority.",
+      "impact": "Prevents teams from treating preliminary exploration money as full-project approval."
+    }
+  },
+  "business": {
+    "metric": {
+      "meaning": "Specific benefit or guardrail that can be measured after release.",
+      "example": "Percentage of eligible vehicle-change transactions completed online.",
+      "verify": "Product analytics and business sponsor.",
+      "impact": "Determines whether the new capability actually delivers business value."
+    },
+    "baseline": {
+      "meaning": "Measured performance before the change; include units and observation period.",
+      "example": "0% digital Add/Replace Vehicle completions in the old portal.",
+      "verify": "Analytics / operations owners.",
+      "impact": "Without a credible starting point, improvement cannot be demonstrated."
+    },
+    "target": {
+      "meaning": "Expected improvement by a defined date, agreed as a business hypothesis.",
+      "example": "40% of eligible changes completed online six months after launch.",
+      "verify": "Business sponsor and product leadership.",
+      "impact": "Supports benefit prioritization and release/rollout decisions; not a guaranteed outcome."
+    },
+    "actual": {
+      "meaning": "Measured result to date using the same definition as baseline and target.",
+      "example": "24% digital completion in the first post-release month.",
+      "verify": "Data analytics / service owner.",
+      "impact": "Triggers adoption investigation or continued investment if benefits lag."
+    },
+    "owner": {
+      "meaning": "Named person accountable for collecting and interpreting the business measure after project closure.",
+      "example": "Digital Product Owner for completion rate.",
+      "verify": "Sponsor and Product Owner.",
+      "impact": "Prevents benefit measurement from ending when the temporary project closes."
+    },
+    "measurement": {
+      "meaning": "Source, calculation, frequency and segment used to calculate the metric.",
+      "example": "Monthly portal analytics: completed eligible transactions ÷ eligible attempts.",
+      "verify": "Analytics lead / metric owner.",
+      "impact": "Makes results reproducible and helps avoid misleading averages."
+    },
+    "status": {
+      "meaning": "State of measurement or benefit realization, not code progress.",
+      "example": "Baseline confirmed; Not measured; Improving; Off target.",
+      "verify": "Benefit owner.",
+      "impact": "Shows whether evidence supports the investment case."
+    }
+  },
+  "charter": {
+    "item": {
+      "meaning": "The specific charter element being approved or clarified.",
+      "example": "In scope, Out of scope, Funding authority, Business objective.",
+      "verify": "Project Manager and sponsor.",
+      "impact": "Organizes the agreement about what the project is and is not authorized to do."
+    },
+    "detail": {
+      "meaning": "Clear, decision-ready statement of the charter element with boundaries.",
+      "example": "Replace Vehicle is included; standalone Remove Vehicle is excluded from initial launch.",
+      "verify": "Sponsor, Product Owner and subject-matter experts.",
+      "impact": "Avoids ambiguity when a new requirement is later proposed."
+    },
+    "owner": {
+      "meaning": "Person who validates or approves this charter line, not necessarily its author.",
+      "example": "Sponsor for scope authority; PO for backlog details.",
+      "verify": "PMO / sponsor.",
+      "impact": "Shows where to obtain a binding answer before baseline approval."
+    },
+    "status": {
+      "meaning": "Whether this charter element is drafted, validated, or approved.",
+      "example": "Draft pending sponsor sign-off.",
+      "verify": "Sponsor or delegated approver.",
+      "impact": "Prevents an unapproved six-month target from being presented as a committed baseline."
+    }
+  },
+  "stakeholders": {
+    "name": {
+      "meaning": "Specific role, team or person the project depends on.",
+      "example": "PolicyCenter transaction lead.",
+      "verify": "PM and functional manager.",
+      "impact": "Makes dependency and decision routing explicit."
+    },
+    "role": {
+      "meaning": "Role played in the project, not simply a job title.",
+      "example": "Portal Product Owner; enterprise IAM program lead.",
+      "verify": "Functional lead.",
+      "impact": "Separates product, Scrum, engineering, PM, and program responsibilities."
+    },
+    "accountability": {
+      "meaning": "Outcome this stakeholder is responsible for delivering or assuring.",
+      "example": "PolicyCenter lead owns endorsement API contract and readiness.",
+      "verify": "Stakeholder being named.",
+      "impact": "Prevents unclear ownership when a milestone slips."
+    },
+    "authority": {
+      "meaning": "Decisions the stakeholder can actually approve or escalate.",
+      "example": "Sponsor approves scope/date tradeoff; PO orders backlog within delegation.",
+      "verify": "PMO / sponsor / relevant authority.",
+      "impact": "Avoids sending budget or release decisions to people without approval rights."
+    },
+    "engagement": {
+      "meaning": "How and when the PM should communicate with this stakeholder.",
+      "example": "Weekly dependency review; monthly steering meeting.",
+      "verify": "Stakeholder / PM.",
+      "impact": "Sets a purposeful cadence rather than adding unnecessary ceremonies."
+    },
+    "status": {
+      "meaning": "Current engagement or decision-readiness level.",
+      "example": "Engaged; Awaiting confirmation; Escalation needed.",
+      "verify": "PM after direct contact.",
+      "impact": "Reveals absent decision-makers or commitment gaps."
+    }
+  },
+  "roadmap": {
+    "milestone": {
+      "meaning": "Verifiable integrated delivery outcome across teams, not a sprint task.",
+      "example": "PolicyCenter contract approved for Add/Replace transactions.",
+      "verify": "PO, architect, delivery leads.",
+      "impact": "Used to test whether the overall release forecast is credible."
+    },
+    "owner": {
+      "meaning": "Single named lead accountable for evidence that this milestone is met.",
+      "example": "PolicyCenter technical lead for transaction API readiness.",
+      "verify": "Producing team / functional manager.",
+      "impact": "Makes follow-up and escalation traceable."
+    },
+    "baseline": {
+      "meaning": "Original approved milestone date retained for change history.",
+      "example": "2027-03-01 for integration contract readiness.",
+      "verify": "Sponsor-approved integrated plan.",
+      "impact": "Comparison point for variance; never silently overwrite after a slip."
+    },
+    "forecast": {
+      "meaning": "Most recent credible completion date based on delivery evidence.",
+      "example": "2027-03-08 after PolicyCenter revises its estimate.",
+      "verify": "Accountable delivery lead.",
+      "impact": "Shows whether a delay moves SIT, UAT or production launch."
+    },
+    "status": {
+      "meaning": "Current milestone condition based on evidence and agreed tolerances.",
+      "example": "At risk because test endpoint has no confirmed date.",
+      "verify": "PM with accountable lead.",
+      "impact": "Feeds project RAG and targeted management attention."
+    },
+    "dependency": {
+      "meaning": "Specific upstream input that must arrive before milestone completion.",
+      "example": "PolicyCenter endorsement API contract and test endpoint.",
+      "verify": "Consuming and producing teams.",
+      "impact": "Exposes the true constraint instead of assuming all teams can work independently."
+    },
+    "evidence": {
+      "meaning": "Artifact, demonstration or approval proving milestone completion.",
+      "example": "Signed API contract and successful portal contract-test results.",
+      "verify": "Accountable milestone owner.",
+      "impact": "Prevents optimistic progress reports based only on verbal assurances."
+    }
+  },
+  "backlog": {
+    "key": {
+      "meaning": "Unique identifier in Jira or the delivery backlog.",
+      "example": "AV-202 (example Jira feature key).",
+      "verify": "Product Owner / Jira administrator.",
+      "impact": "Lets the PM trace integrated commitments to detailed delivery evidence."
+    },
+    "type": {
+      "meaning": "Backlog hierarchy level used by this team; not every company uses identical Jira configuration.",
+      "example": "Epic, Feature, Story or Enabler.",
+      "verify": "Product Owner / Agile delivery lead.",
+      "impact": "Prevents comparing a multi-sprint feature with a single story."
+    },
+    "title": {
+      "meaning": "User- or system-facing capability expressed clearly enough to identify work.",
+      "example": "Calculate revised premium when an insured vehicle is replaced.",
+      "verify": "Product Owner and team.",
+      "impact": "Connects sprint work to the customer journey and release scope."
+    },
+    "owner": {
+      "meaning": "Person or team accountable for coordinating this backlog item; Jira assignee conventions vary.",
+      "example": "PolicyCenter lead for premium calculation feature.",
+      "verify": "Product Owner / technical lead.",
+      "impact": "Provides a contact for estimates, blockers and evidence."
+    },
+    "pi": {
+      "meaning": "Planning Interval (PI) in which the feature is forecast or committed at ART level.",
+      "example": "PI-1 for initial vehicle-change functionality.",
+      "verify": "ART / Product management and teams.",
+      "impact": "Aligns the feature with broader integrated planning, if the organization uses SAFe."
+    },
+    "sprint": {
+      "meaning": "Iteration currently forecast for the work; this can change through team planning.",
+      "example": "Sprint 4 for Replace Vehicle calculation.",
+      "verify": "Scrum team / Product Owner.",
+      "impact": "Helps forecast feature readiness without directing the team’s Sprint Planning."
+    },
+    "points": {
+      "meaning": "Team-relative story-point estimate; not a universal measure of hours or performance.",
+      "example": "8 points estimated by the team for a feature slice.",
+      "verify": "Developers / Agile team.",
+      "impact": "Provides local forecasting input; never add points across unrelated teams as standardized effort."
+    },
+    "status": {
+      "meaning": "Current workflow state in the team’s configured Jira process.",
+      "example": "Ready, In progress, Blocked, In review, Done.",
+      "verify": "Team / Product Owner.",
+      "impact": "Shows delivery progress, but Done stories alone do not prove the release is ready."
+    },
+    "acceptance": {
+      "meaning": "Testable condition that demonstrates the intended capability works.",
+      "example": "Replacement premium and effective date agree with PolicyCenter policy record.",
+      "verify": "Product Owner / QA / business SME.",
+      "impact": "Links requirements to demonstrable, accepted functionality."
+    }
+  },
+  "iterations": {
+    "iteration": {
+      "meaning": "Sprint or PI identifier, using the team’s actual cadence and calendar.",
+      "example": "S4, or PI-1 for a multi-sprint planning interval.",
+      "verify": "Scrum Master / RTE / planning coordinator.",
+      "impact": "Keeps team commitments separate from project milestone governance."
+    },
+    "goal": {
+      "meaning": "Outcome the team intends to demonstrate, not merely a count of tickets.",
+      "example": "Customer can review premium impact for a replacement vehicle.",
+      "verify": "Product Owner and team.",
+      "impact": "Connects iteration progress to a meaningful capability."
+    },
+    "capacity": {
+      "meaning": "Team's expected ability to complete work in relative planning points during the sprint or PI (not resource person-days). Use consistent team-specific point conventions.",
+      "example": "S4 forecast capacity: 38 relative points, while the current plan requests 40. That is an overcommitment to review.",
+      "verify": "Scrum Developers, Product Owner and Scrum Master.",
+      "impact": "Comparing sprint planned points against empirical team capacity helps identify an unrealistic commitment. Never compare points against another team's person-days."
+    },
+    "planned": {
+      "meaning": "Relative point estimate for work selected or planned for the sprint or PI; not a time or cost unit.",
+      "example": "S4 team has selected 40 points against a 38-point forecast capacity.",
+      "verify": "Scrum Developers / Product Owner.",
+      "impact": "Shows potential overcommitment. Individual story-level records in the demo are illustrative samples, not a complete backlog roll-up."
+    },
+    "done": {
+      "meaning": "Relative point total for work meeting the team's Definition of Done by the stated snapshot. Completed sprints can deliver fewer points than planned.",
+      "example": "S1 planned 34 points and completed 30; the remaining work is re-evaluated for later planning.",
+      "verify": "Scrum team / delivery evidence in Jira.",
+      "impact": "Keeps sprint status and PI rollups honest; not a measure of cross-team productivity."
+    },
+    "confidence": {
+      "meaning": "Qualitative assessment of ability to meet the iteration or PI objective, backed by risks.",
+      "example": "Low because PolicyCenter API is not ready.",
+      "verify": "Teams during planning and risk review.",
+      "impact": "Signals where management must remove cross-team obstacles."
+    },
+    "demo": {
+      "meaning": "Specific working behavior to show stakeholders in the review/system demo.",
+      "example": "Replace Vehicle journey displays the PolicyCenter premium response.",
+      "verify": "Product Owner / delivery team.",
+      "impact": "Provides evidence of integrated outcomes rather than slide-only progress."
+    },
+    "status": {
+      "meaning": "Lifecycle stage of the iteration objective.",
+      "example": "Planning, In progress, Achieved, Partially achieved.",
+      "verify": "Scrum team / RTE as applicable.",
+      "impact": "Allows inspection and learning without turning the PM into the Scrum Master."
+    }
+  },
+  "dependencies": {
+    "deliverable": {
+      "meaning": "Exact upstream item another team must provide; avoid a vague label like “API dependency”.",
+      "example": "Working PolicyCenter endorsement endpoint in the test environment.",
+      "verify": "Producing and consuming leads.",
+      "impact": "Defines what “ready” means for the handoff."
+    },
+    "producer": {
+      "meaning": "Team responsible for providing the deliverable.",
+      "example": "PolicyCenter transaction team.",
+      "verify": "Producing organization lead.",
+      "impact": "Identifies who can make and fulfill the commitment."
+    },
+    "consumer": {
+      "meaning": "Team or workstream that cannot proceed without the deliverable.",
+      "example": "Portal QA integrated-test team.",
+      "verify": "Consuming delivery lead.",
+      "impact": "Shows where slippage creates downstream impact."
+    },
+    "neededBy": {
+      "meaning": "Last date the consuming team needs the input to protect its plan.",
+      "example": "2027-03-01 before scheduled portal integration tests.",
+      "verify": "Consuming delivery lead.",
+      "impact": "Key date for assessing schedule exposure."
+    },
+    "forecast": {
+      "meaning": "Producer’s latest evidence-backed delivery date, separate from the consuming need date.",
+      "example": "2027-03-08 after API completion estimate changes.",
+      "verify": "Producer / delivery lead.",
+      "impact": "If after needed-by, trigger impact analysis and recovery options."
+    },
+    "impact": {
+      "meaning": "Concrete consequence if the dependency misses its need date.",
+      "example": "SIT start moves seven calendar days; release forecast needs revalidation.",
+      "verify": "Consumer, QA and PM.",
+      "impact": "Used to prioritize escalations and make tradeoffs visible."
+    },
+    "owner": {
+      "meaning": "Person accountable for tracking and resolving this dependency through agreed channels.",
+      "example": "PolicyCenter delivery lead with portal PM coordinating.",
+      "verify": "Producing/consuming managers.",
+      "impact": "Keeps the entry actionable; coordination ownership is not coding ownership."
+    },
+    "status": {
+      "meaning": "Current readiness and commitment condition.",
+      "example": "At risk — API contract agreed but endpoint not deployed.",
+      "verify": "Producer and consumer.",
+      "impact": "Distinguishes a confirmed blocker from a possible late delivery."
+    },
+    "escalate": {
+      "meaning": "Date to raise unresolved risk before the dependency actually blocks the plan.",
+      "example": "2027-02-15, ahead of March test need.",
+      "verify": "PM / dependency owner.",
+      "impact": "Provides time for staffing, sequencing or governance decisions."
+    }
+  },
+  "capacity": {
+    "team": {
+      "meaning": "Delivery team or skill pool whose capacity is being forecast.",
+      "example": "Portal QA team, PolicyCenter integration specialists.",
+      "verify": "Functional manager.",
+      "impact": "Identifies the source of capacity and possible shared allocations."
+    },
+    "skill": {
+      "meaning": "Specialized capability required; headcount alone can hide shortages.",
+      "example": "Guidewire endorsement integration or E2E test automation.",
+      "verify": "Technical / QA lead.",
+      "impact": "Shows why spare frontend capacity cannot replace an unavailable PC specialist."
+    },
+    "people": {
+      "meaning": "Number of people available in this planning period, adjusted for actual allocation if necessary.",
+      "example": "4 QA engineers assigned to portal work.",
+      "verify": "Functional manager / team lead.",
+      "impact": "Starting point for available person-day calculation; do not double-count shared people."
+    },
+    "daysPerPerson": {
+      "meaning": "Working days per person in this calculation period before specific leave/support deductions.",
+      "example": "10 weekdays in a two-week sprint.",
+      "verify": "Team planning calendar.",
+      "impact": "Defines the period and unit; do not mix weeks, hours and person-days."
+    },
+    "leave": {
+      "meaning": "Person-days lost to PTO, holidays, or known absences across the team.",
+      "example": "4 person-days of leave for the portal QA team.",
+      "verify": "Functional manager / team.",
+      "impact": "Reduces delivery capacity; do not subtract a holiday twice."
+    },
+    "support": {
+      "meaning": "Person-days reserved for production incidents, operations and ongoing portal maintenance.",
+      "example": "8 QA person-days reserved for production support.",
+      "verify": "Service owner and QA lead.",
+      "impact": "Protects BAU commitments instead of promising all capacity to new features."
+    },
+    "other": {
+      "meaning": "Person-days committed to other initiatives, learning or non-feature duties not already deducted.",
+      "example": "6 QA person-days for enterprise Okta regression testing.",
+      "verify": "IAM program lead / functional manager.",
+      "impact": "Makes competing enterprise assignments visible in release forecasting."
+    },
+    "available": {
+      "meaning": "Read-only calculated person-days for the team: people × working days each − leave − support − other allocated commitments.",
+      "example": "Portal QA 4 × 10 − 4 leave − 8 support − 6 other (including Okta) = 22 person-days.",
+      "verify": "Functional QA Manager and PM.",
+      "impact": "Never manually type this derivative; update the staffing and allocation inputs to change available capacity."
+    },
+    "owner": {
+      "meaning": "Leader who confirms allocation and resolves staffing decisions within authority.",
+      "example": "QA Manager for portal QA resources.",
+      "verify": "Functional leader / resource manager.",
+      "impact": "Identifies who can commit capacity; PM does not automatically control staffing."
+    }
+  },
+  "financials": {
+    "category": {
+      "meaning": "Cost component or ring-fenced reserve being forecast.",
+      "example": "Portal delivery; PolicyCenter integration; Contingency reserve.",
+      "verify": "Finance / PMO.",
+      "impact": "Allows cost drivers and protected contingency to be distinguished."
+    },
+    "baseline": {
+      "meaning": "Approved cost allowance for this category, using the same currency and period.",
+      "example": "$420,000 for portal delivery over the planned project.",
+      "verify": "Sponsor-approved budget with Finance.",
+      "impact": "Reference against which forecast variance is calculated."
+    },
+    "actual": {
+      "meaning": "Cost recognized/spent to date, reconciled with Finance; not cash remaining.",
+      "example": "$90,000 charged to portal delivery through the reporting cutoff.",
+      "verify": "Finance business partner.",
+      "impact": "Helps calculate estimate at completion and assess burn rate."
+    },
+    "etc": {
+      "meaning": "Estimate to complete: realistic remaining cost including future labor and vendor work.",
+      "example": "$320,000 required to finish portal delivery.",
+      "verify": "Functional leads with Finance.",
+      "impact": "EAC = actual + ETC; do not treat ETC as approved remaining budget."
+    },
+    "commitments": {
+      "meaning": "Signed or otherwise obligated future costs that are already included inside the estimate to complete, not an additional EAC component.",
+      "example": "$10,000 future vendor obligation within the $320,000 remaining portal-delivery forecast.",
+      "verify": "Finance, Procurement and accountable delivery lead.",
+      "impact": "Check unfunded commitments and avoid double counting by adding commitments to actual + ETC."
+    },
+    "owner": {
+      "meaning": "Manager accountable for providing the cost forecast for this line.",
+      "example": "Engineering Manager for portal delivery.",
+      "verify": "Finance / cost owner.",
+      "impact": "Ensures the PM can validate estimates and seek approvals."
+    }
+  },
+  "raid": {
+    "id": {
+      "meaning": "Stable identifier used across status reports and decision logs.",
+      "example": "R-002 for potential Okta/portal QA capacity conflict.",
+      "verify": "PMO / project manager.",
+      "impact": "Allows traceability and avoids duplicate risk entries."
+    },
+    "type": {
+      "meaning": "Choose Risk, Assumption, Issue or Dependency based on present facts.",
+      "example": "Risk: Okta may reduce portal QA capacity; Issue: staff already reassigned.",
+      "verify": "PM with responsible lead.",
+      "impact": "Determines whether to mitigate likelihood, validate, resolve, or manage a handoff."
+    },
+    "description": {
+      "meaning": "Objective statement describing trigger or event and consequence; avoid generic “integration risk”.",
+      "example": "PolicyCenter endpoint may slip beyond the SIT start date.",
+      "verify": "Risk or issue owner.",
+      "impact": "Makes the problem testable and actionable."
+    },
+    "impact": {
+      "meaning": "Consequence severity on schedule, cost, quality, customer or controls; use your organization’s scale.",
+      "example": "High because a delayed endorsement API blocks integrated test exit.",
+      "verify": "PM with affected leads.",
+      "impact": "Drives escalation and prioritization based on project tolerances."
+    },
+    "likelihood": {
+      "meaning": "Estimated probability of a future risk; not applicable to issues that already occurred.",
+      "example": "High after repeated missed API readiness checkpoints.",
+      "verify": "Risk owner / PM.",
+      "impact": "Supports mitigation focus; avoid false numerical precision."
+    },
+    "owner": {
+      "meaning": "Single person accountable for mitigation or resolution, even if others perform the work.",
+      "example": "PolicyCenter lead for API readiness.",
+      "verify": "Functional lead / PM.",
+      "impact": "Prevents risks from sitting unowned in the log."
+    },
+    "due": {
+      "meaning": "Date by which the next mitigation action or evidence is expected.",
+      "example": "2027-02-15 to confirm test endpoint availability.",
+      "verify": "Risk/issue owner.",
+      "impact": "Allows action follow-up before a release milestone is missed."
+    },
+    "mitigation": {
+      "meaning": "Practical action that reduces probability or impact, with accountable follow-up.",
+      "example": "Agree API contract early and schedule contract testing before full SIT.",
+      "verify": "Technical lead and PM.",
+      "impact": "Produces a recovery path instead of mere RAG reporting."
+    },
+    "status": {
+      "meaning": "Open, Monitoring, Mitigated, Resolved, Closed or another organization-defined state.",
+      "example": "Open — confirmation pending from PolicyCenter.",
+      "verify": "Risk/issue owner.",
+      "impact": "Distinguishes ongoing exposure from a closed item supported by evidence."
+    }
+  },
+  "changes": {
+    "id": {
+      "meaning": "Unique change-control reference linked to approvals and roadmap history.",
+      "example": "CR-001.",
+      "verify": "Change authority / PMO.",
+      "impact": "Supports traceability across the charter, plan and budget."
+    },
+    "request": {
+      "meaning": "Requested modification to scope, baseline cost, date or acceptance approach.",
+      "example": "Include standalone Remove Vehicle in the initial release.",
+      "verify": "Requester / Product Owner.",
+      "impact": "Identifies whether this is backlog reprioritization or a material baseline change."
+    },
+    "impact": {
+      "meaning": "Summary of cross-functional scope, cost, technical, schedule, testing and compliance consequences.",
+      "example": "Requires new PolicyCenter rules, two E2E paths and additional UAT.",
+      "verify": "PO, engineering, QA, finance, compliance.",
+      "impact": "Provides decision-quality tradeoffs instead of approval by enthusiasm."
+    },
+    "cost": {
+      "meaning": "Incremental forecast cost of the change; use currency and clearly distinguish cost from savings.",
+      "example": "95000 additional project dollars (illustrative).",
+      "verify": "Finance and estimating leads.",
+      "impact": "Determines whether delegated funding thresholds are exceeded."
+    },
+    "days": {
+      "meaning": "Estimated movement to the integrated milestone or release, not raw work effort.",
+      "example": "21 calendar days added to release forecast if scope is retained.",
+      "verify": "PM and delivery leads.",
+      "impact": "Makes the date tradeoff explicit."
+    },
+    "sponsor": {
+      "meaning": "Business owner/requester advocating the change; not necessarily the financial approver.",
+      "example": "Personal Lines Business Sponsor.",
+      "verify": "Business sponsor / PO.",
+      "impact": "Connects decision to business justification."
+    },
+    "decision": {
+      "meaning": "Formal disposition and reason from authorized governance.",
+      "example": "Deferred to a subsequent release after impact review.",
+      "verify": "Sponsor / change authority.",
+      "impact": "Ensures approved changes are reflected in plan and finance."
+    },
+    "status": {
+      "meaning": "Current stage of change analysis and approval.",
+      "example": "Pending analysis; Submitted; Approved; Rejected.",
+      "verify": "PM / change authority.",
+      "impact": "Prevents implementing material changes without authorization."
+    }
+  },
+  "decisions": {
+    "id": {
+      "meaning": "Stable decision reference for governance, risks and meeting minutes.",
+      "example": "DEC-001.",
+      "verify": "PM / PMO.",
+      "impact": "Links the final approval to the issue it resolves."
+    },
+    "question": {
+      "meaning": "Precisely worded decision someone with authority must make.",
+      "example": "Do we retain launch date if the Replace Vehicle API slips three weeks?",
+      "verify": "Project Manager with sponsor.",
+      "impact": "Focuses governance on a yes/no or explicit option choice."
+    },
+    "options": {
+      "meaning": "Feasible alternatives with clear scope, date, cost and risk consequences.",
+      "example": "Resequence tests; split Add/Replace release; extend launch.",
+      "verify": "Affected delivery and business leads.",
+      "impact": "Prevents one-sided escalation without meaningful alternatives."
+    },
+    "recommendation": {
+      "meaning": "PM’s supported recommendation and assumptions; do not present as already approved.",
+      "example": "Run an API spike, then choose scoped release if integration still slips.",
+      "verify": "PM after impact assessment.",
+      "impact": "Lets the authority decide with evidence rather than accept a vague blocker."
+    },
+    "authority": {
+      "meaning": "Person or forum with delegated power to make the decision.",
+      "example": "Business Sponsor for scope/date tradeoff; Release Authority for Go/No-Go.",
+      "verify": "Sponsor / PMO governance map.",
+      "impact": "Prevents accidental approval by the wrong participant."
+    },
+    "due": {
+      "meaning": "Latest date the decision can be made without causing additional impact.",
+      "example": "2027-03-03 before QA test window is lost.",
+      "verify": "PM and affected leads.",
+      "impact": "Identifies urgent decisions before the situation becomes irreversible."
+    },
+    "decision": {
+      "meaning": "Actual approved choice and any conditions, not merely what PM recommended.",
+      "example": "Approve Add Vehicle first; Replace Vehicle follows after controls pass.",
+      "verify": "Named decision-maker.",
+      "impact": "Becomes authoritative input to scope, roadmap and release plan."
+    },
+    "status": {
+      "meaning": "Decision lifecycle: Requested, Pending, Approved, Rejected, Closed.",
+      "example": "Pending sponsor review.",
+      "verify": "PM / decision authority.",
+      "impact": "Shows outstanding governance debt and aging approvals."
+    }
+  },
+  "quality": {
+    "scenario": {
+      "meaning": "Insurance journey or control being validated; not simply a test-case count.",
+      "example": "Replace Vehicle with future effective date and premium adjustment.",
+      "verify": "QA Lead and PO.",
+      "impact": "Shows test coverage for business-critical behavior."
+    },
+    "level": {
+      "meaning": "Type of testing used for this record.",
+      "example": "E2E for portal → PolicyCenter → confirmation; UAT for business acceptance.",
+      "verify": "QA Lead.",
+      "impact": "Ensures technical and business validation are not conflated."
+    },
+    "owner": {
+      "meaning": "Accountable lead for execution/evidence; not the Project Manager automatically.",
+      "example": "QA Lead for E2E; Business Lead for UAT.",
+      "verify": "QA / business management.",
+      "impact": "Provides a clear source for readiness reporting."
+    },
+    "planned": {
+      "meaning": "Number of planned scenarios/cases in this test slice with a defined counting method.",
+      "example": "20 approved Replace Vehicle effective-date cases.",
+      "verify": "QA lead / test management tool.",
+      "impact": "Denominator for interpreting progress and remaining exposure."
+    },
+    "passed": {
+      "meaning": "Number that ran successfully with recorded evidence.",
+      "example": "16 cases passed in the integrated environment.",
+      "verify": "QA lead / test run evidence.",
+      "impact": "Shows demonstrated coverage, not just attempted execution."
+    },
+    "failed": {
+      "meaning": "Number executed with an unmet expected result.",
+      "example": "2 failures caused by incorrect premium effective date.",
+      "verify": "QA lead / defect tracker.",
+      "impact": "Feeds severity, re-test demand and release risk."
+    },
+    "blocked": {
+      "meaning": "Number that cannot execute because prerequisite, data or environment is missing.",
+      "example": "2 blocked awaiting PolicyCenter test endpoint.",
+      "verify": "QA / environment owner.",
+      "impact": "Exposes external constraints affecting test exit."
+    },
+    "status": {
+      "meaning": "Quality readiness condition for this slice based on exit criteria.",
+      "example": "At risk — 2 blocked scenarios and one unresolved high-severity defect.",
+      "verify": "QA Lead and business as applicable.",
+      "impact": "Informs release readiness without having PM override QA judgment."
+    },
+    "evidence": {
+      "meaning": "Link or reference to the test execution summary, defects and approvals.",
+      "example": "Jira test run, defect IDs and PolicyCenter transaction trace.",
+      "verify": "QA Lead.",
+      "impact": "Allows sponsor/release authority to verify quality claims."
+    }
+  },
+  "release": {
+    "gate": {
+      "meaning": "Specific readiness condition to be satisfied before deployment/customer exposure.",
+      "example": "E2E exit criteria achieved and critical defects dispositioned.",
+      "verify": "Release Manager / control owner.",
+      "impact": "Makes the Go/No-Go checklist auditable."
+    },
+    "owner": {
+      "meaning": "Lead responsible for producing the readiness evidence.",
+      "example": "QA Lead for E2E sign-off; Service Owner for monitoring readiness.",
+      "verify": "Release governance.",
+      "impact": "Separates test execution, operational readiness and PM coordination."
+    },
+    "evidence": {
+      "meaning": "Document, test result or runbook proving the gate was met.",
+      "example": "QA completion report with outstanding defect disposition.",
+      "verify": "Gate owner / release authority.",
+      "impact": "Prevents “ready” status without evidence."
+    },
+    "due": {
+      "meaning": "Date readiness evidence must be available before the Go/No-Go meeting.",
+      "example": "2027-06-11 for UAT sign-off ahead of release.",
+      "verify": "Release Manager and gate owner.",
+      "impact": "Protects time for review and remediation."
+    },
+    "status": {
+      "meaning": "Gate state, including explicit exceptions where allowed.",
+      "example": "Not started, In review, Passed, Exception approved.",
+      "verify": "Gate owner / release governance.",
+      "impact": "Controls whether release recommendation is supported."
+    },
+    "approver": {
+      "meaning": "Actual authority that accepts this gate or grants an exception.",
+      "example": "Security Lead for security finding; Release Authority for final release.",
+      "verify": "Company approval matrix.",
+      "impact": "Prevents PM from unilaterally accepting high-risk release conditions."
+    }
+  },
+  "operations": {
+    "item": {
+      "meaning": "Service readiness or hypercare condition that must be tracked.",
+      "example": "Failed policy transaction rate during initial launch.",
+      "verify": "Service Owner / operations.",
+      "impact": "Defines safe production operation after deployment."
+    },
+    "owner": {
+      "meaning": "Operational person accountable for monitoring and response.",
+      "example": "Service Owner, incident commander or PolicyCenter operations lead.",
+      "verify": "Operations leadership.",
+      "impact": "Ensures support is not left with the temporary project team indefinitely."
+    },
+    "threshold": {
+      "meaning": "Agreed measurable exit or alert criterion, with unit and window.",
+      "example": "Failed policy transactions below 2% for an agreed monitoring period.",
+      "verify": "Service/SRE and business owner.",
+      "impact": "Makes hypercare exit based on service stability rather than calendar alone."
+    },
+    "actual": {
+      "meaning": "Current observed operational measurement from monitoring or incident records.",
+      "example": "1.1% failed transactions over the last 24 hours.",
+      "verify": "Service telemetry owner.",
+      "impact": "Determines whether rollout should expand, pause or recover."
+    },
+    "status": {
+      "meaning": "Readiness, active monitoring or exit status.",
+      "example": "Monitoring; Threshold breached; Handover accepted.",
+      "verify": "Service Owner.",
+      "impact": "Provides visible accountability for support transition."
+    },
+    "evidence": {
+      "meaning": "Dashboard, incident review or signed handover supporting the status.",
+      "example": "Production telemetry link and reconciled failed-transaction report.",
+      "verify": "Service Owner / operations.",
+      "impact": "Enables defensible hypercare exit decision."
+    }
+  },
+  "vendors": {
+    "vendor": {
+      "meaning": "External company or provider with a documented delivery obligation.",
+      "example": "Third-party integration services provider.",
+      "verify": "Vendor Manager / procurement.",
+      "impact": "Identifies the contractual counterparty, not an informal internal team."
+    },
+    "deliverable": {
+      "meaning": "Specific product/service the provider must deliver and acceptance criteria.",
+      "example": "Integration support package and test evidence for contract milestone.",
+      "verify": "Vendor lead / delivery owner.",
+      "impact": "Lets PM compare promised work to actual acceptance evidence."
+    },
+    "contract": {
+      "meaning": "SOW, purchase order or service agreement governing the obligation.",
+      "example": "SOW-2027-04, milestone 2.",
+      "verify": "Procurement / contract owner.",
+      "impact": "Connects schedule and scope decisions to commercial terms."
+    },
+    "due": {
+      "meaning": "Contractual or negotiated date for a deliverable.",
+      "example": "2027-03-01 for approved interface support.",
+      "verify": "Vendor Manager and project plan.",
+      "impact": "Allows timely escalation and impact analysis."
+    },
+    "owner": {
+      "meaning": "Internal person accountable for vendor relationship and acceptance coordination.",
+      "example": "Vendor Manager with architect verifying technical outputs.",
+      "verify": "Procurement / delivery lead.",
+      "impact": "Avoids treating the Project Manager as automatic legal contract owner."
+    },
+    "status": {
+      "meaning": "Current contractual/delivery condition.",
+      "example": "On track, Awaiting acceptance, Delayed, Disputed.",
+      "verify": "Vendor Manager / PM.",
+      "impact": "Exposes commercial or acceptance blockers."
+    },
+    "escalation": {
+      "meaning": "Named governance/contact path and time limit for unresolved delivery problems.",
+      "example": "Escalate missed SOW milestone to vendor account lead within two business days.",
+      "verify": "Vendor governance owner.",
+      "impact": "Provides a usable resolution path before cross-project delivery is affected."
+    }
+  },
+  "compliance": {
+    "control": {
+      "meaning": "Business, security, legal or technical safeguard requiring verification.",
+      "example": "Only authorized policyholders can submit a vehicle endorsement.",
+      "verify": "Security / compliance / underwriting owner.",
+      "impact": "Defines what risk must be controlled, not a generic “compliance done” checkbox."
+    },
+    "evidence": {
+      "meaning": "Test results, policy rules, audit logs or approved assessment proving the control works.",
+      "example": "Okta access test evidence and PolicyCenter audit trail.",
+      "verify": "Control owner / QA / security.",
+      "impact": "Gives release authority evidence for acceptance or exception."
+    },
+    "owner": {
+      "meaning": "Named person responsible for verifying the control.",
+      "example": "Security Lead for access control; underwriting SME for eligibility.",
+      "verify": "Compliance and functional management.",
+      "impact": "Ensures proper specialists interpret applicable requirements."
+    },
+    "status": {
+      "meaning": "Review, test and remediation condition.",
+      "example": "Open pending state eligibility review; Verified after test sign-off.",
+      "verify": "Control owner.",
+      "impact": "Flags release blockers and unverified assumptions."
+    },
+    "approval": {
+      "meaning": "Recorded approval or exception from the authorized control owner.",
+      "example": "Security approval ID SEC-114; conditional exception with expiry.",
+      "verify": "Control governance authority.",
+      "impact": "Prevents unsupported claims of regulatory or security clearance."
+    }
+  },
+  "reports": {
+    "period": {
+      "meaning": "Reporting interval and as-of date; avoid mixing observations from different periods.",
+      "example": "Week ending 2027-03-05.",
+      "verify": "PMO / reporting calendar.",
+      "impact": "Makes trends and forecasts comparable week to week."
+    },
+    "overall": {
+      "meaning": "Integrated project health against agreed tolerance, not average sprint colors.",
+      "example": "Amber: PC integration threatens planned SIT date.",
+      "verify": "PM using PMO RAG rules.",
+      "impact": "Triggers visibility and appropriate escalation."
+    },
+    "schedule": {
+      "meaning": "Assessment of approved milestone dates against current forecast.",
+      "example": "Red if release will miss baseline beyond agreed tolerance.",
+      "verify": "PM with milestone owners.",
+      "impact": "Makes schedule exposure transparent independent of team velocity."
+    },
+    "budget": {
+      "meaning": "Cost forecast versus approved authority, considering ETC and commitments.",
+      "example": "Amber if EAC threatens contingency or approval threshold.",
+      "verify": "Finance / PM.",
+      "impact": "Warns of future overrun even if current spend is low."
+    },
+    "scope": {
+      "meaning": "Confidence that approved must-have functionality remains deliverable and controlled.",
+      "example": "Green if Add/Replace scope unchanged; Amber if removal feature threatens scope.",
+      "verify": "PO / sponsor / PM.",
+      "impact": "Identifies uncontrolled expansion or threatened benefits."
+    },
+    "quality": {
+      "meaning": "Readiness trend from testing, defects, control outcomes and operational evidence.",
+      "example": "Amber when E2E scenarios remain blocked by PC endpoint.",
+      "verify": "QA Lead / control owners.",
+      "impact": "Shows quality exposure, not a cosmetic test-completion percentage."
+    },
+    "narrative": {
+      "meaning": "Two- or three-sentence executive assessment of cause, impact and current action.",
+      "example": "Portal sprint delivery on plan; PC endpoint slips one week, threatening SIT; impact assessment underway.",
+      "verify": "PM based on verified lead inputs.",
+      "impact": "Explains why RAG changed and what leadership should expect next."
+    },
+    "decisionNeeded": {
+      "meaning": "Exact action or choice requiring authority, with owner and required-by date.",
+      "example": "Sponsor to choose phased release versus date extension by March 8.",
+      "verify": "PM / sponsor.",
+      "impact": "Turns the weekly status report into an actionable leadership tool."
+    }
+  },
+  "recovery": {
+    "action": {
+      "meaning": "Concrete diagnostic or stabilization step to restore a credible delivery forecast.",
+      "example": "Reassess integrated test readiness rather than counting completed stories.",
+      "verify": "PM and recovery team.",
+      "impact": "Moves recovery from blame to verified facts and options."
+    },
+    "owner": {
+      "meaning": "Person accountable for finishing the recovery action.",
+      "example": "PM + QA Lead for integrated-state assessment.",
+      "verify": "Sponsor / functional lead.",
+      "impact": "Prevents recovery tasks from becoming unassigned suggestions."
+    },
+    "due": {
+      "meaning": "Decision or completion deadline for the recovery action.",
+      "example": "2027-03-04 to deliver revised dependency plan.",
+      "verify": "Recovery lead.",
+      "impact": "Supports short checkpoints and timely sponsor intervention."
+    },
+    "status": {
+      "meaning": "Current progress and acceptance of the recovery action.",
+      "example": "Open; In progress; Evidence reviewed; Complete.",
+      "verify": "Action owner.",
+      "impact": "Helps measure whether the recovery plan is actually being executed."
+    },
+    "evidence": {
+      "meaning": "Objective proof of completed assessment or recovery.",
+      "example": "Updated integrated forecast with confirmed PC endpoint date and test impact.",
+      "verify": "Recovery owner / PMO.",
+      "impact": "Avoids relabeling a Red project Green without real improvement."
+    }
+  },
+  "program": {
+    "initiative": {
+      "meaning": "Separately governed project or workstream coordinated within the wider business objective.",
+      "example": "Add/Replace Vehicle portal project; related enterprise Okta rollout.",
+      "verify": "Program Manager / relevant PM.",
+      "impact": "Shows program scope without treating every dependent team as a program."
+    },
+    "manager": {
+      "meaning": "Lead responsible for this initiative’s own delivery commitments.",
+      "example": "Portal PM for Add/Replace Vehicle.",
+      "verify": "Program governance / PMO.",
+      "impact": "Makes escalations go through appropriate project leadership."
+    },
+    "businessValue": {
+      "meaning": "Benefit the initiative contributes to the broader program, expressed as a business outcome.",
+      "example": "Lower assisted policy-servicing effort.",
+      "verify": "Business sponsor / value owner.",
+      "impact": "Keeps program coordination focused on benefits rather than project count."
+    },
+    "baseline": {
+      "meaning": "Approved milestone/release date at initiative level.",
+      "example": "2027-06-18 for portal release.",
+      "verify": "Individual Project Manager.",
+      "impact": "Supports comparison across initiative commitments."
+    },
+    "forecast": {
+      "meaning": "Latest integrated forecast provided by the accountable project lead.",
+      "example": "2027-06-25 after portal PC dependency slips.",
+      "verify": "Project Manager.",
+      "impact": "Identifies combined program roadmap impact."
+    },
+    "status": {
+      "meaning": "Health of the initiative as agreed in governance.",
+      "example": "Amber due to unresolved shared PolicyCenter dependency.",
+      "verify": "Owning PM / Program Manager.",
+      "impact": "Shows where program-level intervention is needed."
+    },
+    "sharedDependency": {
+      "meaning": "Resource, technical service, vendor or decision that affects multiple initiatives.",
+      "example": "Shared IAM test window across portal and enterprise Okta rollout.",
+      "verify": "Affected PMs / integration leads.",
+      "impact": "Justifies program-level priority and capacity coordination."
+    },
+    "relationship": {
+      "meaning": "Whether the initiative is a confirmed member, potential related project, outside enterprise dependency, or separate portfolio idea.",
+      "example": "Enterprise Okta rollout is an external enterprise program: it affects portal testing but does not automatically join the portal servicing program.",
+      "verify": "Program Sponsor, Portfolio leadership and initiative owners.",
+      "impact": "Prevents combining unrelated project budgets and benefits or misrepresenting a group of initiatives as an approved program."
+    }
+  },
+  "safelp": {
+    "epic": {
+      "meaning": "Potential major portfolio investment or change initiative; not necessarily a Jira user story.",
+      "example": "Digital policy servicing self-service modernization.",
+      "verify": "Portfolio / product leadership.",
+      "impact": "Item to analyze in portfolio Kanban and compare against available investment capacity."
+    },
+    "valueStream": {
+      "meaning": "Persistent end-to-end business or development flow that the investment enables.",
+      "example": "Policy Servicing development value stream.",
+      "verify": "LPM / value-stream leadership.",
+      "impact": "Connects investment to long-lived teams and outcomes rather than temporary departments."
+    },
+    "businessValue": {
+      "meaning": "Relative business value score agreed using consistent local criteria.",
+      "example": "8 on a 1–10 relative scale for improved customer servicing.",
+      "verify": "Business owners / portfolio participants.",
+      "impact": "One component of WSJF; not a dollar forecast or automatic investment approval."
+    },
+    "timeCriticality": {
+      "meaning": "Relative cost of delaying this investment or missing a window.",
+      "example": "9 where regulatory or seasonal timing is important.",
+      "verify": "Portfolio leaders / business sponsor.",
+      "impact": "Contributes to Cost of Delay component of WSJF."
+    },
+    "riskReduction": {
+      "meaning": "Relative reduction in risk or creation of future opportunity.",
+      "example": "7 where modernization retires a fragile integration.",
+      "verify": "Architecture, risk, and business stakeholders.",
+      "impact": "Represents Risk Reduction/Opportunity Enablement in WSJF."
+    },
+    "jobSize": {
+      "meaning": "Relative effort or duration compared with other epics scored using the same approach.",
+      "example": "5 for a small initiative; 13 for a larger one.",
+      "verify": "Architect / delivery leads.",
+      "impact": "WSJF denominator; smaller size raises priority when other values are equal."
+    },
+    "status": {
+      "meaning": "Portfolio Kanban state and authorization stage.",
+      "example": "Review; Analyzing; Implementing; Done.",
+      "verify": "Portfolio intake authority.",
+      "impact": "Prevents early-stage epic scores being mistaken for approved funding."
+    },
+    "decision": {
+      "meaning": "Explicit investment or capacity choice, with named authority and conditions.",
+      "example": "Approved for discovery only, pending estimates and capacity review.",
+      "verify": "Investment committee / LPM authority.",
+      "impact": "Records why an epic was selected, deferred or stopped."
+    }
+  },
+  "value": {
+    "stage": {
+      "meaning": "One real step in the customer-to-outcome flow; avoid grouping whole departments as stages.",
+      "example": "Eligibility lookup before Add Vehicle submission.",
+      "verify": "Business process owner.",
+      "impact": "Makes handoffs and bottlenecks observable."
+    },
+    "workingDays": {
+      "meaning": "Total active processing time for this stage of the illustrative CURRENT assisted vehicle-servicing workflow, in equivalent 8-hour business days.",
+      "example": "Agent intake 0.0375 business-day ≈ 18 minutes of active work, while other back-office stages also consume work time.",
+      "verify": "Operations SMEs and actual process time study.",
+      "impact": "Do not confuse total end-to-end active time with a single agent's handling time or with the future self-service flow."
+    },
+    "waitingDays": {
+      "meaning": "Queue or elapsed waiting time in 8-hour business-day equivalents for the current assisted process, without double-counting active work.",
+      "example": "A back-office eligibility queue may add 1.5 business days even though lookup work takes minutes.",
+      "verify": "Operations teams and workflow telemetry.",
+      "impact": "Creates a useful process baseline; the future self-service outcome should reduce customer waiting and exceptions."
+    },
+    "owner": {
+      "meaning": "Business or service owner responsible for the stage’s operating result.",
+      "example": "Policy Services owner for eligibility lookup.",
+      "verify": "Value-stream owner.",
+      "impact": "Identifies who can improve the bottleneck across functional boundaries."
+    },
+    "bottleneck": {
+      "meaning": "Observed constraint causing wait, rework or failures, supported by evidence.",
+      "example": "Backend rating request queues while account eligibility is checked.",
+      "verify": "Process owner / operational data.",
+      "impact": "Focuses improvement investment on actual flow constraints."
+    },
+    "improvement": {
+      "meaning": "Proposed measurable change to eliminate or reduce the constraint.",
+      "example": "Prevalidate eligibility before requesting a premium quote.",
+      "verify": "Business/engineering improvement owner.",
+      "impact": "Creates a testable hypothesis for cycle-time improvement."
+    }
+  },
+  "adoption": {
+    "audience": {
+      "meaning": "Group whose day-to-day behavior changes when the new capability or operating model launches.",
+      "example": "Customer service agents handling exceptions after self-service rollout.",
+      "verify": "Change lead / business owner.",
+      "impact": "Defines who needs communication and support."
+    },
+    "change": {
+      "meaning": "Specific process, role or decision behavior expected to change.",
+      "example": "Agents handle exceptions rather than routine add-vehicle requests.",
+      "verify": "Business process owner.",
+      "impact": "Prevents transformation from being described only as software deployment."
+    },
+    "owner": {
+      "meaning": "Person accountable for adoption within this affected group.",
+      "example": "Customer Operations Lead.",
+      "verify": "Business change sponsor.",
+      "impact": "Creates ownership beyond sending a training email."
+    },
+    "communication": {
+      "meaning": "Channel, timing and content explaining what changes and why.",
+      "example": "Service bulletin and supervisor briefings two weeks before launch.",
+      "verify": "Communications/change management.",
+      "impact": "Aligns affected users before rollout."
+    },
+    "training": {
+      "meaning": "Concrete enablement activity tied to changed tasks.",
+      "example": "Hands-on walkthrough for a failed endorsement and assisted recovery.",
+      "verify": "Operations trainer / service owner.",
+      "impact": "Reduces operational risk and makes training relevant."
+    },
+    "adoption": {
+      "meaning": "Actual usage or observed behavioral measure—not only training attendance.",
+      "example": "80% of eligible agents use the new exception workflow after four weeks.",
+      "verify": "Change lead / analytics.",
+      "impact": "Provides evidence that the operating model is adopted."
+    },
+    "status": {
+      "meaning": "Readiness and adoption progress for the audience.",
+      "example": "Planning, Piloting, At risk, Adopted.",
+      "verify": "Change owner.",
+      "impact": "Indicates intervention needs before and after launch."
+    }
+  },
+  "closure": {
+    "deliverable": {
+      "meaning": "Formal closure condition or handover artifact that must be completed.",
+      "example": "Operational handover accepted by the named service owner.",
+      "verify": "PM / sponsor / operations.",
+      "impact": "Prevents premature project closure after code deployment."
+    },
+    "owner": {
+      "meaning": "Person responsible for providing closure evidence or accepting transition.",
+      "example": "Finance for final cost; Service Owner for production handover.",
+      "verify": "PMO and functional management.",
+      "impact": "Clarifies accountability for outstanding work."
+    },
+    "acceptance": {
+      "meaning": "Definition of done or sign-off required for this closure item.",
+      "example": "No critical incidents and signed runbook acceptance.",
+      "verify": "Appropriate business/service authority.",
+      "impact": "Creates objective completion criteria."
+    },
+    "status": {
+      "meaning": "Current state of the closure action.",
+      "example": "Pending, Awaiting approval, Complete.",
+      "verify": "Closure owner / PM.",
+      "impact": "Makes remaining handover or contract obligations visible."
+    },
+    "evidence": {
+      "meaning": "Document/reference showing the closure condition is satisfied.",
+      "example": "Approved closeout report, final cost reconciliation, signed support handover.",
+      "verify": "Closure owner.",
+      "impact": "Supports auditability and future lessons learned."
+    }
+  },
+  "__metadata__": {
+    "industry": {
+      "meaning": "Industry context used to adapt the training scenario.",
+      "example": "Property & Casualty Insurance.",
+      "verify": "Workspace administrator.",
+      "impact": "The same delivery practices can be adapted to healthcare, banking or other industries."
+    },
+    "case": {
+      "meaning": "Name of the active sample initiative, independent of the portal product name.",
+      "example": "Add / Replace Vehicle.",
+      "verify": "Workspace administrator / training lead.",
+      "impact": "Provides context for the registers and examples."
+    },
+    "portfolio": {
+      "meaning": "Strategic grouping within which this project or program is considered.",
+      "example": "Digital Insurance Modernization.",
+      "verify": "Portfolio office / sponsor.",
+      "impact": "Helps connect work to investment and priority decisions."
+    },
+    "projectStart": {
+      "meaning": "Planning start date of the initiative; not necessarily first coding sprint.",
+      "example": "2027-01-04.",
+      "verify": "Project Manager / sponsor.",
+      "impact": "Reference for integrated schedule and staffing."
+    },
+    "targetRelease": {
+      "meaning": "Proposed customer release date; clarify whether approved baseline or preliminary target.",
+      "example": "2027-06-18.",
+      "verify": "Sponsor / release authority.",
+      "impact": "Used to test schedule and dependency consequences."
+    },
+    "budget": {
+      "meaning": "Read-only total authorized financial baseline, derived from every financial register baseline including contingency reserve.",
+      "example": "$1,050,000 approved base estimate plus $150,000 reserve equals $1,200,000 authorization.",
+      "verify": "Finance / PMO / project sponsor.",
+      "impact": "Edit baseline cost lines in Budget & Forecast; this setting updates automatically to prevent mismatch."
+    },
+    "asOfDate": {
+      "meaning": "The scenario snapshot date to which completed milestones, spending, sprint status and risk reporting refer. This may be a future fictional date in training.",
+      "example": "2027-02-19: a fictional Week 7 progress snapshot. The case began Jan 4 and the charter was approved Jan 15.",
+      "verify": "Scenario facilitator / Project Manager; Finance for actual-as-of costs.",
+      "impact": "Prevents claiming actual spending or completed deliverables before their dates; overdue checks use this value."
+    }
+  },
+  "__metrics__": {
+    "overallHealth": {
+      "meaning": "Integrated Red/Amber/Green assessment from the latest executive status record; not calculated by averaging team sprints.",
+      "example": "Amber: PolicyCenter API readiness threatens the integrated test milestone.",
+      "verify": "Project Manager and PMO/sponsor",
+      "impact": "Prompts leadership attention to schedule, quality, scope, financial and dependency exposure."
+    },
+    "milestoneCompletion": {
+      "meaning": "Count of integrated milestones whose recorded status is completed divided by all scheduled milestones.",
+      "example": "3 of 7 major delivery milestones complete.",
+      "verify": "Project Manager with milestone owners",
+      "impact": "Prevents confusing Jira story velocity with integrated delivery readiness."
+    },
+    "eacOverview": {
+      "meaning": "Estimated total project cost at completion (EAC = actual + ETC), compared with both the base plan and total authorization including the separate reserve.",
+      "example": "$220k actual + $845k ETC = $1.065M; $15k above $1.05M base, $135k below the $1.2M authorization.",
+      "verify": "Finance and workstream owners; confirm remaining contracts are included within ETC.",
+      "impact": "The difference below total authorization is unused contingency, not necessarily cost savings. Reserve use needs governance."
+    },
+    "openWatch": {
+      "meaning": "Count only external dependencies genuinely at risk or forecast past their needed-by date. Open RAID entries are shown separately and may describe the same underlying problem.",
+      "example": "PolicyCenter API needed March 1, forecast March 8; counted as at risk. Okta planning marked Open but still on time is not automatically at risk.",
+      "verify": "Project Manager and producing delivery leads.",
+      "impact": "Avoid overstating project risk by treating every open item as a missed dependency or adding duplicate register counts."
+    },
+    "approvedBaseline": {
+      "meaning": "Sum of approved cost-category baselines in the financial register.",
+      "example": "$1.2 million approved delivery envelope.",
+      "verify": "PMO and Finance",
+      "impact": "Compare it with forecast end cost; do not mistake the metadata budget for the detailed register."
+    },
+    "actualCost": {
+      "meaning": "Posted/invoiced costs incurred up to the reporting cutoff, as entered in the financial register.",
+      "example": "$500,000 actuals booked through the current period.",
+      "verify": "Finance controller",
+      "impact": "Makes spending visible, but alone does not show whether the project will finish within budget."
+    },
+    "estimateToComplete": {
+      "meaning": "Current cost forecast for work not yet completed.",
+      "example": "$800,000 expected to finish integration, testing and deployment.",
+      "verify": "Delivery leads and Finance",
+      "impact": "Reforecast remaining work after scope, vendor, staffing or schedule changes."
+    },
+    "costVariance": {
+      "meaning": "Cost forecast minus total authorized baseline, including contingency; a negative value means forecast below authorization, not necessarily under base budget.",
+      "example": "$1.065M EAC − $1.2M authorization = −$135k; forecast reserve draw against $1.05M base is $15k.",
+      "verify": "Finance / PMO; validate scope and cost-to-complete.",
+      "impact": "Use both base and authorized comparisons to judge reserve consumption rather than prematurely claiming realized savings."
+    },
+    "usableDays": {
+      "meaning": "Sum of capacity person-days across the listed skill groups. This aggregate is not interchangeable capacity; each specialty has distinct work and commitments.",
+      "example": "50 developer + 22 QA + 12 PolicyCenter + 8 business SME = 92 nonfungible person-days in the two-week window.",
+      "verify": "Relevant functional managers.",
+      "impact": "You cannot allocate all 92 days to development; evaluate skills and independently committed time."
+    },
+    "assignedPeople": {
+      "meaning": "Total people entered on team-capacity lines, not necessarily unique individuals or full-time equivalents.",
+      "example": "8 portal developers plus 4 portal QA engineers.",
+      "verify": "Engineering and QA managers",
+      "impact": "Use skill and allocation detail rather than treating raw headcount as productivity."
+    },
+    "supportDays": {
+      "meaning": "Team person-days reserved to keep live customer portal operations running.",
+      "example": "8 QA days reserved for production defects and regressions during the sprint.",
+      "verify": "Service owner and functional managers",
+      "impact": "Prevents promising full-team capacity to Add/Replace Vehicle while production continues."
+    },
+    "nonFeatureDays": {
+      "meaning": "Total team person-days reserved for leave and other activities, such as Okta integration work.",
+      "example": "4 QA leave days plus 6 Okta regression days.",
+      "verify": "Team leads and resource managers",
+      "impact": "Avoid double subtraction when the same activity is recorded in another category."
+    },
+    "plannedTests": {
+      "meaning": "Aggregate planned test cases across recorded QA scenarios; only meaningful if all rows use the same counting basis.",
+      "example": "20 planned Replace Vehicle effective-date cases.",
+      "verify": "QA Lead",
+      "impact": "Tracks expected coverage; does not by itself indicate readiness."
+    },
+    "passedTests": {
+      "meaning": "QA executions recorded as passed on the tested build/environment.",
+      "example": "18 passed E2E cases with Guidewire policy transaction checks.",
+      "verify": "QA Lead",
+      "impact": "Use associated defect and backend evidence before claiming functional readiness."
+    },
+    "failedTests": {
+      "meaning": "Executions with a deviation from expected results.",
+      "example": "2 tests fail because policy effective date is incorrect.",
+      "verify": "QA Lead and engineering defect owners",
+      "impact": "A single critical failure may block release regardless of overall pass rate."
+    },
+    "blockedTests": {
+      "meaning": "Test cases unable to run because of missing data, environment, credentials or dependent functionality.",
+      "example": "3 E2E tests waiting for a PolicyCenter test endpoint.",
+      "verify": "QA Lead and dependency owner",
+      "impact": "Make the external dependency and unblock date explicit."
+    },
+    "workingTime": {
+      "meaning": "Sum of active processing time across the modeled value stream steps, expressed in elapsed days.",
+      "example": "0.02 days to process policy eligibility lookup.",
+      "verify": "Business operations and process owners",
+      "impact": "Compare actual work time with waiting time; this is not a staff-effort total."
+    },
+    "waitingTime": {
+      "meaning": "Sum of elapsed time between work steps, including handoff queues and approvals.",
+      "example": "1.5 days waiting for an external policy service response.",
+      "verify": "Business operations and technology leads",
+      "impact": "Often reveals bottlenecks that sprint velocity does not capture."
+    },
+    "elapsedTime": {
+      "meaning": "Total modeled lead time: working time plus waiting time.",
+      "example": "2.0 working days + 5.0 waiting days = 7.0 days end-to-end.",
+      "verify": "Process/value-stream owner",
+      "impact": "Use a consistent start and end boundary when comparing changes."
+    },
+    "flowEfficiency": {
+      "meaning": "Working time divided by total elapsed time, expressed as a percentage.",
+      "example": "2 working days / 7 elapsed days = 28.6% flow efficiency.",
+      "verify": "Transformation lead and operations analyst",
+      "impact": "Shows where queue reduction might matter more than individual team throughput."
+    }
+  }
+}

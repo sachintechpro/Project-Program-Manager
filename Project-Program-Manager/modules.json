@@ -1,0 +1,205 @@
+[
+  {
+    "id": "overview",
+    "name": "Executive Command Center",
+    "icon": "layout-dashboard",
+    "description": "Portfolio and project health, commitments, decision requests and training launchpad",
+    "help": "Always separate team-level progress from integrated project delivery, financial exposure and measurable customer outcomes."
+  },
+  {
+    "id": "audit",
+    "name": "Data Integrity & Verification",
+    "icon": "shield-check",
+    "description": "Internal value consistency, financial controls, date checks and management review flags",
+    "help": "Internal checks identify invalid or inconsistent sample records. Only responsible real-system owners can verify source evidence and approvals."
+  },
+  {
+    "id": "intake",
+    "name": "Demand & Portfolio Kanban",
+    "icon": "inbox",
+    "description": "Ideas, strategic fit, triage and investment decisions",
+    "help": "A request is not automatically an approved project. Capture the customer problem, expected value, options, sponsor and portfolio decision."
+  },
+  {
+    "id": "business",
+    "name": "Business Case & Benefits",
+    "icon": "target",
+    "description": "Outcome hypothesis, baseline, measurable target and benefit ownership",
+    "help": "Quantify current state, target, operational benefits, cost, evidence and benefit owner. Capacity freed is not automatically cash saved."
+  },
+  {
+    "id": "charter",
+    "name": "Charter & Scope",
+    "icon": "file-text",
+    "description": "Charter, project boundaries, acceptance, exclusions and authorization",
+    "help": "A sponsor approves the project mandate and authorized constraints. A date proposed by the business is not automatically a validated baseline."
+  },
+  {
+    "id": "stakeholders",
+    "name": "Stakeholders & RACI",
+    "icon": "users",
+    "description": "Influence, authority, engagement, role boundaries and accountable decisions",
+    "help": "RACI clarifies responsibility; decision rights must name the person who can actually authorize funding, risk or release."
+  },
+  {
+    "id": "roadmap",
+    "name": "Integrated Roadmap",
+    "icon": "calendar-range",
+    "description": "Milestones, baseline versus forecast, owners and dependencies",
+    "help": "Do not copy sprint tasks into the integrated plan. Manage milestone commitments, external dependencies and release forecasts."
+  },
+  {
+    "id": "backlog",
+    "name": "Agile Epics & Features",
+    "icon": "layers",
+    "description": "Epics, features, stories, acceptance criteria and sprint mapping",
+    "help": "PO owns backlog ordering and clarification. Scrum team owns implementation and quality. PM views cross-team commitments."
+  },
+  {
+    "id": "iterations",
+    "name": "Sprint & PI Objectives",
+    "icon": "repeat-2",
+    "description": "Iteration outcomes, PI objectives, confidence and integrated demos",
+    "help": "Daily Scrum belongs to Developers; the Scrum Master ensures Scrum effectiveness. PM does not use it for status collection."
+  },
+  {
+    "id": "dependencies",
+    "name": "Cross-Team Dependencies",
+    "icon": "git-branch",
+    "description": "Producer/consumer contracts, handoffs, integration deadlines and escalation",
+    "help": "Track exact deliverable, producing team, consuming team, needed-by date, impact, owner and evidence."
+  },
+  {
+    "id": "capacity",
+    "name": "Resources & Capacity",
+    "icon": "users-round",
+    "description": "People, allocation, support reserve, available skill capacity",
+    "help": "Availability is not usable delivery capacity. Account for production support, enterprise Okta work, leave and skill bottlenecks."
+  },
+  {
+    "id": "financials",
+    "name": "Budget & Forecast",
+    "icon": "wallet",
+    "description": "Budget, actuals, ETC, EAC, variance, contingency and commitments",
+    "help": "EAC = actuals + estimate to complete. A project can be under budget today yet have a projected overrun."
+  },
+  {
+    "id": "raid",
+    "name": "RAID Register",
+    "icon": "shield-alert",
+    "description": "Risks, assumptions, issues and dependencies with mitigation ownership",
+    "help": "Risk: may happen. Issue: already happened. Document trigger, consequence, owner, action, due date and escalation."
+  },
+  {
+    "id": "changes",
+    "name": "Change Control",
+    "icon": "git-pull-request",
+    "description": "Scope, schedule and funding changes with impact assessment and approval",
+    "help": "PO can reprioritize within delegated scope; material changes to approved baseline require authorized decisions."
+  },
+  {
+    "id": "decisions",
+    "name": "Decision & Escalation Log",
+    "icon": "gavel",
+    "description": "Decision request, tradeoff, authority, due date and evidence",
+    "help": "PM coordinates decisions, but does not automatically own all approvals. Escalate outside authority with recommendation."
+  },
+  {
+    "id": "quality",
+    "name": "Quality & Test Management",
+    "icon": "clipboard-check",
+    "description": "SIT, E2E, UAT, defects, nonfunctional controls and evidence",
+    "help": "QA Lead owns test execution and quality evidence; PM owns integrated readiness and disposition of blocked milestones."
+  },
+  {
+    "id": "release",
+    "name": "Release Readiness",
+    "icon": "rocket",
+    "description": "Go/no-go controls, deployment, customer exposure and rollback",
+    "help": "Distinguish deploying software from exposing a capability to customers. Confirm authority, operational controls and business recovery."
+  },
+  {
+    "id": "operations",
+    "name": "Hypercare & Operations",
+    "icon": "activity",
+    "description": "Support readiness, incidents, stability and operational handover",
+    "help": "Code rollback may not undo policy transactions. Plan data reconciliation, support ownership and hypercare exit thresholds."
+  },
+  {
+    "id": "vendors",
+    "name": "Vendors & Contracts",
+    "icon": "handshake",
+    "description": "Contracts, obligations, vendor SLAs and delivery commitments",
+    "help": "Vendor milestones need named owners, acceptance evidence, escalation paths and cost consequences."
+  },
+  {
+    "id": "compliance",
+    "name": "Security & Insurance Controls",
+    "icon": "lock-keyhole",
+    "description": "Privacy, access, jurisdiction, audit, underwriting and accessibility",
+    "help": "For Add/Replace Vehicle, confirm eligibility, policy effective dates, rating, consent, audit trail and exceptions with control owners."
+  },
+  {
+    "id": "reports",
+    "name": "Status & Governance",
+    "icon": "presentation",
+    "description": "RAG status, steering decisions, evidence and communications",
+    "help": "Green sprints can coexist with a Red project. Report integrated forecast, confidence, financials, top blockers and decisions."
+  },
+  {
+    "id": "recovery",
+    "name": "Recovery & Scenarios",
+    "icon": "life-buoy",
+    "description": "Recovery assessment, decision options and controlled rebaselining",
+    "help": "Do not change a Red project to Green by changing labels. Diagnose, stabilize, compare options, approve new baseline and track evidence."
+  },
+  {
+    "id": "program",
+    "name": "Program Coordination",
+    "icon": "network",
+    "description": "Related projects, program outcomes, shared dependencies, benefit realization",
+    "help": "A program is related initiatives managed together for benefits. Not every collection of teams constitutes a program."
+  },
+  {
+    "id": "safelp",
+    "name": "SAFe & Lean Portfolio",
+    "icon": "workflow",
+    "description": "Portfolio Kanban, value streams, ART, PI planning, WSJF and guardrails",
+    "help": "SAFe concepts do not replace actual governance. Operational and development value streams are distinct; funding authority remains explicit."
+  },
+  {
+    "id": "value",
+    "name": "Value Stream Mapping",
+    "icon": "route",
+    "description": "Flow stages, wait time, bottlenecks, handoffs, leading and lagging measures",
+    "help": "Map work from customer need to actual value. Distinguish active working time and queue time; measure improvements."
+  },
+  {
+    "id": "adoption",
+    "name": "Organizational Change",
+    "icon": "refresh-cw",
+    "description": "Stakeholder adoption, communication, training, resistance and change outcomes",
+    "help": "Transformation is not only new ceremonies. Track whether business roles adopt the changed operating model."
+  },
+  {
+    "id": "closure",
+    "name": "Project Closure",
+    "icon": "check-check",
+    "description": "Acceptance, financial closure, lessons learned and benefits ownership",
+    "help": "Separate project closure from ongoing product ownership and long-term benefits measurement."
+  },
+  {
+    "id": "academy",
+    "name": "Learning Academy",
+    "icon": "graduation-cap",
+    "description": "Guided instruction, practice questions, scenarios and answer feedback",
+    "help": "Use practice mode to make accountable decisions instead of memorizing definitions."
+  },
+  {
+    "id": "reference",
+    "name": "Full Reference Library",
+    "icon": "book-open",
+    "description": "Complete brand-neutral training guide, design assumptions and help glossary",
+    "help": "Reference guide contains an additional FNOL case; primary interactive workspace stays Add/Replace Vehicle."
+  }
+]

@@ -1,0 +1,33 @@
+{
+  "checks": 149,
+  "failures": [],
+  "registers": 25,
+  "modules": 29,
+  "records": 113,
+  "fields": 177,
+  "asOf": "2027-02-19",
+  "actual": 220000.0,
+  "etc": 845000.0,
+  "eac": 1065000.0,
+  "budget": 1200000.0,
+  "baseBudget": 1050000.0,
+  "contingency": 150000.0,
+  "reserveUse": 15000.0,
+  "reserveRemaining": 135000.0,
+  "capacityDays": [
+    50.0,
+    22.0,
+    12.0,
+    8.0
+  ],
+  "formalTestsPlanned": 83.0,
+  "formalTestsBlocked": 3.0,
+  "WSJF": [
+    2.625,
+    4.6,
+    1.5384615384615385
+  ],
+  "flowActiveDays": 0.1075,
+  "flowWaitingDays": 4.6,
+  "flowEfficiencyPercent": 2.2835900159320235
+}
