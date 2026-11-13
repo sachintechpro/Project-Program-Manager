@@ -11,7 +11,7 @@ assert.ok(htmlPath&&indexPath,'QA_BENCH_PATH and QA_INDEX_PATH required');
 const html=read(htmlPath),index=read(indexPath);
 const m=html.match(/<script id="qa-config" type="application\/json">([\s\S]*?)<\/script>/);
 assert.ok(m,'QA config JSON');
-const config=JSON.parse(m[1]),js=process.env.QA_BENCH_SCRIPT?read(process.env.QA_BENCH_SCRIPT):html.match(/<script>([\s\S]*?)<\/script><\/body><\/html>/)?.[1];
+const config=JSON.parse(m[1]),js=process.env.QA_BENCH_SCRIPT?read(process.env.QA_BENCH_SCRIPT):html.match(/<script>([\s\S]*?)<\/script>(?:<\/div>)?<\/body><\/html>/)?.[1];
 const cats=new Set(['Unit / business rules','Functional / regression','API / contract','SIT / integration','E2E / workflow','UX / responsive','Security / RBAC','UAT / smoke']);
 test('All six original QA lifecycle sections remain present and interactive',()=>{
   for(const tab of ['requirements','cases','manual','automation','defects','report']){
