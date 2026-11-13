@@ -2,6 +2,8 @@
 
 **Tagline:** tool that helps people learn, practice, and confidently manage real IT projects and programs.
 
+**[Launch the live application](https://project-program-manager.onrender.com/)** · [Project source](https://github.com/sachintechpro/Project-Program-Manager)
+
 A responsive offline learning and delivery-management dashboard for enterprise Agile Project Managers, Program Managers, and transformation leaders. Its primary fictional training case is **Add/Replace Vehicle** in an existing insurance customer portal, alongside PolicyCenter dependencies, enterprise Okta integration work, optional DocuSign, ongoing production support and SAFe/value-stream coordination.
 
 ## Run it
