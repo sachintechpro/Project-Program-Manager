@@ -54,7 +54,7 @@ test('Manual results, defects, evidence and exports are functionally present',()
   assert.ok(html.includes('tester-entered'));
 });
 test('QA Bench JavaScript is syntactically valid',()=>{
-  const source=process.env.QA_BENCH_SCRIPT ? read(process.env.QA_BENCH_SCRIPT) : html.match(/<script>([\s\S]*?)<\/script><\/body><\/html>/)?.[1];
+  const source=process.env.QA_BENCH_SCRIPT ? read(process.env.QA_BENCH_SCRIPT) : html.match(/<script>([\s\S]*?)<\/script>(?:<\/div>)?<\/body><\/html>/)?.[1];
   assert.ok(source,'Script must exist');
   new vm.Script(source,{filename:'qa-bench.js'});
 });
