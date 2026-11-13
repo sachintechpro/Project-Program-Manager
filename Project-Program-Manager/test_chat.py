@@ -11,7 +11,7 @@ Thread(target=server.serve_forever,daemon=True).start()
 URL=f'http://127.0.0.1:{server.server_address[1]}/index.html'
 log=[]
 with sync_playwright() as p:
- browser=p.chromium.launch(headless=True,executable_path='/usr/bin/chromium',args=['--no-sandbox'])
+ browser=p.chromium.launch(headless=True,args=['--no-sandbox'])
  for w,h in [(1280,850),(740,940),(390,844),(320,650)]:
   page=browser.new_page(viewport={'width':w,'height':h})
   errors=[]
