@@ -806,6 +806,8 @@ function chatGuide(section=tab){if(section==='overview'&&mode==='program')return
 function chatPageAnswer(text,q=chatNorm(text)){
  const root=document.getElementById('main');if(!root)return null;
  const intent=/\b(what|which|why|how|explain|define|meaning|show|tell|where|who|status|value|owner|forecast)\b/.test(q);
+ // Dynamic cost forecasts are calculated by the existing finance handler.
+ if(/\b(eac|etc|estimate at completion|estimate to complete)\b/.test(q))return null;
  if(!intent)return null;
  const pageName=mMap[tab]?.name||'this page';
  const isMeaning=/\b(what does|what is|define|meaning|explain|parameter|field)\b/.test(q);
