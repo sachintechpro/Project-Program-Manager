@@ -1,5 +1,6 @@
 'use strict';
 
+const PERSONAL_AUTO = {"projects": [{"key": "policy", "name": "Policy Self-Service", "owner": "Elena Ruiz", "sponsor": "Marisol Chen", "objective": "Let policyholders complete eligible vehicle endorsements online", "start": "2027-01-04", "as_of": "2027-03-05", "release": "2027-06-18", "budget": "420000"}, {"key": "billing", "name": "Billing & Payments", "owner": "Marcus Lee", "sponsor": "Marisol Chen", "objective": "Reconcile endorsement premiums and digital installment payments", "start": "2027-01-04", "as_of": "2027-03-05", "release": "2027-07-09", "budget": "310000"}, {"key": "claims", "name": "Digital Claims Intake", "owner": "Aisha Patel", "sponsor": "Marisol Chen", "objective": "Capture first notice of loss and confirm policy coverage at intake", "start": "2027-01-04", "as_of": "2027-03-05", "release": "2027-07-23", "budget": "360000"}], "milestones": [{"project": "policy", "key": "charter", "milestone": "Charter approval", "baseline": "2027-01-15", "forecast": "2027-01-15", "status": "Completed", "dependency": "", "evidence": "Sponsor approved scope and funding"}, {"project": "policy", "key": "premium", "milestone": "Publish endorsement premium events", "baseline": "2027-04-09", "forecast": "2027-04-23", "status": "At risk", "dependency": "", "evidence": "PolicyCenter contract changes awaiting review"}, {"project": "policy", "key": "coverage", "milestone": "Deliver effective-date coverage lookup", "baseline": "2027-04-16", "forecast": "2027-04-16", "status": "Open", "dependency": "", "evidence": "Coverage API contract signed off"}, {"project": "policy", "key": "release", "milestone": "Release vehicle self-service", "baseline": "2027-06-18", "forecast": "2027-06-18", "status": "Open", "dependency": "", "evidence": "Business UAT and go/no-go required"}, {"project": "billing", "key": "charter", "milestone": "Charter approval", "baseline": "2027-01-22", "forecast": "2027-01-22", "status": "Completed", "dependency": "", "evidence": "Finance sponsor approved reconciliation scope"}, {"project": "billing", "key": "sit", "milestone": "Start endorsement reconciliation SIT", "baseline": "2027-04-12", "forecast": "2027-04-12", "status": "Open", "dependency": "policy/premium", "evidence": "Verify billed premium agrees with endorsement"}, {"project": "billing", "key": "release", "milestone": "Release installment payments", "baseline": "2027-07-09", "forecast": "2027-07-09", "status": "Open", "dependency": "", "evidence": "Treasury and operations sign-off"}, {"project": "claims", "key": "charter", "milestone": "Charter approval", "baseline": "2027-01-22", "forecast": "2027-01-22", "status": "Completed", "dependency": "", "evidence": "Claims sponsor approved intake and routing scope"}, {"project": "claims", "key": "uat", "milestone": "Start coverage and triage UAT", "baseline": "2027-04-26", "forecast": "2027-04-26", "status": "Open", "dependency": "policy/coverage", "evidence": "Test policy coverage at time of loss"}, {"project": "claims", "key": "release", "milestone": "Release digital FNOL", "baseline": "2027-07-23", "forecast": "2027-07-23", "status": "Open", "dependency": "", "evidence": "Claims operations and quality sign-off"}], "controls": [{"project": "policy", "risk": "PolicyCenter endorsement contract changes may delay the billing integration", "mitigation": "Review event schema with Billing and freeze it before SIT", "schedule": "Amber", "actual": "92000", "etc": "328000"}, {"project": "billing", "risk": "Duplicate gateway callbacks could post a second installment", "mitigation": "Verify idempotency and reconcile settlement records", "schedule": "Amber", "actual": "63000", "etc": "247000"}, {"project": "claims", "risk": "Backdated endorsements could return incorrect coverage at loss time", "mitigation": "Include backdated endorsements and lapsed policies in UAT", "schedule": "Green", "actual": "71000", "etc": "289000"}]};
 const LIVE_INDEX = STORE + ':workspaces';
 function readLiveIndex() {
   try { return JSON.parse(getStored(LIVE_INDEX)) || []; }
@@ -27,8 +28,10 @@ function switchWorkspace(id) {
 function openWorkspaceForm() {
   const programs = [...new Set(readLiveIndex().map(r => r.program).filter(Boolean))];
   $('#modal').innerHTML = `<div class="modal" id="modalBg"><form class="dialog" id="newWorkspace" role="dialog" aria-modal="true" aria-labelledby="newWorkspaceTitle">
-    <div class="dialog-header"><h2 id="newWorkspaceTitle">Add project or initiative</h2><button type="button" class="btn" data-action="close" aria-label="Close">✕</button></div>
-    <div class="dialog-body"><div class="formgrid">
+    <div class="dialog-header"><h2 id="newWorkspaceTitle">Create project or program</h2><button type="button" class="btn" data-action="close" aria-label="Close">✕</button></div>
+    <div class="dialog-body"><p>Start with your own project, create a program with its first initiative, or load a worked P&C insurance example.</p>
+    <button type="button" class="btn" id="loadPersonalAuto">Load Personal Auto Modernization example</button>
+    <div class="formgrid">
       <label>Type<select class="field" name="kind"><option value="project">Standalone project</option><option value="initiative">Program initiative</option></select></label>
       <label id="programField" hidden>Parent program<input class="field" name="program" list="workspacePrograms" maxlength="100" disabled><datalist id="workspacePrograms">${programs.map(name => `<option value="${esc(name)}"></option>`).join('')}</datalist></label>
       <label>Name<input class="field" name="name" required maxlength="100"></label>
@@ -40,6 +43,7 @@ function openWorkspaceForm() {
     <div class="dialog-footer"><span></span><button type="submit" class="btn primary">Create workspace</button></div>
   </form></div>`;
   const form = $('#newWorkspace');
+  $('#loadPersonalAuto').addEventListener('click', loadPersonalAuto);
   form.elements.name.focus();
   form.elements.kind.addEventListener('change', () => {
     const initiative = form.elements.kind.value === 'initiative';
@@ -75,10 +79,71 @@ function openWorkspaceForm() {
   });
 }
 
+function loadPersonalAuto() {
+  const records = readLiveIndex();
+  const existing = records.find(record => record.example === 'personal-auto' && loadWorkspace(record.id));
+  if (existing) { switchWorkspace(existing.id); mode = 'program'; main(); return; }
+  const program = 'Personal Auto Modernization';
+  const ids = Object.fromEntries(PERSONAL_AUTO.projects.map(row => [row.key, crypto.randomUUID()]));
+  const created = [];
+  const entries = [];
+  try {
+    for (const row of PERSONAL_AUTO.projects) {
+      const id = ids[row.key];
+      const modules = Object.fromEntries(Object.keys(window.STARTER.modules).map(key => [key, []]));
+      modules.intake.push({title: row.name, type: 'Program initiative', sponsor: row.sponsor, value: row.objective, priority: 'High', status: 'Approved', decision: 'Funded for modernization'});
+      modules.charter.push({item: 'Business objective', detail: row.objective, owner: row.owner, status: 'Approved'});
+      for (const milestone of PERSONAL_AUTO.milestones.filter(item => item.project === row.key)) {
+        const [sourceKey, sourceMilestone] = milestone.dependency.split('/');
+        const source = PERSONAL_AUTO.milestones.find(item => item.project === sourceKey && item.key === sourceMilestone);
+        modules.roadmap.push({exampleKey: milestone.key, milestone: milestone.milestone, owner: row.owner, baseline: milestone.baseline, forecast: milestone.forecast, status: milestone.status, dependency: source?.milestone || '', evidence: milestone.evidence});
+        if (source) {
+          const producer = PERSONAL_AUTO.projects.find(item => item.key === sourceKey);
+          modules.dependencies.push({sourceWorkspace: ids[sourceKey], sourceMilestone, deliverable: source.milestone, producer: producer.name, consumer: row.name, neededBy: milestone.baseline, forecast: source.forecast, impact: milestone.evidence, owner: producer.owner, status: source.status, escalate: row.sponsor});
+        }
+      }
+      const control = PERSONAL_AUTO.controls.find(item => item.project === row.key);
+      modules.raid.push({id: row.key + '-R01', type: 'Risk', description: control.risk, impact: 'High', likelihood: 'Medium', owner: row.owner, due: row.release, mitigation: control.mitigation, status: 'Open'});
+      modules.financials.push({category: 'Delivery allocation', baseline: Number(row.budget), actual: Number(control.actual), etc: Number(control.etc), commitments: 0, owner: row.owner});
+      modules.reports.push({period: row.as_of, overall: control.schedule, schedule: control.schedule, budget: 'Green', scope: 'Green', quality: 'Green', narrative: control.risk, decisionNeeded: ''});
+      const metadata = {case: row.name, portfolio: program, industry: 'P&C Insurance', projectStart: row.start, asOfDate: row.as_of, targetRelease: row.release, budget: Number(row.budget), illustrative: true};
+      localStorage.setItem(STORE + ':' + id, JSON.stringify({metadata, modules}));
+      created.push(id);
+      entries.push({id, name: row.name, owner: row.owner, program, example: 'personal-auto'});
+    }
+    localStorage.setItem(LIVE_INDEX, JSON.stringify([...records, ...entries]));
+  } catch {
+    for (const id of created) localStorage.removeItem(STORE + ':' + id);
+    $('#workspaceError').textContent = 'Browser storage is unavailable. The example could not be loaded.';
+    return;
+  }
+  switchWorkspace(entries[0].id);
+  mode = 'program';
+  main();
+}
+
+function deliveryGuide() {
+  const stages = [
+    ['Intake', 'intake', 'Confirm the sponsor, business problem, and measurable outcome.'],
+    ['Charter and ownership', 'charter', 'Agree on scope and decision authority with the sponsor.'],
+    ['Value stream and PI planning', 'roadmap', 'Agree on milestones and dependencies with the teams.'],
+    ['Delivery and governance', 'raid', 'Assign owners and due dates for open risks and issues.'],
+    ['Testing and release', 'quality', 'Record test evidence, business acceptance, and release readiness.'],
+    ['Transition and closure', 'closure', 'Confirm support ownership and track benefits after release.'],
+  ];
+  return `<section class="panel"><h2>Project setup and delivery guide</h2><ol>${stages.map(([label, module, detail]) =>
+    `<li>${btn(label, 'goto:' + module)} <span class="hint">${detail}</span></li>`).join('')}</ol></section>`;
+}
+
 function deliverySnapshot(workspace) {
   const m = workspace.modules;
   const open = list => list.filter(r => !isResolved(r.status));
-  const dependencies = open(m.dependencies);
+  const dependencies = open(m.dependencies.map(row => {
+    if (!row.sourceWorkspace || !row.sourceMilestone) return row;
+    const source = loadWorkspace(row.sourceWorkspace)?.modules.roadmap.find(milestone => milestone.exampleKey === row.sourceMilestone);
+    if (!source) return row;
+    return {...row, forecast: source.forecast, status: isResolved(source.status) ? 'Completed' : source.status};
+  }));
   const late = dependencies.filter(r => dateVal(r.forecast) > dateVal(r.neededBy) || /blocked|red|at risk|delayed/i.test(r.status));
   const milestones = m.roadmap.map(row => {
     if (isResolved(row.status)) return row;
@@ -113,6 +178,7 @@ function liveOverview() {
   <div class="mini-list">${late.map(r => `<div class="mini-item"><strong>${esc(r.deliverable)}</strong><small>${esc(r.owner)} · Needed ${esc(r.neededBy)} · Forecast ${esc(r.forecast)} · Escalate ${esc(r.escalate)}</small><small>${esc(r.impact)}</small></div>`).join('')}
   ${decisions.map(r => `<div class="mini-item"><strong>${esc(r.question)}</strong><small>${esc(r.authority)} · Due ${esc(r.due)}</small></div>`).join('')}
   <p class="hint">${decisions.length} pending decisions · ${risks.length} open RAID records</p></div></section></div>
+  ${deliveryGuide()}
   <section class="panel"><h2>Manage delivery</h2><div class="toolbar">${['intake','charter','dependencies','raid','financials','quality','release','operations','reports','closure'].map(id => btn(esc(mMap[id].name),'goto:'+id)).join('')}</div></section>`;
 }
 function liveProgramOverview() {

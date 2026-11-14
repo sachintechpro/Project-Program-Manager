@@ -1,0 +1,4 @@
+project,risk,mitigation,schedule,actual,etc
+policy,PolicyCenter endorsement contract changes may delay the billing integration,Review event schema with Billing and freeze it before SIT,Amber,92000,328000
+billing,Duplicate gateway callbacks could post a second installment,Verify idempotency and reconcile settlement records,Amber,63000,247000
+claims,Backdated endorsements could return incorrect coverage at loss time,Include backdated endorsements and lapsed policies in UAT,Green,71000,289000

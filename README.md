@@ -84,3 +84,9 @@ This is a **deterministic offline contextual assistant**, **not a generative AI 
 ### Context assistant regression check
 
 Run `python test_chat.py` (requires Python Playwright and a local Chromium executable). This checks all 29 modules and every section’s three suggested help questions, changes to local financial forecasts, desktop/mobile chat interaction, contextual parameter handoff and display sanitization. Results are written to `chat-test-results.json`.
+
+## Personal Auto Modernization worked example
+
+Open **Add project or initiative** and choose **Load Personal Auto Modernization example**. Program view shows Policy Self-Service, Billing & Payments, and Digital Claims Intake. Open a project to see its delivery guide, milestones, risks, and budget. Billing's reconciliation milestone depends on Policy's premium events. Claims UAT depends on Policy's effective-date coverage lookup. Changing the source milestone updates the dependent dashboard on refresh or navigation.
+
+The worked example is seeded from the small CSVs in `Project-Program-Manager/examples/personal-auto/`. Run `python Project-Program-Manager/embed-example.py` from the repository root after editing them. The embedded payload supports offline use. Loaded projects and edits are saved in the current browser, and reopening the example retains those edits.
