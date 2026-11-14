@@ -1,0 +1,852 @@
+{
+  "finance-migration": {
+    "owner": "Priya Nair",
+    "metadata": {
+      "case": "Finance Reporting Migration",
+      "industry": "Retail Finance",
+      "portfolio": "",
+      "projectStart": "2027-02-01",
+      "asOfDate": "2027-04-16",
+      "targetRelease": "2027-04-30",
+      "budget": 245000,
+      "illustrative": true
+    },
+    "modules": {
+      "intake": [
+        {
+          "title": "Finance Reporting Migration",
+          "type": "Standalone project",
+          "sponsor": "Leon Walker",
+          "value": "Retire the legacy month-end extract before contract renewal",
+          "priority": "High",
+          "status": "Approved",
+          "decision": "Funded with two parallel close cycles"
+        }
+      ],
+      "business": [
+        {
+          "metric": "Time to deliver management reporting",
+          "baseline": "3 business days after close",
+          "target": "1 business day",
+          "actual": "2 days in March rehearsal",
+          "owner": "Jo Harper",
+          "measurement": "Compare April parallel-run and June close timestamps",
+          "status": "In progress"
+        }
+      ],
+      "charter": [
+        {
+          "item": "Release scope",
+          "detail": "Migrate 18 close reports and the overnight ledger feed. Tax reports stay on the legacy platform.",
+          "owner": "Priya Nair",
+          "status": "Approved"
+        }
+      ],
+      "stakeholders": [
+        {
+          "name": "Leon Walker",
+          "role": "Finance sponsor",
+          "accountability": "Cutover decision and funding",
+          "authority": "Approves finance cutover",
+          "engagement": "Weekly steering",
+          "status": "Engaged"
+        },
+        {
+          "name": "Priya Nair",
+          "role": "Project Manager",
+          "accountability": "Cutover schedule and spend",
+          "authority": "Escalates variance and coordinates release",
+          "engagement": "Weekly delivery review",
+          "status": "Engaged"
+        },
+        {
+          "name": "Jo Harper",
+          "role": "Product Owner",
+          "accountability": "Finance backlog, report acceptance",
+          "authority": "Accepts reconciled reports",
+          "engagement": "Daily defect triage",
+          "status": "Engaged"
+        },
+        {
+          "name": "Nadia Webb",
+          "role": "Scrum Master / Team Coach",
+          "accountability": "Removes team impediments",
+          "authority": "Facilitates team events",
+          "engagement": "Daily team sync",
+          "status": "Engaged"
+        },
+        {
+          "name": "Ravi Singh",
+          "role": "Data Engineer",
+          "accountability": "Ledger mapping and reruns",
+          "authority": "Owns feed implementation",
+          "engagement": "Daily team sync",
+          "status": "Engaged"
+        },
+        {
+          "name": "Mei Torres",
+          "role": "Quality Engineer",
+          "accountability": "Independent reconciliation evidence",
+          "authority": "Signs technical test evidence",
+          "engagement": "Daily defect triage",
+          "status": "Engaged"
+        },
+        {
+          "name": "Grace Hill",
+          "role": "Finance Operations Lead",
+          "accountability": "Close calendar and production handoff",
+          "authority": "Accepts service handover",
+          "engagement": "Twice-weekly readiness review",
+          "status": "Engaged"
+        }
+      ],
+      "raci": [
+        {
+          "activity": "Reconcile March report totals",
+          "responsible": "Ravi Singh, Mei Torres",
+          "accountable": "Jo Harper",
+          "consulted": "Grace Hill",
+          "informed": "Priya Nair"
+        },
+        {
+          "activity": "Approve or defer cutover",
+          "responsible": "Priya Nair",
+          "accountable": "Leon Walker",
+          "consulted": "Jo Harper, Grace Hill, Mei Torres",
+          "informed": "Nadia Webb"
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "March parallel run",
+          "owner": "Jo Harper",
+          "baseline": "2027-04-08",
+          "forecast": "2027-04-08",
+          "status": "Complete",
+          "dependency": "",
+          "evidence": "16 of 18 reports matched on first pass"
+        },
+        {
+          "milestone": "Complete second reconciliation",
+          "owner": "Mei Torres",
+          "baseline": "2027-04-20",
+          "forecast": "2027-04-23",
+          "status": "At risk",
+          "dependency": "Revised currency mapping",
+          "evidence": "Tie all 18 reports to signed ledger totals"
+        },
+        {
+          "milestone": "Production cutover",
+          "owner": "Priya Nair",
+          "baseline": "2027-04-30",
+          "forecast": "2027-04-30",
+          "status": "Open",
+          "dependency": "",
+          "evidence": "Go/no-go after second cycle"
+        }
+      ],
+      "backlog": [
+        {
+          "key": "FIN-218",
+          "type": "Story",
+          "title": "Apply period-end FX rates to intercompany adjustments",
+          "owner": "Ravi Singh",
+          "pi": "PI-2",
+          "sprint": "S3",
+          "points": 5,
+          "status": "In progress",
+          "acceptance": "March ledger variance is within approved rounding tolerance"
+        },
+        {
+          "key": "FIN-225",
+          "type": "Story",
+          "title": "Demonstrate rollback to previous warehouse extract",
+          "owner": "Mei Torres",
+          "pi": "PI-2",
+          "sprint": "S3",
+          "points": 3,
+          "status": "Open",
+          "acceptance": "Restore legacy file within 30 minutes without duplicate posting"
+        }
+      ],
+      "iterations": [
+        {
+          "iteration": "PI-2 / S2",
+          "goal": "Finish report rebuilds",
+          "capacity": 31,
+          "planned": 29,
+          "done": 27,
+          "confidence": "High",
+          "demo": "18 reports rendered in staging",
+          "status": "Complete"
+        },
+        {
+          "iteration": "PI-2 / S3",
+          "goal": "Close reconciliation defects",
+          "capacity": 27,
+          "planned": 23,
+          "done": 9,
+          "confidence": "Medium",
+          "demo": "Controller review of variance workbook on April 23",
+          "status": "In progress"
+        }
+      ],
+      "dependencies": [
+        {
+          "deliverable": "Revised currency mapping",
+          "producer": "Accounting Policy",
+          "consumer": "Finance Reporting Migration",
+          "neededBy": "2027-04-19",
+          "forecast": "2027-04-22",
+          "impact": "Two reports cannot be certified before rate mapping is signed",
+          "owner": "Jo Harper",
+          "status": "At risk",
+          "escalate": "2027-04-19"
+        }
+      ],
+      "capacity": [
+        {
+          "team": "Reporting squad",
+          "skill": "Data engineering",
+          "people": 3,
+          "daysPerPerson": 10,
+          "leave": 3,
+          "support": 6,
+          "other": 2,
+          "available": 19,
+          "owner": "Ravi Singh"
+        },
+        {
+          "team": "Finance controls",
+          "skill": "Reconciliation testing",
+          "people": 2,
+          "daysPerPerson": 10,
+          "leave": 0,
+          "support": 5,
+          "other": 3,
+          "available": 12,
+          "owner": "Mei Torres"
+        }
+      ],
+      "financials": [
+        {
+          "category": "Data migration and dual run",
+          "baseline": 210000,
+          "actual": 148000,
+          "etc": 69000,
+          "commitments": 24000,
+          "owner": "Priya Nair"
+        },
+        {
+          "category": "Contingency reserve",
+          "baseline": 35000,
+          "actual": 0,
+          "etc": 0,
+          "commitments": 0,
+          "owner": "Leon Walker"
+        }
+      ],
+      "raid": [
+        {
+          "id": "FIN-I17",
+          "type": "Issue",
+          "description": "FX translation differences in two intercompany reports",
+          "impact": "High",
+          "likelihood": "High",
+          "owner": "Ravi Singh",
+          "due": "2027-04-22",
+          "mitigation": "Compare original and revised rate tables before rerunning March close",
+          "status": "Open"
+        }
+      ],
+      "changes": [
+        {
+          "id": "FIN-CR4",
+          "request": "Extend legacy warehouse for one reporting cycle",
+          "impact": "Preserves fallback if April sign-off slips",
+          "cost": 12000,
+          "days": 0,
+          "sponsor": "Leon Walker",
+          "decision": "Quote requested; excluded from current forecast pending approval",
+          "status": "Open"
+        }
+      ],
+      "decisions": [
+        {
+          "id": "FIN-D6",
+          "question": "Keep April cutover if the second reconciliation misses April 23?",
+          "options": "Keep date with signed manual controls; defer one close",
+          "recommendation": "Defer if either financial control total remains outside tolerance",
+          "authority": "Leon Walker",
+          "due": "2027-04-26",
+          "decision": "Pending controller review",
+          "status": "Open"
+        }
+      ],
+      "quality": [
+        {
+          "scenario": "Parallel run against signed March ledger",
+          "level": "SIT",
+          "owner": "Mei Torres",
+          "planned": 18,
+          "passed": 16,
+          "failed": 2,
+          "blocked": 0,
+          "status": "Failed",
+          "evidence": "Intercompany P&L and balance sheet FX totals outside tolerance"
+        },
+        {
+          "scenario": "Controller walkthrough",
+          "level": "UAT",
+          "owner": "Jo Harper",
+          "planned": 6,
+          "passed": 2,
+          "failed": 0,
+          "blocked": 2,
+          "status": "In progress",
+          "evidence": "Two pending scripts depend on reconciliation"
+        }
+      ],
+      "release": [
+        {
+          "gate": "Controller accepts consolidated totals",
+          "owner": "Jo Harper",
+          "evidence": "Signed tie-out workbook for all 18 reports",
+          "due": "2027-04-26",
+          "status": "Open",
+          "approver": "Leon Walker"
+        }
+      ],
+      "operations": [
+        {
+          "item": "Overnight ledger load",
+          "owner": "Grace Hill",
+          "threshold": "Alert if file missing by 04:00",
+          "actual": "03:37 in March rehearsal",
+          "status": "Planning",
+          "evidence": "March load transcript and escalation draft"
+        }
+      ],
+      "vendors": [
+        {
+          "vendor": "Warehouse support provider",
+          "deliverable": "Price one-cycle extension and confirm extract retention",
+          "contract": "Legacy hosting agreement",
+          "due": "2027-04-21",
+          "owner": "Priya Nair",
+          "status": "Open",
+          "escalation": "Leon Walker"
+        }
+      ],
+      "compliance": [
+        {
+          "control": "Financial reporting change control",
+          "evidence": "Attach signed ledger tie-out and dual approval to change ticket",
+          "owner": "Jo Harper",
+          "status": "Open",
+          "approval": "Finance controls"
+        }
+      ],
+      "reports": [
+        {
+          "period": "2027-04-16",
+          "overall": "Amber",
+          "schedule": "Amber",
+          "budget": "Green",
+          "scope": "Green",
+          "quality": "Amber",
+          "narrative": "16 of 18 reports reconcile. FX table approval is three days late. Forecast $217k against $245k authorized.",
+          "decisionNeeded": "Leon Walker to confirm April cutover after April 23 rerun"
+        }
+      ],
+      "recovery": [
+        {
+          "action": "Run remaining two reports in isolation before full parallel close",
+          "owner": "Ravi Singh",
+          "due": "2027-04-23",
+          "status": "Open",
+          "evidence": "Signed comparison with March ledger control totals"
+        }
+      ],
+      "program": [
+        {
+          "initiative": "Finance Reporting Migration",
+          "manager": "Priya Nair",
+          "businessValue": "Shorter month-end close",
+          "baseline": "2027-04-30",
+          "forecast": "2027-04-30",
+          "status": "Amber",
+          "sharedDependency": "Accounting Policy approval",
+          "relationship": "Standalone release"
+        }
+      ],
+      "safelp": [
+        {
+          "epic": "Automate ledger reconciliation",
+          "valueStream": "Finance close",
+          "businessValue": 8,
+          "timeCriticality": 5,
+          "riskReduction": 8,
+          "jobSize": 5,
+          "status": "Review",
+          "decision": "Revisit after cutover and compare against next close priorities"
+        }
+      ],
+      "value": [
+        {
+          "stage": "Download and reconcile overnight extract",
+          "workingDays": 0.75,
+          "waitingDays": 1.0,
+          "owner": "Grace Hill",
+          "bottleneck": "Analyst waits for close extract",
+          "improvement": "Automate extract delivery and control total checks"
+        }
+      ],
+      "adoption": [
+        {
+          "audience": "Regional controllers",
+          "change": "Use warehouse report pack for April close",
+          "owner": "Grace Hill",
+          "communication": "Close calendar bulletin",
+          "training": "Thirty-minute side-by-side reconciliation",
+          "adoption": "2 of 6 controllers completed rehearsal",
+          "status": "In progress"
+        }
+      ],
+      "closure": [
+        {
+          "deliverable": "Handover signed reporting controls",
+          "owner": "Grace Hill",
+          "acceptance": "Finance Operations accepts replay steps and evidence archive",
+          "status": "Planned",
+          "evidence": "Handover due after two successful production closes"
+        }
+      ]
+    }
+  },
+  "field-dispatch": {
+    "owner": "Sofia Bennett",
+    "metadata": {
+      "case": "Mobile Dispatch Pilot",
+      "industry": "Field Services",
+      "portfolio": "",
+      "projectStart": "2027-03-01",
+      "asOfDate": "2027-05-07",
+      "targetRelease": "2027-05-17",
+      "budget": 96000,
+      "illustrative": true
+    },
+    "modules": {
+      "intake": [
+        {
+          "title": "Mobile Dispatch Pilot",
+          "type": "Standalone project",
+          "sponsor": "Devon Price",
+          "value": "Reduce repeat entry after field visits",
+          "priority": "Medium",
+          "status": "Approved",
+          "decision": "Authorize 24 technicians and one dispatch desk"
+        }
+      ],
+      "business": [
+        {
+          "metric": "Completed jobs with same-day work order posting",
+          "baseline": "68%",
+          "target": "90%",
+          "actual": "88% across 25 rehearsal jobs",
+          "owner": "Kim Ellis",
+          "measurement": "Compare device event timestamps to posted work orders",
+          "status": "In progress"
+        }
+      ],
+      "charter": [
+        {
+          "item": "Pilot boundaries",
+          "detail": "Cover standard repairs at the North branch. Emergency dispatch and invoicing are out of scope.",
+          "owner": "Sofia Bennett",
+          "status": "Approved"
+        }
+      ],
+      "stakeholders": [
+        {
+          "name": "Devon Price",
+          "role": "Regional Operations Sponsor",
+          "accountability": "Pilot outcome and scale decision",
+          "authority": "Authorizes branch rollout",
+          "engagement": "Friday pilot review",
+          "status": "Engaged"
+        },
+        {
+          "name": "Sofia Bennett",
+          "role": "Project Manager",
+          "accountability": "Release plan, device inventory and spend",
+          "authority": "Coordinates pilot readiness",
+          "engagement": "Twice-weekly checkpoint",
+          "status": "Engaged"
+        },
+        {
+          "name": "Kim Ellis",
+          "role": "Product Owner",
+          "accountability": "Dispatch backlog and field acceptance",
+          "authority": "Accepts workflow increments",
+          "engagement": "Daily dispatcher walkthrough",
+          "status": "Engaged"
+        },
+        {
+          "name": "Noah Diaz",
+          "role": "Scrum Master / Team Coach",
+          "accountability": "Team flow and blocker escalation",
+          "authority": "Facilitates team planning",
+          "engagement": "Daily team sync",
+          "status": "Engaged"
+        },
+        {
+          "name": "Harper Lin",
+          "role": "Mobile Engineer",
+          "accountability": "Offline sync and device compatibility",
+          "authority": "Owns mobile implementation",
+          "engagement": "Daily team sync",
+          "status": "Engaged"
+        },
+        {
+          "name": "Avery Reed",
+          "role": "Field QA Lead",
+          "accountability": "Device tests and technician rehearsal",
+          "authority": "Maintains pilot exit evidence",
+          "engagement": "Weekly ride-along",
+          "status": "Engaged"
+        },
+        {
+          "name": "Morgan Tate",
+          "role": "Branch Supervisor",
+          "accountability": "Pilot staffing and incident triage",
+          "authority": "Approves technician readiness",
+          "engagement": "Daily morning dispatch",
+          "status": "Engaged"
+        }
+      ],
+      "raci": [
+        {
+          "activity": "Run dead-zone device rehearsal",
+          "responsible": "Avery Reed, Harper Lin",
+          "accountable": "Kim Ellis",
+          "consulted": "Morgan Tate",
+          "informed": "Sofia Bennett"
+        },
+        {
+          "activity": "Authorize first branch pilot",
+          "responsible": "Sofia Bennett",
+          "accountable": "Devon Price",
+          "consulted": "Kim Ellis, Morgan Tate",
+          "informed": "Noah Diaz"
+        }
+      ],
+      "roadmap": [
+        {
+          "milestone": "Sign off work order rehearsal",
+          "owner": "Kim Ellis",
+          "baseline": "2027-05-04",
+          "forecast": "2027-05-04",
+          "status": "Complete",
+          "dependency": "",
+          "evidence": "Twenty-five trial jobs entered by dispatch and field"
+        },
+        {
+          "milestone": "Enroll replacement rugged tablets",
+          "owner": "Morgan Tate",
+          "baseline": "2027-05-10",
+          "forecast": "2027-05-10",
+          "status": "Open",
+          "dependency": "Managed device profile",
+          "evidence": "All six tablets check in and receive the app"
+        },
+        {
+          "milestone": "Launch North branch pilot",
+          "owner": "Sofia Bennett",
+          "baseline": "2027-05-17",
+          "forecast": "2027-05-17",
+          "status": "Open",
+          "dependency": "",
+          "evidence": "Staffed dispatch desk and fallback paper pack ready"
+        }
+      ],
+      "backlog": [
+        {
+          "key": "DSP-83",
+          "type": "Story",
+          "title": "Queue photos and completion notes without service",
+          "owner": "Harper Lin",
+          "pi": "PI-2",
+          "sprint": "S4",
+          "points": 8,
+          "status": "Complete",
+          "acceptance": "Two queued jobs sync after reconnection without duplicate records"
+        },
+        {
+          "key": "DSP-91",
+          "type": "Story",
+          "title": "Show a sync retry indicator in dispatch",
+          "owner": "Harper Lin",
+          "pi": "PI-2",
+          "sprint": "S4",
+          "points": 3,
+          "status": "In progress",
+          "acceptance": "Dispatcher can distinguish a queued upload from an unassigned job"
+        }
+      ],
+      "iterations": [
+        {
+          "iteration": "PI-2 / S3",
+          "goal": "Prove offline completion",
+          "capacity": 25,
+          "planned": 21,
+          "done": 21,
+          "confidence": "High",
+          "demo": "Basement work order successfully replayed",
+          "status": "Complete"
+        },
+        {
+          "iteration": "PI-2 / S4",
+          "goal": "Prepare devices and run shift rehearsal",
+          "capacity": 22,
+          "planned": 18,
+          "done": 14,
+          "confidence": "High",
+          "demo": "Dispatcher can identify four queued field updates",
+          "status": "In progress"
+        }
+      ],
+      "dependencies": [
+        {
+          "deliverable": "Managed device profile",
+          "producer": "Endpoint Services",
+          "consumer": "Mobile Dispatch Pilot",
+          "neededBy": "2027-05-10",
+          "forecast": "2027-05-10",
+          "impact": "Required to enroll six replacement tablets before technician handoff",
+          "owner": "Morgan Tate",
+          "status": "Open",
+          "escalate": "2027-05-11"
+        }
+      ],
+      "capacity": [
+        {
+          "team": "Mobile squad",
+          "skill": "Mobile engineering",
+          "people": 2,
+          "daysPerPerson": 10,
+          "leave": 1,
+          "support": 4,
+          "other": 2,
+          "available": 13,
+          "owner": "Harper Lin"
+        },
+        {
+          "team": "North branch",
+          "skill": "Field coaching",
+          "people": 3,
+          "daysPerPerson": 5,
+          "leave": 1,
+          "support": 4,
+          "other": 2,
+          "available": 8,
+          "owner": "Morgan Tate"
+        }
+      ],
+      "financials": [
+        {
+          "category": "Mobile release and coaching",
+          "baseline": 78000,
+          "actual": 46500,
+          "etc": 25300,
+          "commitments": 1800,
+          "owner": "Sofia Bennett"
+        },
+        {
+          "category": "Devices and accessories",
+          "baseline": 18000,
+          "actual": 14200,
+          "etc": 2900,
+          "commitments": 2900,
+          "owner": "Morgan Tate"
+        }
+      ],
+      "raid": [
+        {
+          "id": "DSP-R9",
+          "type": "Risk",
+          "description": "Replacement tablets may arrive after training starts",
+          "impact": "Medium",
+          "likelihood": "Low",
+          "owner": "Morgan Tate",
+          "due": "2027-05-11",
+          "mitigation": "Hold six enrolled loaners for first shift",
+          "status": "Open"
+        }
+      ],
+      "changes": [
+        {
+          "id": "DSP-CR3",
+          "request": "Add barcode scanning for parts consumed",
+          "impact": "Adds inventory interface and new training",
+          "cost": 9500,
+          "days": 10,
+          "sponsor": "Devon Price",
+          "decision": "Deferred to the next PI",
+          "status": "Closed"
+        }
+      ],
+      "decisions": [
+        {
+          "id": "DSP-D5",
+          "question": "Expand to the South branch after the North pilot?",
+          "options": "Keep North only; expand after two weeks; stop pilot",
+          "recommendation": "Review adoption and duplicate rate after ten shifts",
+          "authority": "Devon Price",
+          "due": "2027-05-28",
+          "decision": "Awaiting operating data",
+          "status": "Open"
+        }
+      ],
+      "quality": [
+        {
+          "scenario": "Offline upload and duplicate prevention",
+          "level": "E2E",
+          "owner": "Avery Reed",
+          "planned": 24,
+          "passed": 24,
+          "failed": 0,
+          "blocked": 0,
+          "status": "Passed",
+          "evidence": "Run D24 covers queued uploads and device reconnects"
+        },
+        {
+          "scenario": "Dispatchers route and close standard repairs",
+          "level": "UAT",
+          "owner": "Kim Ellis",
+          "planned": 10,
+          "passed": 10,
+          "failed": 0,
+          "blocked": 0,
+          "status": "Passed",
+          "evidence": "North dispatch accepted rehearsal on May 4"
+        }
+      ],
+      "release": [
+        {
+          "gate": "Confirm device enrollment and shift coverage",
+          "owner": "Morgan Tate",
+          "evidence": "Enrollment roster and Monday shift handoff",
+          "due": "2027-05-14",
+          "status": "Open",
+          "approver": "Devon Price"
+        }
+      ],
+      "operations": [
+        {
+          "item": "Monitor unsynced work orders",
+          "owner": "Morgan Tate",
+          "threshold": "Investigate any upload queued over 2 hours",
+          "actual": "Longest queue was 34 minutes in rehearsal",
+          "status": "Planning",
+          "evidence": "Dispatch console retry log"
+        }
+      ],
+      "vendors": [
+        {
+          "vendor": "Rugged device supplier",
+          "deliverable": "Deliver six configured tablets to North branch",
+          "contract": "PO-4312 device delivery",
+          "due": "2027-05-10",
+          "owner": "Morgan Tate",
+          "status": "In transit",
+          "escalation": "Sofia Bennett"
+        }
+      ],
+      "compliance": [
+        {
+          "control": "Remove local photos after successful upload",
+          "evidence": "Device evidence shows photos removed after retention window",
+          "owner": "Harper Lin",
+          "status": "Complete",
+          "approval": "Endpoint Security"
+        }
+      ],
+      "reports": [
+        {
+          "period": "2027-05-07",
+          "overall": "Green",
+          "schedule": "Green",
+          "budget": "Green",
+          "scope": "Green",
+          "quality": "Green",
+          "narrative": "All 34 rehearsed checks passed. Existing loaners cover the device delivery risk. Forecast $88.9k on $96k approved.",
+          "decisionNeeded": "Expansion decision follows ten pilot shifts"
+        }
+      ],
+      "recovery": [
+        {
+          "action": "Reserve six enrolled loaners if shipment is delayed",
+          "owner": "Morgan Tate",
+          "due": "2027-05-11",
+          "status": "Open",
+          "evidence": "Loaner serial numbers checked against first shift roster"
+        }
+      ],
+      "program": [
+        {
+          "initiative": "Mobile Dispatch Pilot",
+          "manager": "Sofia Bennett",
+          "businessValue": "Same-day work order posting",
+          "baseline": "2027-05-17",
+          "forecast": "2027-05-17",
+          "status": "Green",
+          "sharedDependency": "Endpoint Services enrollment",
+          "relationship": "Standalone branch pilot"
+        }
+      ],
+      "safelp": [
+        {
+          "epic": "Scale dispatch to South branch",
+          "valueStream": "Job dispatch to completion",
+          "businessValue": 5,
+          "timeCriticality": 3,
+          "riskReduction": 5,
+          "jobSize": 8,
+          "status": "Review",
+          "decision": "Review actual pilot outcomes before committing capacity"
+        }
+      ],
+      "value": [
+        {
+          "stage": "Technician posts notes after reconnect",
+          "workingDays": 0.15,
+          "waitingDays": 0.25,
+          "owner": "Harper Lin",
+          "bottleneck": "Dead zones delay dispatch visibility",
+          "improvement": "Local queue and automatic retry with receipt"
+        }
+      ],
+      "adoption": [
+        {
+          "audience": "North branch technicians",
+          "change": "Complete work orders on rugged tablets",
+          "owner": "Morgan Tate",
+          "communication": "Morning dispatch briefing",
+          "training": "Two guided practice jobs per technician",
+          "adoption": "22 of 24 trained",
+          "status": "In progress"
+        }
+      ],
+      "closure": [
+        {
+          "deliverable": "Transfer device pool and dispatch runbook",
+          "owner": "Morgan Tate",
+          "acceptance": "Branch accepts device roster, loaner swap and queue escalation",
+          "status": "Planned",
+          "evidence": "Schedule at pilot exit"
+        }
+      ]
+    }
+  }
+}

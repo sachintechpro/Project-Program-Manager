@@ -10,11 +10,13 @@ for name in ('projects', 'milestones', 'controls'):
     with (root / 'examples' / 'personal-auto' / f'{name}.csv').open(newline='', encoding='utf-8') as source:
         data[name] = list(csv.DictReader(source))
 data['registers'] = json.loads((root / 'examples' / 'personal-auto' / 'delivery-registers.json').read_text())
-payload = json.dumps(data, ensure_ascii=False).replace('</', '<\\/')
-for filename in ('live-workspace.js',):
-    path = root / filename
-    original = path.read_text()
-    updated, count = re.subn(r'(?m)^const PERSONAL_AUTO = .*;$', lambda _: f'const PERSONAL_AUTO = {payload};', original)
+templates = json.loads((root / 'examples' / 'project-templates.json').read_text())
+payloads = {'PERSONAL_AUTO': data, 'PROJECT_TEMPLATES': templates}
+path = root / 'live-workspace.js'
+updated = path.read_text()
+for name, source in payloads.items():
+    payload = json.dumps(source, ensure_ascii=False).replace('</', '<\\/')
+    updated, count = re.subn(rf'(?m)^const {name} = .*;$', lambda _: f'const {name} = {payload};', updated)
     if count != 1:
-        raise SystemExit(f'Expected one example payload in {filename}')
-    path.write_text(updated)
+        raise SystemExit(f'Expected one {name} payload in {path.name}')
+path.write_text(updated)

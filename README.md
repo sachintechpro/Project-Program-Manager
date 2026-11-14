@@ -92,3 +92,10 @@ Open **Add project or initiative** and load **Personal Auto Modernization** for 
 Each project starts mid-delivery on March 5, 2027, with a named team, RACI, PI and iteration records, scope, costs, dependencies, decisions, QA evidence, release and operations plans, and all other management registers populated. To see the linked flow, open Policy Self-Service and adjust the forecast for the endorsement premium event. Then open Billing & Payments or return to Program view to see the downstream readiness impact.
 
 Example sources are under `examples/personal-auto/` in the application directory. After editing these sources, run `python embed-example.py` and `python make_index.py` from that directory. Existing example workspaces stay editable in the browser. The expanded templates load as separate workspaces so prior edits are retained.
+
+For two additional standalone examples, use **Add project or initiative → Choose another project template**:
+
+- **Finance Reporting Migration** — an Amber month-end cutover with two unresolved reconciliation failures and a pending sponsor decision.
+- **Mobile Dispatch Pilot** — a Green branch rollout with offline device tests, shift training, and a loaner plan.
+
+Both populate all 26 management registers. The source data is in `Project-Program-Manager/examples/project-templates.json`.
