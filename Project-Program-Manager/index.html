@@ -378,9 +378,12 @@ function notice(){
  };
  const source=tab==='overview'||tab==='audit'
    ?derived[tab]
-   :derived[tab]||`Renders ${count} ${count===1?'record':'records'} from the ${page?.name||'current'} register, with editable fields${fields.length?' ('+fields.slice(0,4).map(pretty).join(', ')+(fields.length>4?', …':'')+')':''}.`;
- const storage=workspaceId?'Your selected workspace is stored locally.':'The initial example uses illustrative records; edits stay in this browser.';
- return `<div class="notice ux-page-context" role="note"><strong>${esc(page?.name||'Current page')} · How this view works</strong><span>${esc(source)} ${esc(storage)}</span></div>`;
+   :derived[tab]||`Renders ${count} ${count===1?'record':'records'} in the ${page?.name||'current'} register, with editable fields${fields.length?' ('+fields.slice(0,4).map(pretty).join(', ')+(fields.length>4?', …':'')+')':''}.`;
+ const storage=workspaceId?'Changes are saved in this browser.':'Example records are illustrative; edits stay in this browser.';
+ const viewSource=tab==='overview'?'reports + roadmap + dependencies + financials'
+                 :tab==='audit'?'auditWorkspace(state.modules)'
+                 :'state.modules.'+tab;
+ return `<div class="notice ux-page-context" role="note"><strong>${esc(page?.name||'Current page')} · How this view works</strong><span>${esc(source)} View: #main · Source: ${esc(viewSource)}. ${esc(storage)}</span></div>`;
 }
 function overview(){
  const milestones=rows('roadmap'),r=rows('raid'),d=rows('dependencies'),fin=budgetBreakdown(),audit=auditWorkspace();
@@ -823,14 +826,26 @@ function chatPageAnswer(text,q=chatNorm(text)){
    const section=window.FIELD_GUIDE?.[tab]?.[k]?tab:'__metrics__';
    const aliases=[pretty(k),k.replace(/([A-Z])/g,' $1'),k,...Object.entries(CHAT_ALIASES).filter(([,v])=>v===k).map(([a])=>a)];
    for(const alias of aliases){
-    if(chatNorm(alias).length<3||!chatHas(q,alias))continue;
+    if(chatNorm(alias).length<2||!chatHas(q,alias))continue;
     const score=chatNorm(alias).length+(window.FIELD_GUIDE?.[tab]?.[k]?5:0);
     if(score>best){winner={k,section};best=score}
    }
   }
   if(winner){
    const guide=getFieldGuide(winner.k,winner.section);
-   return {text:pretty(winner.k)+': '+guide.meaning+' Ask '+guide.verify+' to confirm the value.',tag:'Parameter on this page',to:tab};
+   const meaning=window.FIELD_GUIDE?.[winner.section]?.[winner.k]?.meaning||({
+     id:'Identifier for this record, used in tracking, linking and audit history.',
+     key:'Unique backlog item ID used in delivery and test traceability.',
+     title:'Short description of the item being tracked.',
+     name:'Name of the person, team or initiative.',
+     status:'Current state of the work item, updated by its accountable owner.',
+     type:'Category used to classify the record.',
+     owner:'Accountable person or team for this deliverable or decision.',
+     due:'Date by which the action or decision is expected.',
+     priority:'Relative ordering based on urgency and value.',
+     description:'Summary of the work, event or decision being tracked.'
+    })[winner.k]||guide.meaning;
+    return {text:pretty(winner.k)+': '+meaning+' Confirm with: '+guide.verify+'.',tag:'Parameter on this page',to:tab};
   }
  }
  // Ask about any of the actual cards or sections currently rendered.
