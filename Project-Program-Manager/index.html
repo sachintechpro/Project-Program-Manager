@@ -798,13 +798,110 @@ const chatHTML=s=>esc(s).replace(/\n/g,'<br>');
 function chatLoad(){if(chatSessionLoaded)return;chatSessionLoaded=true;try{let h=JSON.parse(sessionStorage.getItem(CHAT_SESSION_KEY)||'[]');if(Array.isArray(h))chatMessages=h.slice(-35).filter(x=>x&&['user','assistant'].includes(x.role)&&typeof x.text==='string');}catch(e){}}
 function chatStore(){try{sessionStorage.setItem(CHAT_SESSION_KEY,JSON.stringify(chatMessages.slice(-35)))}catch(e){}}
 function chatGuide(section=tab){if(section==='overview'&&mode==='program')return {...CHAT_PAGES.program,prompts:['Project vs program?','Is Okta part of our program?','Explain this page']};return CHAT_PAGES[section]||{purpose:mMap[section]?.description||'Review the current workspace.',steps:mMap[section]?.help||'Review the available records and validate with the responsible owner.',example:'Use source evidence and named decision-makers.',prompts:['Explain this page','How do I use this section?','What do these fields mean?'],related:'overview'}}
+
+// Current-page question resolver. Reads only the rendered view and this browser's workspace.
+function chatPageAnswer(text,q=chatNorm(text)){
+ const root=document.getElementById('main');if(!root)return null;
+ const intent=/\b(what|which|why|how|explain|define|meaning|show|tell|where|who|status|value|owner|forecast)\b/.test(q);
+ if(!intent)return null;
+ const pageName=mMap[tab]?.name||'this page';
+ const isMeaning=/\b(what does|what is|define|meaning|explain|parameter|field)\b/.test(q);
+ // First resolve a visible dashboard metric, including its displayed value and description.
+ const metrics=[...root.querySelectorAll('.metric')];
+ for(const el of metrics){
+  const label=chatNorm(el.querySelector('label')?.textContent?.replace(/\?/g,'')||'');
+  if(label.length<5||!chatHas(q,label))continue;
+  const value=el.querySelector('.number')?.textContent?.replace(/\s+/g,' ').trim()||'';
+  const foot=el.querySelector('.foot')?.textContent?.replace(/\s+/g,' ').trim()||'';
+  return {text:label.replace(/\b\w/g,x=>x.toUpperCase())+': '+(value||'Not recorded')+'.'+(foot?' '+foot+'.':''),tag:'Value shown on this page',to:tab};
+ }
+ // For precise field-meaning questions, use the actual module field guide.
+ if(isMeaning&&!/\b(why is|why are|how much|under budget|over budget|below budget)\b/.test(q)){
+  const fields=[...new Set([...(window.FIELDS?.[tab]||[]),...Object.keys(window.FIELD_GUIDE?.[tab]||{}),...(tab==='overview'?Object.keys(window.FIELD_GUIDE?.__metrics__||{}):[])])];
+  let winner=null,best=0;
+  for(const k of fields){
+   const section=window.FIELD_GUIDE?.[tab]?.[k]?tab:'__metrics__';
+   const aliases=[pretty(k),k.replace(/([A-Z])/g,' $1'),k,...Object.entries(CHAT_ALIASES).filter(([,v])=>v===k).map(([a])=>a)];
+   for(const alias of aliases){
+    if(chatNorm(alias).length<3||!chatHas(q,alias))continue;
+    const score=chatNorm(alias).length+(window.FIELD_GUIDE?.[tab]?.[k]?5:0);
+    if(score>best){winner={k,section};best=score}
+   }
+  }
+  if(winner){
+   const guide=getFieldGuide(winner.k,winner.section);
+   return {text:pretty(winner.k)+': '+guide.meaning+' Ask '+guide.verify+' to confirm the value.',tag:'Parameter on this page',to:tab};
+  }
+ }
+ // Ask about any of the actual cards or sections currently rendered.
+ const headings=[...root.querySelectorAll('section.panel h2,.panel-head h2,section.panel h3')];
+ const current=headings.map(h=>({h,name:chatNorm(h.textContent)})).filter(x=>x.name.length>5&&chatHas(q,x.name)).sort((a,b)=>b.name.length-a.name.length)[0];
+ if(current){
+  const card=current.h.closest('.panel');
+  const cols=[...card.querySelectorAll('thead th')].map(x=>x.textContent.replace(/\?/g,'').trim()).filter(Boolean);
+  const total=card.querySelectorAll('tbody tr').length;
+  const details=cols.length?'Its columns are '+cols.slice(0,5).join(', ')+(cols.length>5?', and more.':'.'):card.querySelector('.muted,.hint,.section-intro')?.textContent?.trim()||'Use the related controls to review this section.';
+  return {text:current.h.textContent.trim()+': '+details+(cols.length?' '+total+' row'+(total===1?'':'s')+' shown.':''),tag:'Visible section',to:tab};
+ }
+ // Resolve a referenced record or an explicit row number from this module.
+ const list=rows(tab);
+ if(list.length){
+  let selected=null,idx=-1;
+  const ordinal=q.match(/\b(?:row|record)\s+(\d+)\b/),ordinalWord=q.match(/\b(first|second|third|last)\s+(?:row|record|item)\b/);
+  if(ordinal){idx=Number(ordinal[1])-1;selected=list[idx]}
+  else if(ordinalWord){idx={first:0,second:1,third:2,last:list.length-1}[ordinalWord[1]];selected=list[idx]}
+  else {
+   for(const [i,r] of list.entries()){
+    const idFields=['id','key','deliverable','milestone','initiative','epic','title','name','scenario','team','gate','question','metric','stage'];
+    const values=idFields.map(k=>r[k]).filter(x=>typeof x==='string'&&chatNorm(x).length>=4);
+    if(values.some(v=>chatHas(q,v))){selected=r;idx=i;break;}
+   }
+  }
+  if(selected){
+   const requested=(window.FIELDS?.[tab]||Object.keys(selected)).find(k=>chatHas(q,pretty(k))||chatHas(q,k));
+   const name=selected.title||selected.name||selected.id||selected.key||selected.milestone||selected.deliverable||selected.initiative||selected.epic||selected.scenario||selected.team||selected.gate||selected.metric||'Record '+(idx+1);
+   const field=requested&&selected[requested]!==undefined?pretty(requested)+': '+String(selected[requested]):'Status: '+String(selected.status||'Not recorded');
+   const owner=selected.owner&&!requested?.includes('owner')?' Owner: '+selected.owner+'.':'';
+   return {text:name+' — '+field+'.'+owner,tag:'Current register record',to:tab};
+  }
+ }
+ // Name a visible field even if its current module has no explicit guide.
+ if(isMeaning){
+  const columns=[...root.querySelectorAll('thead th,label')].map(x=>x.textContent.replace(/\?/g,'').trim()).filter(x=>x.length>2);
+  const label=columns.find(x=>chatNorm(x).length>4&&chatHas(q,x));
+  if(label)return {text:label+' is a field on the '+pageName+' page. It is recorded in this section and used to review the relevant decision or status.',tag:'Visible field',to:tab};
+ }
+ return null;
+}
+function chatCompact(text){
+ const raw=String(text||'').trim();
+ if(raw.length<=390)return raw;
+ const blocks=raw.split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean);
+ let answer=blocks[0]||raw;
+ for(const block of blocks.slice(1)){if(answer.length+block.length+2>440)break;answer+=' \n'+block}
+ if(answer.length>440){
+   const cut=answer.slice(0,438),end=Math.max(cut.lastIndexOf('. '),cut.lastIndexOf('; '));
+   answer=(end>190?cut.slice(0,end+1):cut.replace(/\s+\S*$/,'')+'…');
+ }
+ return answer;
+}
+function chatVisiblePrompts(){
+ const root=document.getElementById('main');
+ const guide=chatGuide();
+ const metric=root?.querySelector('.metric label')?.textContent?.replace(/\?/g,'').trim();
+ const field=(window.FIELDS?.[tab]||[])[0];
+ const heading=root?.querySelector('section.panel h2')?.textContent?.trim();
+ return [...new Set(['Explain this page',...(guide.prompts||[]).slice(0,2),metric?'What is '+metric+'?':field?'Explain '+pretty(field):null,heading?'Explain '+heading:null].filter(Boolean))].slice(0,5);
+}
+
 function chatAnswer(text,forcedField=null,forcedSection=null){
  const q=chatNorm(text),pg=chatGuide(),section=forcedSection||tab;
  const payload=(parts,to=null,tag='Context help')=>({text:parts.filter(Boolean).join('\n\n'),to,tag});
  if(forcedField){let g=getFieldGuide(forcedField,section);return payload([`${pretty(forcedField)} · ${mMap[section]?.name||'Dashboard metric'}`,g.meaning,`Example: ${g.example}`,`Verify with: ${g.verify}`,`Why it matters: ${g.impact}`],mMap[section]?section:tab,'Parameter guidance');}
  if(/^(hi|hello|hey|thanks|thank you)$/.test(q))return payload([`I can explain ${mMap[tab]?.name||'this page'}, its fields, sample records, and project/program management decisions. Try one of the suggested questions below.`]);
+  if(!forcedField){const current=chatPageAnswer(text,q);if(current)return payload([current.text],current.to,current.tag)}
  const direct=Object.entries(CHAT_SHORT_ANSWERS).find(([k])=>chatNorm(k)===q);if(direct)return payload([direct[1]],chatGuide().related,'Practical guidance');
- if(/\b(who are you|are you ai|using ai|chatgpt|api key|internet|offline|privacy)\b/.test(q))return payload(['I am an offline contextual help assistant, not a live AI model. I use this tool’s built-in field explanations, section guides, reference material and the sample records in your browser. Questions and records are not sent to a server. I cannot verify real project data or answer arbitrary external questions.'],'reference','About this help');
+ if(/\b(who are you|are you ai|using ai|chatgpt|api key|internet|offline|privacy)\b/.test(q))return payload(['This is built-in contextual help using the current page, field definitions and records saved in your browser. No AI key or external chat service is used.'],'reference','About this help');
  if(/\b(this page|this section|current page|where am i|page overview|page help|explain this page)\b/.test(q)||/^(help|help me|overview|what does this page do|what is this page)$/.test(q))return payload([`${mMap[tab].name}: ${pg.purpose}`,`How to use it: ${pg.steps}`,`Example: ${pg.example}`],pg.related,'Page guidance');
  if(/(how do i|how to|where do i|where can i|what should i|what next|show me how|steps to|how should i|what to do)/.test(q)&&/(edit|add|create|change|update|enter|record|start|use|fill|review|next|work|manage|this|page|section|plan|prepare|set up|track|verify|correct)/.test(q))return payload([`On ${mMap[tab].name}: ${pg.steps}`,`To change a record, select Edit in this section, update the relevant fields and save. Use the ? beside a parameter for its required meaning and verification owner. Check Data Integrity & Verification after edits.`, `Example: ${pg.example}`],pg.related,'Suggested workflow');
  if(/^(how many|number of|count|list)\b/.test(q) && /(record|entr|item|project|risk|dependency|issue)/.test(q)){
@@ -865,19 +962,19 @@ function chatAnswer(text,forcedField=null,forcedSection=null){
    if(/\b(this|here|section|page|now)\b/.test(q))return payload([`${mMap[tab].name}: ${pg.purpose}`,pg.steps,`Example: ${pg.example}`],pg.related,'Page guidance');
  }
  if(pg.prompts.some(p=>chatNorm(p)===q))return payload([`${mMap[tab].name}: ${pg.purpose}`,`Approach: ${pg.steps}`,`Example: ${pg.example}`],pg.related,'Page guidance');
- return payload([`I don't have a reliable offline answer for that exact question. I can help with ${mMap[tab].name}, its parameters, training records, and built-in project/program management concepts.`,`Try “Explain this page”, ask about a parameter by name, or use a suggested question below. This is contextual help, not unrestricted AI chat.`],null,'Help scope');
+ return payload([`I don't have a reliable offline answer for that exact question. I can help with ${mMap[tab].name}, its parameters, training records, and built-in project/program management concepts.`,`Ask about a visible field, record or section; I can explain its meaning and the next action shown here.`],null,'Help scope');
 }
 function chatAdd(role,text,tag='',to=null){chatMessages.push({role,text,tag,to});chatMessages=chatMessages.slice(-35);chatStore();chatDrawMessages()}
 function chatDrawMessages(){const log=document.getElementById('chatLog');if(!log)return;log.innerHTML=chatMessages.map((x,i)=>`<div class="chat-msg ${x.role==='user'?'chat-msg-user':'chat-msg-assistant'}"><div class="chat-msg-tag">${esc(x.role==='user'?'You':x.tag||'Context help')}</div><div class="chat-msg-body">${chatHTML(x.text)}</div>${x.to&&mMap[x.to]?`<button class="chat-go" data-chat-go="${esc(x.to)}">Open ${esc(mMap[x.to].name)} →</button>`:''}</div>`).join('');log.scrollTop=log.scrollHeight}
-function chatDrawChips(){let el=document.getElementById('chatSuggestions');if(!el)return;el.innerHTML=chatGuide().prompts.map(x=>`<button type="button" class="chat-chip" data-chat-ask="${esc(x)}">${esc(x)}</button>`).join('')}
-function chatSync(){let context=tab+'|'+mode;const label=document.getElementById('chatContext');if(label)label.textContent=`${mode==='project'?'Project':'Program'} · ${mMap[tab]?.name||'Workspace'}`;if(chatContextLast!==context){chatContextLast=context;chatDrawChips();}}
-function chatToggle(force){const panel=document.getElementById('chatPanel'),launcher=document.getElementById('chatLauncher');if(!panel)return;chatOpen=typeof force==='boolean'?force:!chatOpen;panel.hidden=!chatOpen;launcher.setAttribute('aria-expanded',String(chatOpen));document.body.classList.toggle('chat-is-open',chatOpen);if(chatOpen){chatSync();if(!chatMessages.length)chatAdd('assistant',`You're on ${mMap[tab].name}. ${chatGuide().purpose}\n\nAsk me about a parameter, the current data, or what to do next. This is built-in offline guidance—not live AI.`,'Page guide');document.getElementById('chatQuestion')?.focus();}else{launcher.focus()}}
-function chatAsk(text,forcedField=null,forcedSection=null){let q=String(text||'').trim().slice(0,400);if(!q)return;chatAdd('user',q);let a=chatAnswer(q,forcedField,forcedSection);chatAdd('assistant',a.text,a.tag,a.to);let input=document.getElementById('chatQuestion');if(input)input.value='';}
+function chatDrawChips(){let el=document.getElementById('chatSuggestions');if(!el)return;el.innerHTML=chatVisiblePrompts().map(x=>`<button type="button" class="chat-chip" data-chat-ask="${esc(x)}">${esc(x)}</button>`).join('')}
+function chatSync(){let context=tab+'|'+mode+'|'+(workspaceId||'seed');const label=document.getElementById('chatContext');if(label)label.textContent=`${mode==='project'?'Project':'Program'} · ${mMap[tab]?.name||'Workspace'}`;const source=document.getElementById('chatSource');if(source){const n=rows(tab).length,fields=window.FIELDS?.[tab]||[];source.textContent=`${mMap[tab]?.name||'Page'} · ${n} records · ${fields.length?fields.length+' fields':'dashboard sections'}`;}if(chatContextLast!==context){chatContextLast=context;chatDrawChips();}}
+function chatToggle(force){const panel=document.getElementById('chatPanel'),launcher=document.getElementById('chatLauncher');if(!panel)return;chatOpen=typeof force==='boolean'?force:!chatOpen;panel.hidden=!chatOpen;launcher.setAttribute('aria-expanded',String(chatOpen));document.body.classList.toggle('chat-is-open',chatOpen);if(chatOpen){chatSync();if(!chatMessages.length)chatAdd('assistant',`${mMap[tab].name}: ${chatGuide().purpose}\nAsk about any visible field, section or record.`,'Page guide');document.getElementById('chatQuestion')?.focus();}else{launcher.focus()}}
+function chatAsk(text,forcedField=null,forcedSection=null){let q=String(text||'').trim().slice(0,400);if(!q)return;chatAdd('user',q);let a=chatAnswer(q,forcedField,forcedSection);chatAdd('assistant',chatCompact(a.text),a.tag,a.to);let input=document.getElementById('chatQuestion');if(input)input.value='';}
 function chatForField(field,section){closeFieldHelp(false);chatToggle(true);chatAsk(`Explain ${pretty(field)} in ${mMap[section]?.name||'dashboard metrics'}`,field,section)}
 function initChat(){
  if(document.getElementById('chatLauncher'))return;
  chatLoad();
- const wrapper=document.createElement('div');wrapper.id='chatDock';wrapper.innerHTML=`<button type="button" id="chatLauncher" aria-label="Open contextual help chat" aria-expanded="false" aria-controls="chatPanel"><span aria-hidden="true">✦</span> Ask for help</button><section class="chat-panel" id="chatPanel" role="dialog" aria-modal="false" aria-label="Contextual help assistant" hidden><header class="chat-head"><div><strong>Project & Program Guide</strong><small id="chatContext">Current page</small></div><button type="button" id="chatClose" aria-label="Close help chat">✕</button></header><div class="chat-offline"><span class="chat-online-dot"></span> Built-in offline guidance · No AI subscription or API key</div><div id="chatLog" class="chat-log" role="log" aria-live="polite" aria-relevant="additions text"></div><div id="chatSuggestions" class="chat-suggestions" aria-label="Questions about this page"></div><form id="chatForm" class="chat-form"><label for="chatQuestion" class="chat-label">Ask about this page, a field, or a decision</label><div class="chat-compose"><textarea id="chatQuestion" rows="2" maxlength="400" placeholder="e.g., Why is EAC below the approved budget?" required></textarea><button type="submit" aria-label="Send help question">Send</button></div><div class="chat-foot">Read-only help. Answers use the current sample workspace; verify real-world decisions with accountable owners.</div></form></section>`;
+ const wrapper=document.createElement('div');wrapper.id='chatDock';wrapper.innerHTML=`<button type="button" id="chatLauncher" aria-label="Open contextual help chat" aria-expanded="false" aria-controls="chatPanel"><span aria-hidden="true">✦</span> Ask for help</button><section class="chat-panel" id="chatPanel" role="dialog" aria-modal="false" aria-label="Contextual help assistant" hidden><header class="chat-head"><div><strong>Project & Program Guide</strong><small id="chatContext">Current page</small></div><button type="button" id="chatClose" aria-label="Close help chat">✕</button></header><div class="chat-offline"><span class="chat-online-dot"></span> <span id="chatSource">Current workspace · section data</span></div><div id="chatLog" class="chat-log" role="log" aria-live="polite" aria-relevant="additions text"></div><div id="chatSuggestions" class="chat-suggestions" aria-label="Questions about this page"></div><form id="chatForm" class="chat-form"><label for="chatQuestion" class="chat-label">Ask about this page, a field, or a decision</label><div class="chat-compose"><textarea id="chatQuestion" rows="2" maxlength="400" placeholder="e.g., Why is EAC below the approved budget?" required></textarea><button type="submit" aria-label="Send help question">Send</button></div><div class="chat-foot">Based on visible sections, field definitions and the selected workspace. Open related registers to inspect the evidence.</div></form></section>`;
  document.body.append(wrapper);chatSync();chatDrawMessages();
  wrapper.addEventListener('click',e=>{if(e.target.closest('#chatLauncher'))chatToggle();else if(e.target.closest('#chatClose'))chatToggle(false);else if(e.target.closest('[data-chat-ask]'))chatAsk(e.target.closest('[data-chat-ask]').dataset.chatAsk);else if(e.target.closest('[data-chat-go]')){let target=e.target.closest('[data-chat-go]').dataset.chatGo;if(mMap[target]){tab=target;filter='';main();window.scrollTo({top:0,behavior:'auto'});chatSync();}}});
  wrapper.querySelector('#chatForm').addEventListener('submit',e=>{e.preventDefault();chatAsk(wrapper.querySelector('#chatQuestion').value)});
