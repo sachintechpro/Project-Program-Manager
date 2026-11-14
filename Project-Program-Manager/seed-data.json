@@ -1078,6 +1078,15 @@
         "status": "Pending",
         "evidence": "Benefits plan"
       }
+    ],
+    "raci": [
+      {
+        "activity": "Authorize release and accept residual risk",
+        "responsible": "Portal PM",
+        "accountable": "Business sponsor",
+        "consulted": "QA Lead, Security Lead, Service Owner",
+        "informed": "Product Owner, Service Desk"
+      }
     ]
   }
 }

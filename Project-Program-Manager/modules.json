@@ -42,6 +42,13 @@
     "help": "RACI clarifies responsibility; decision rights must name the person who can actually authorize funding, risk or release."
   },
   {
+    "id": "raci",
+    "name": "RACI Matrix",
+    "icon": "users",
+    "description": "Named responsibilities for project and program activities",
+    "help": "Assign one accountable person and at least one responsible person per activity. List people to consult before the decision and people to inform afterward."
+  },
+  {
     "id": "roadmap",
     "name": "Integrated Roadmap",
     "icon": "calendar-range",

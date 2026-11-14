@@ -8,7 +8,7 @@ A responsive offline learning and delivery-management dashboard for enterprise A
 
 Open **`index.html`** in a modern web browser. No backend, external JavaScript packages, subscriptions, internet connection or keys are required. On mobile, use the hamburger navigation and **Tools** menu. On desktop, use the persistent left navigation.
 
-The application contains **29 sections**, including a new **Data Integrity & Verification** section, **25 editable register modules**, **113 illustrated records**, **177 register parameters with contextual guidance**, **7 workspace settings**, **20 explained metrics**, and **10 guided practice scenarios**. The full digital FNOL / SAFe training reference is included in a brand-neutral edition in `reference-SAFe-end-to-end-guide.md` and in the in-app Full Reference Library.
+The application contains **30 sections**, including a new **Data Integrity & Verification** section, **26 editable register modules**, **114 illustrated records**, **182 register parameters with contextual guidance**, **7 workspace settings**, **20 explained metrics**, and **10 guided practice scenarios**. The full digital FNOL / SAFe training reference is included in a brand-neutral edition in `reference-SAFe-end-to-end-guide.md` and in the in-app Full Reference Library.
 
 ## Verified training snapshot
 
@@ -81,10 +81,12 @@ This is a **deterministic offline contextual assistant**, **not a generative AI 
 
 ### Context assistant regression check
 
-Run `python test_chat.py` (requires Python Playwright and a local Chromium executable). This checks all 29 modules and every section’s three suggested help questions, changes to local financial forecasts, desktop/mobile chat interaction, contextual parameter handoff and display sanitization. Results are written to `chat-test-results.json`.
+Run `python test_chat.py` (requires Python Playwright and a local Chromium executable). This checks all 30 modules and every section’s three suggested help questions, changes to local financial forecasts, desktop/mobile chat interaction, contextual parameter handoff and display sanitization. Results are written to `chat-test-results.json`.
 
-## Personal Auto Modernization worked example
+## Editable project and program examples
 
-Open **Add project or initiative** and choose **Load Personal Auto Modernization example**. Program view shows Policy Self-Service, Billing & Payments, and Digital Claims Intake. Open a project to see its delivery guide, milestones, risks, and budget. Billing's reconciliation milestone depends on Policy's premium events. Claims UAT depends on Policy's effective-date coverage lookup. Changing the source milestone updates the dependent dashboard on refresh or navigation.
+Open **Add project or initiative** and load **Personal Auto Modernization** for a SAFe delivery program with three linked projects: Policy Self-Service, Billing & Payments, and Digital Claims Intake. The program overview rolls up costs and forecasts and shows the steering decision about a late premium event. Load **Vehicle Self-Service** to practice with a separate standalone project.
 
-The worked example is seeded from the small CSVs in `Project-Program-Manager/examples/personal-auto/`. Run `python Project-Program-Manager/embed-example.py` from the repository root after editing them. The embedded payload supports offline use. Loaded projects and edits are saved in the current browser, and reopening the example retains those edits.
+Each project starts mid-delivery on March 5, 2027, with a named team, RACI, PI and iteration records, scope, costs, dependencies, decisions, QA evidence, release and operations plans, and all other management registers populated. To see the linked flow, open Policy Self-Service and adjust the forecast for the endorsement premium event. Then open Billing & Payments or return to Program view to see the downstream readiness impact.
+
+Example sources are under `examples/personal-auto/` in the application directory. After editing these sources, run `python embed-example.py` and `python make_index.py` from that directory. Existing example workspaces stay editable in the browser. The expanded templates load as separate workspaces so prior edits are retained.

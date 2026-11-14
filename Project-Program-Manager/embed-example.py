@@ -9,8 +9,9 @@ data = {}
 for name in ('projects', 'milestones', 'controls'):
     with (root / 'examples' / 'personal-auto' / f'{name}.csv').open(newline='', encoding='utf-8') as source:
         data[name] = list(csv.DictReader(source))
+data['registers'] = json.loads((root / 'examples' / 'personal-auto' / 'delivery-registers.json').read_text())
 payload = json.dumps(data, ensure_ascii=False).replace('</', '<\\/')
-for filename in ('live-workspace.js', 'index.html'):
+for filename in ('live-workspace.js',):
     path = root / filename
     original = path.read_text()
     updated, count = re.subn(r'(?m)^const PERSONAL_AUTO = .*;$', lambda _: f'const PERSONAL_AUTO = {payload};', original)

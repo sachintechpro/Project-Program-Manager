@@ -19,7 +19,7 @@ with sync_playwright() as p:
   page.set_content((ROOT/'index.html').read_text(),wait_until='load')
   assert page.locator('#chatLauncher').count()==1,(w, 'chat launcher not present',errors)
   assert page.locator('#main').inner_text().strip(),(w,'main empty')
-  for mid in ['overview','audit','intake','business','charter','stakeholders','roadmap','backlog','iterations','dependencies','capacity','financials','raid','changes','decisions','quality','release','operations','vendors','compliance','reports','recovery','program','safelp','value','adoption','closure','academy','reference']:
+  for mid in ['overview','audit','intake','business','charter','stakeholders','raci','roadmap','backlog','iterations','dependencies','capacity','financials','raid','changes','decisions','quality','release','operations','vendors','compliance','reports','recovery','program','safelp','value','adoption','closure','academy','reference']:
    r=page.evaluate("(mid)=>{tab=mid;main();return document.getElementById('main').textContent.length}",mid)
    assert r>50,(w,mid,'render empty')
   page.evaluate("()=>{tab='overview';main()}")
@@ -67,7 +67,7 @@ with sync_playwright() as p:
     tab='overview';main();
     return all;
   }""")
-  assert len(contextual)==29,(w,'module count changed',len(contextual))
+  assert len(contextual)==30,(w,'module count changed',len(contextual))
   for item in contextual:
     assert item['rendered']>50,(w,item['id'],'page empty')
     assert item['questions']>=3,(w,item['id'],'missing contextual questions')
@@ -110,7 +110,7 @@ with sync_playwright() as p:
    for z in r:
     if "I don't have a reliable offline answer" in z['reply']:
      no_answer.append((mid,z['q']))
-  log.append({'width':w,'sections':29,'chatMessages':page.locator('.chat-msg').count(),'unansweredPrompts':no_answer,'errors':errors})
+  log.append({'width':w,'sections':30,'chatMessages':page.locator('.chat-msg').count(),'unansweredPrompts':no_answer,'errors':errors})
   page.screenshot(path=str(ROOT/f'chat-preview-{w}.png'),full_page=False)
   page.close()
  assert not any(l['errors'] for l in log), log

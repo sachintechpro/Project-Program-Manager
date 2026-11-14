@@ -1276,5 +1276,37 @@
       "verify": "Transformation lead and operations analyst",
       "impact": "Shows where queue reduction might matter more than individual team throughput."
     }
+  },
+  "raci": {
+    "activity": {
+      "meaning": "Work or decision covered by this assignment.",
+      "example": "Approve pilot release scope.",
+      "verify": "Project Manager and activity owner",
+      "impact": "Clarifies the handoff and escalation path."
+    },
+    "responsible": {
+      "meaning": "People who carry out the work or prepare the decision.",
+      "example": "Elena Ruiz, Ivy Shah",
+      "verify": "Project Manager and activity owner",
+      "impact": "Clarifies the handoff and escalation path."
+    },
+    "accountable": {
+      "meaning": "One person who owns the outcome or makes the decision.",
+      "example": "Marisol Chen",
+      "verify": "Project Manager and activity owner",
+      "impact": "Clarifies the handoff and escalation path."
+    },
+    "consulted": {
+      "meaning": "People who provide input before the decision.",
+      "example": "Product Management, Security Lead",
+      "verify": "Project Manager and activity owner",
+      "impact": "Clarifies the handoff and escalation path."
+    },
+    "informed": {
+      "meaning": "People who receive the outcome or status update.",
+      "example": "Service Desk, Program Manager",
+      "verify": "Project Manager and activity owner",
+      "impact": "Clarifies the handoff and escalation path."
+    }
   }
 }

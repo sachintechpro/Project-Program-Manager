@@ -16,9 +16,9 @@ def sumfield(module,key):return sum(n(r,key) for r in M[module])
 def iso(x):
  try:return date.fromisoformat(x)
  except:return None
-check('Full management navigation present', len(NAV)==29 and {'overview','audit','academy','reference'}<=set(x['id'] for x in NAV))
-check('25 editable management registers present',len(M)==25)
-check('113 sample records preserved',sum(map(len,M.values()))==113)
+check('Full management navigation present', len(NAV)==30 and {'overview','audit','academy','reference'}<=set(x['id'] for x in NAV))
+check('26 editable management registers present',len(M)==26)
+check('114 sample records present',sum(map(len,M.values()))==114)
 check('Unique section identifiers',len({x['id'] for x in NAV})==len(NAV))
 check('Every editable register has sample records',all(len(v)>0 for v in M.values()))
 check('No register has heterogeneous fields',all(set(r)==set(v[0]) for v in M.values() for r in v))

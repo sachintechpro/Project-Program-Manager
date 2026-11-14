@@ -99,6 +99,10 @@ function validateEditedRecord(section,data,editingIndex){
  if(uniqueKey){let v=String(data[uniqueKey]||'').trim();if(!v)errors.push(`${uniqueKey}: record identifier is required`);
   else if(rows(section).some((r,i)=>i!==editingIndex&&r[uniqueKey]===v))errors.push(`${uniqueKey}: identifier already exists`);
  }
+ if(section==='raci'){
+  if(!String(data.responsible||'').trim())errors.push('responsible: assign at least one responsible person');
+  if(!String(data.accountable||'').trim()||/[,;\n]/.test(data.accountable))errors.push('accountable: assign one accountable person');
+ }
  if(!String(data[Object.keys(data)[0]]??'').trim())errors.push(`${Object.keys(data)[0]}: record name is required`);
  return errors;
 }
