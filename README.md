@@ -1,25 +1,4 @@
-# ValueStream HQ | P&C Insurance PIT Project Management
-
-## Insurance Stakeholder Lab
-
-Open the [stakeholder lab](https://valuestreamhq-insurance.onrender.com/insurance-workspace.html), choose a fictional stakeholder, start simulated sign-in, and verify the displayed code. List projects, open a project guide, try a write, or read the audit log. Each operation displays the actual API response. Lab requests start with fresh fictional data. The shared workspace in the mode selector uses separate sessions and persistent records.
-
-The worked example is **Personal Auto Modernization**. Policy Self-Service, Billing and Payments, and Digital Claims Intake share two cross-project dependencies and six guided stages per project. The shared workspace can create additional programs and projects with starter guidance. Administrators can load the example and assign memberships by Okta subject. Project and program relationships use IDs. CSV exports include small scoped program, project, dependency, and guide files. The importer previews and applies project name changes from an exported project.csv and rejects stale versions.
-
-Run from the `Project-Program-Manager` directory:
-
-```sh
-python -m pip install -r requirements.txt pytest
-python -m pytest -q test_insurance_server.py
-gunicorn --workers 1 --bind 0.0.0.0:10000 'insurance_server:create_app()'
-```
-
-For an organizational deployment, mount persistent storage, set `VSHQ_DATABASE` to an absolute file path on it, and use a single application instance with that database. Provision backups and verify restore before relying on the workspace. The hosted free instance is for the lab, with ephemeral disk. Run via HTTPS for session cookies. Existing browser-local training workspaces stay in the original dashboard.
-
-Register an Okta OIDC Web Application, assign authorized users, and require MFA in its sign-in policy. Configure `OKTA_ISSUER`, `OKTA_CLIENT_ID`, `OKTA_CLIENT_SECRET`, `OKTA_CALLBACK_URL` (ending in `/okta/callback`), `VSHQ_SESSION_SECRET`, and the initial admin's exact Okta subject in `VSHQ_FIRST_ADMIN_SUB`. The callback requires the verified `urn:okta:loa:2fa:any` assurance claim. Verify that the assigned policy and issuer return it before onboarding users. Recovery and enrollment are handled by Okta. API tests cover access enforcement using simulated personas and test sessions. Tenant-specific MFA requires a configured Okta application.
-
-[Insurance stakeholder CI](https://github.com/sachintechpro/Project-Program-Manager/actions/workflows/insurance-stakeholder-qa.yml)
-
+# ValueStream HQ | IT Project & Program Management — v1.5
 
 **Tagline:** tool that helps people learn, practice, and confidently manage real IT projects and programs.
 

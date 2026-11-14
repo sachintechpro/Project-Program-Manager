@@ -1,3 +1,0 @@
-id,program_id,from_project,to_project,detail
-premium,auto,policy,billing,Publish endorsement premium events before billing reconciliation SIT
-coverage,auto,policy,claims,Deliver effective-date coverage lookup before digital FNOL UAT
