@@ -49,6 +49,50 @@ with sync_playwright() as p:
   assert page.locator('#chatPanel').is_visible(),(w,'field chat not open')
   assert page.locator('#fieldHelpPopup').count()==0,(w,'tooltip still open')
   assert 'Verify with:' in page.locator('.chat-msg-assistant').last.inner_text(),(w,'field help missing verification')
+  # Context-aware help must inspect the rendered page and the current workspace.
+  contextual=page.evaluate("""() => {
+    const all=[];
+    for(const m of window.MODULES){
+      tab=m.id;mode='project';main();
+      const panel=document.getElementById('main');
+      const prompt=chatVisiblePrompts();
+      const rendered=panel.innerText;
+      const ctx=panel.querySelector('.ux-page-context');
+      const firstField=(window.FIELDS?.[m.id]||[])[0];
+      const question=firstField?'Explain '+pretty(firstField):'Explain this page';
+      const answer=chatAnswer(question);
+      all.push({id:m.id,questions:prompt.length,question,answer:answer.text,tag:answer.tag,
+        context:ctx?.innerText||'',rendered:rendered.length});
+    }
+    tab='overview';main();
+    return all;
+  }""")
+  assert len(contextual)==29,(w,'module count changed',len(contextual))
+  for item in contextual:
+    assert item['rendered']>50,(w,item['id'],'page empty')
+    assert item['questions']>=3,(w,item['id'],'missing contextual questions')
+    assert len(item['answer'].strip())>=20,(w,item['id'],'missing field response')
+    assert "I don't have a reliable offline answer" not in item['answer'],(w,item['id'],'generic fallback',item)
+    if item['id'] not in ('academy','reference'):
+      assert item['context'] and 'How this view works' in item['context'],(w,item['id'],'missing technical page banner')
+      assert 'Training scenario:' not in item['context'],(w,item['id'],'boilerplate disclaimer remains')
+  # Questions about an actually rendered table heading, metric, and record must stay local to that page.
+  probes=page.evaluate("""() => {
+    tab='dependencies';main();
+    const row=rows('dependencies')[0];
+    const record=chatAnswer('Who owns '+row.deliverable);
+    const field=chatAnswer('What does needed by mean?');
+    const section=chatAnswer('Explain Cross-Team Dependencies register');
+    tab='overview';main();
+    const metric=chatAnswer('What is Project health?');
+    return {owner:row.owner,record,field,section,metric,short:chatCompact('A'.repeat(1200)).length,
+      guide:chatVisiblePrompts(),notice:document.querySelector('.ux-page-context')?.innerText};
+  }""")
+  assert probes['owner'] in probes['record']['text'],(w,'record owner not explained',probes)
+  assert probes['field']['tag']=='Parameter on this page',(w,'field guidance not page-specific',probes)
+  assert probes['section']['tag']=='Visible section',(w,'panel explanation not context-aware',probes)
+  assert probes['metric']['tag']=='Value shown on this page',(w,'dashboard metric not using displayed value',probes)
+  assert probes['short']<=440,(w,'chat answer not concise',probes)
   # Calculations must read edited workspace data rather than hardcoded seed values.
   dynamic=page.evaluate('''()=>{let old=state.modules.financials[0].actual;state.modules.financials[0].actual=Number(old)+5000;let answer=chatAnswer('Explain EAC').text;state.modules.financials[0].actual=old;return answer}''')
   assert '$1,070,000' in dynamic,(w,'EAC did not track edited data',dynamic)
