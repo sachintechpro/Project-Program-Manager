@@ -1,4 +1,4 @@
-# SAFe Agile Project And Program Management End to End Tool — v1.5
+# ValueStream HQ | IT Project & Program Management — v1.5
 
 **Tagline:** tool that helps people learn, practice, and confidently manage real IT projects and programs.
 

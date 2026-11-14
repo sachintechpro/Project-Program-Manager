@@ -202,7 +202,7 @@ data={
 ['Benefits owner assigned','Sponsor','Post-launch measurement cadence','Pending','Benefits plan']],
 }
 rows={k:[dict(zip(fields[k],x)) for x in v] for k,v in data.items()}
-meta={'title':'SAFe Agile Project And Program Management End to End Tool','version':'1.0.0','industry':'Property & Casualty Insurance','case':'Add / Replace Vehicle','portfolio':'Digital Insurance Modernization','projectStart':'2027-01-04','targetRelease':'2027-06-18','budget':1200000,'illustrative':True,'dataSource':'Fictional training records; not sourced from a real insurer','reference':'Full supplied SAFe/FNOL guide retained as separate source'}
+meta={'title':'ValueStream HQ','version':'1.0.0','industry':'Property & Casualty Insurance','case':'Add / Replace Vehicle','portfolio':'Digital Insurance Modernization','projectStart':'2027-01-04','targetRelease':'2027-06-18','budget':1200000,'illustrative':True,'dataSource':'Fictional training records; not sourced from a real insurer','reference':'Full supplied SAFe/FNOL guide retained as separate source'}
 (root/'seed-data.json').write_text(json.dumps({'metadata':meta,'modules':rows},indent=2))
 (root/'modules.json').write_text(json.dumps([dict(zip(('id','name','icon','description','help'),s)) for s in sections],indent=2))
 print(len(sections),'modules',sum(map(len,rows.values())),'seed records')
