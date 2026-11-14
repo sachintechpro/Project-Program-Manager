@@ -217,3 +217,23 @@ button, select, input, textarea { max-width:100%; }
 #newWorkspace label{min-width:0}
 #newWorkspace label .field{display:block;width:100%;margin-top:5px}
 #newWorkspace [hidden]{display:none}
+
+/* Keep product branding and workspace navigation visually distinct. */
+.sidebar{scrollbar-color:#526681 var(--nav)}
+.sidebar .brand{padding:10px 10px 17px;margin-bottom:7px}
+.sidebar .brandmark{gap:10px}
+.sidebar .logo{flex:0 0 38px;width:38px;height:38px;background:#2869d7;font-size:13px;letter-spacing:-.03em}
+.sidebar .brand strong{font-size:16px;letter-spacing:-.02em}
+.sidebar .brand small{margin-top:3px;line-height:1.3}
+.sidebar .side-section{padding:15px 11px 6px;color:#a4b5cc;letter-spacing:.09em}
+.sidebar .navbtn{position:relative;min-height:37px;padding:8px 11px;border-radius:7px}
+.sidebar .navbtn .glyph{flex:0 0 19px;color:#a8bfdf}
+.sidebar .navbtn.active{background:#223e68;box-shadow:inset 3px 0 #73a9ff}
+.sidebar .navbtn.active .glyph{color:#e2eeff}
+@media(min-width:741px){
+  .topbar-brand .topbar-title,.topbar-brand .topbar-tagline{display:none}
+}
+@media(max-width:740px){
+  .sidebar .brand{padding-right:44px}
+  .sidebar .navbtn{min-height:44px}
+}
