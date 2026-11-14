@@ -367,6 +367,7 @@ function notice(){
  const derived={
  overview:'Combines roadmap, RAID, dependencies, financial forecasts and the latest RAG report into one view.',
  audit:'Runs auditWorkspace() across dates, budgets, totals, state consistency and linked registers.',
+ academy:'Loads decision scenarios, stores your practice response in the current view and compares it with reference guidance.',
  financials:'EAC = actual cost + ETC. Reserve utilization is compared with approved authorization.',
  capacity:'Available person-days = people × working days − leave − support − other commitments.',
  roadmap:'Baseline and forecast dates drive schedule variance and milestone positioning.',
@@ -382,6 +383,8 @@ function notice(){
  const storage=workspaceId?'Changes are saved in this browser.':'Example records are illustrative; edits stay in this browser.';
  const viewSource=tab==='overview'?'reports + roadmap + dependencies + financials'
                  :tab==='audit'?'auditWorkspace(state.modules)'
+                 :tab==='academy'?'scenarios + academyResponse'
+                 :tab==='reference'?'window.REFERENCE + referenceQuery'
                  :'state.modules.'+tab;
  return `<div class="notice ux-page-context" role="note"><strong>${esc(page?.name||'Current page')} · How this view works</strong><span>${esc(source)} View: #main · Source: ${esc(viewSource)}. ${esc(storage)}</span></div>`;
 }
