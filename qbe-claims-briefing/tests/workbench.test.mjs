@@ -30,7 +30,7 @@ test("end-to-end delivery has ten owned gates with team inputs and documented ou
  assert.equal(phases.length,10);
  for(const [n,p] of phases.entries()){
   assert.equal(n,p.index);
-  for(const k of ["short","name","purpose","pm","inputs","evidence","gate"])assert(p[k]?.length>12);
+  for(const k of ["short","name","purpose","pm","inputs","evidence","gate"])assert(p[k]?.length>(k==="short"?1:12));
  }
  assert(phases[0].short==="Intake");
  assert(phases.at(-1).short==="Close");
