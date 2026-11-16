@@ -15,7 +15,7 @@ function route(name,focus=false){
   if(active)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");
  }
  if(location.hash!=="#"+page.id)history.replaceState(null,"","#"+page.id);
- window.scrollTo({top:0,behavior:"instant"});
+ window.scrollTo(0,0);
  if(focus){const h=page.querySelector("h1");if(h){h.tabIndex=-1;h.focus({preventScroll:true});}}
 }
 window.addEventListener("hashchange",()=>route(location.hash.slice(1),false));
