@@ -56,6 +56,7 @@ export const phases=[
 ].map((r,i)=>({index:i,short:r[0],name:r[1],purpose:r[2],pm:r[3],inputs:r[4],evidence:r[5],gate:r[6]}));
 
 export const tips={
+ financial:"Review monthly actual costs, remaining estimates, contingency, EAC and variance with finance. Obtain sponsor approval for material funding changes.",
  lpm:"Lean Portfolio Management connects value-stream strategy, funding guardrails, prioritized demand, delivery capacity and measured outcomes. Portfolio leadership owns investment decisions.",
  eac:"Estimate at Completion = actual spend plus forecast remaining cost (including known risks). Here it is a simplified hypothetical model, not a measured finance system.",
  rag:"Delivery health signal for cost, schedule, readiness and material decisions. Criteria are illustrative; QBE thresholds would need validation.",
