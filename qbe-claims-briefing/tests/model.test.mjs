@@ -39,3 +39,20 @@ test("sample does not imply actual insurance-company figures",()=>{
   assert.equal(sample.integrationDelayWeeks,3);
   assert.equal(initiatives[0].lob,"Commercial property");
 });
+
+import {readFileSync} from "node:fs";
+import {execFileSync} from "node:child_process";
+import {fileURLToPath} from "node:url";
+test("app script parses before deployment",()=>{
+ const file=fileURLToPath(new URL("../app.js",import.meta.url));
+ execFileSync(process.execPath,["--check",file]);
+});
+test("all six presentation sections and accessible navigation are present",()=>{
+ const html=readFileSync(new URL("../index.html",import.meta.url),"utf8");
+ for(const section of ["brief","portfolio","delivery","control","operating","first90"]){
+  assert(html.includes('id="'+section+'"'));
+  assert(html.includes('data-page="'+section+'"'));
+ }
+ assert(html.includes('aria-label="Sections"'));
+ assert(html.includes("Illustrative")||html.includes("illustrative"));
+});
