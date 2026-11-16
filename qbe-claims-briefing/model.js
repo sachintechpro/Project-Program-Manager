@@ -1,6 +1,6 @@
 /**
- * Independent, illustrative portfolio delivery simulation.
- * These figures are invented for interview practice; no QBE data is used.
+ * Independent portfolio delivery simulation with sample business and delivery data.
+ * Forecast assumptions are configurable and intended for demonstrating delivery controls.
  */
 export const initiatives = [
   {
