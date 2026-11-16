@@ -39,7 +39,7 @@ function resetLevers(reRender=true){
  Object.assign(state,{delay:3,squads:0,phased:true,qa:false,ops:true,vendor:false});
  $("delay").value=3;$("squads").value=0;
  $("phased").checked=true;$("qa").checked=false;$("ops").checked=true;$("vendor").checked=false;
- if(reRender){renderControl();notify("Illustrative delivery scenario loaded.");}
+ if(reRender){renderControl();notify("Delivery scenario reset.");}
 }
 function route(page,focus=true){
  if(!["portfolio","journey","desk","control","governance","requirements"].includes(page))page="portfolio";
@@ -58,7 +58,7 @@ function route(page,focus=true){
 function renderPortfolio(){
  const totals=streams.map(s=>forStream(s.id).reduce((n,i)=>n+i.budget,0));
  $("portfolioStats").innerHTML=[
-  ["07","Value streams"],["21","Illustrative initiatives"],[money(totalBudget()),"Modeled portfolio investment"],["2027","Value-stream budgeting context"]
+  ["07","Value streams"],["21","Strategic initiatives"],[money(totalBudget()),"Modeled portfolio investment"],["Value","Outcome-led investment context"]
  ].map(x=>'<div><strong>'+esc(x[0])+'</strong><span>'+esc(x[1])+'</span></div>').join("");
  $("streamCards").innerHTML=streams.map((s,i)=>(
   '<button type="button" class="stream-choice'+(s.id===state.streamId?' selected':'')+'" aria-pressed="'+(s.id===state.streamId)+'" data-stream="'+esc(s.id)+'">'+
@@ -84,7 +84,7 @@ function renderJourney(){
  const x=current(),s=stream(),completed=gates();
  $("journeyContext").innerHTML=
   '<div><small>SELECTED INITIATIVE</small><strong>'+esc(x.name)+'</strong><span>'+esc(x.lob)+'</span></div>'+
-  '<div><small>HYPOTHETICAL INVESTMENT</small><strong>'+money(x.budget)+'</strong><span>'+x.duration+' month baseline</span></div>'+
+  '<div><small>MODEL INVESTMENT</small><strong>'+money(x.budget)+'</strong><span>'+x.duration+' month baseline</span></div>'+
   '<div><small>BUSINESS OUTCOME</small><strong>'+esc(x.baseline)+' → '+esc(x.target)+'</strong><span>'+esc(x.kpi)+'</span></div>';
  $("businessFlow").innerHTML=s.flow.map((step,i)=>'<div class="flow-step"><span>0'+(i+1)+'</span><strong>'+esc(step)+'</strong></div>').join('<span class="flow-arrow" aria-hidden="true">→</span>');
  $("beforeAfter").innerHTML='<div><small>CURRENT STATE / HYPOTHESIS</small><p>'+esc(x.problem)+'</p></div><div><small>FUTURE STATE / PROPOSED</small><p>'+esc(x.future)+'</p></div>';
@@ -138,25 +138,25 @@ function markGate(){
  if(completed.has(index)){notify("Gate already simulated. Reset the lifecycle to start again.");return;}
  if(index>0&&!completed.has(index-1)){notify("Governance control: complete preceding stage "+String(index).padStart(2,"0")+" before confirming this gate.");return;}
  completed.add(index);renderJourney();
- notify("Illustrative gate recorded for "+phases[index].short+". In reality, retain signed approval evidence.");
+ notify("Stage gate recorded for "+phases[index].short+". Retain authorized approval evidence.");
 }
 function charterHtml(x,s){
  const contingency=+(x.budget*.10).toFixed(2),base=+(x.budget-contingency).toFixed(2);
  return '<div class="desk-grid"><article class="paper wide"><span class="overline">INITIATIVE CHARTER / HYPOTHESIS</span><h3>'+esc(x.name)+'</h3>'+
- '<div class="data-lines"><div><b>Business problem</b><p>'+esc(x.problem)+'</p></div><div><b>Future-state opportunity</b><p>'+esc(x.future)+'</p></div><div><b>Executive sponsor</b><p>'+esc(s.owner)+' (illustrative role)</p></div><div><b>Success definition</b><p>'+esc(x.kpi)+': validate '+esc(x.baseline)+' baseline, then aim for '+esc(x.target)+'; measure sustained adoption, quality and controls post-release.</p></div></div></article>'+
- '<article class="paper"><span class="overline">BUSINESS CASE / MODEL</span><h3>Investment assumptions <button class="help" data-tip="financial" aria-label="Financial management guidance">i</button></h3><div class="finance-line"><span>Total hypothetical budget</span><b>'+money(x.budget)+'</b></div><div class="finance-line"><span>Indicative delivery / vendor cost</span><b>'+money(base)+'</b></div><div class="finance-line"><span>Included contingency (10%)</span><b>'+money(contingency)+'</b></div><div class="finance-line"><span>Delivery horizon</span><b>'+x.duration+' months</b></div><p class="small-note">Illustrative breakdown. Finance must verify cost centers, CapEx / OpEx, estimates, benefit ownership and approvals.</p></article>'+
+ '<div class="data-lines"><div><b>Business problem</b><p>'+esc(x.problem)+'</p></div><div><b>Future-state opportunity</b><p>'+esc(x.future)+'</p></div><div><b>Executive sponsor</b><p>'+esc(s.owner)+'</p></div><div><b>Success definition</b><p>'+esc(x.kpi)+': validate '+esc(x.baseline)+' baseline, then aim for '+esc(x.target)+'; measure sustained adoption, quality and controls post-release.</p></div></div></article>'+
+ '<article class="paper"><span class="overline">BUSINESS CASE / MODEL</span><h3>Investment assumptions <button class="help" data-tip="financial" aria-label="Financial management guidance">i</button></h3><div class="finance-line"><span>Model initiative budget</span><b>'+money(x.budget)+'</b></div><div class="finance-line"><span>Indicative delivery / vendor cost</span><b>'+money(base)+'</b></div><div class="finance-line"><span>Included contingency (10%)</span><b>'+money(contingency)+'</b></div><div class="finance-line"><span>Delivery horizon</span><b>'+x.duration+' months</b></div><p class="small-note">Finance validates cost centers, CapEx / OpEx, estimate assumptions, benefits ownership and approval.</p></article>'+
  '<article class="paper"><span class="overline">SCOPE AND EXCLUSIONS</span><h3>Boundaries and acceptance</h3><ul class="lined"><li>In scope: '+esc(x.future)+'</li><li>In scope: '+esc(x.dependency)+' interfaces and exception handling</li><li>In scope: testing, operational adoption and measured KPI</li><li>Out of scope: enterprise-wide platform replacement without separate authorization</li><li>Acceptance: business owner signs controlled end-to-end scenario and release criteria</li></ul></article></div>';
 }
 function planHtml(x,s){
  return '<div class="desk-grid"><article class="paper wide"><div class="panel-heading mini"><div><span class="overline">INTEGRATED SCHEDULE</span><h3>Milestones and interdependencies <button class="help" data-tip="cp" aria-label="Critical path explanation">i</button></h3></div><span class="micro-tag">'+x.duration+' MONTH BASELINE</span></div>'+
  '<div class="milestone-table"><table><thead><tr><th>Stage</th><th>Indicative time</th><th>Evidence / output</th><th>Gate owner</th></tr></thead><tbody>'+
  phases.map((p,i)=>'<tr><td>'+esc(p.short)+'</td><td>'+currentWindow(i,x.duration)+'</td><td>'+esc(p.evidence.split(" · ")[0])+'</td><td>'+esc(i===2||i===8?"Sponsor / finance":i===5?"Tech + PO":i===6?"Business + QA":"Delivery + business")+'</td></tr>').join("")+
- '</tbody></table></div><p class="small-note">Phases overlap; month labels are a planning illustration, not a contracted baseline.</p></article>'+
+ '</tbody></table></div><p class="small-note">Phases may overlap; validate milestone dates and dependencies when baselining the integrated plan.</p></article>'+
  '<article class="paper"><span class="overline">CRITICAL PATH / ESCALATION</span><h3>Primary dependency</h3><p>'+esc(x.dependency)+'</p><ul class="lined"><li>Tech lead: integration plan, interface acceptance and fallback</li><li>PM: coordinate upstream dates and escalation threshold</li><li>Product owner: protect release scope if a dependency slips</li><li>Sponsor: decide material scope/date/budget trade-offs</li></ul></article>'+
  '<article class="paper"><span class="overline">SCHEDULE CONTROLS</span><h3>My weekly follow-up</h3><ul class="lined"><li>Deliverables due and accepted vs. plan</li><li>Milestone confidence and look-ahead (2–4 weeks)</li><li>Critical path handoffs across Agile teams and vendors</li><li>People / skill capacity against approved work</li><li>Forecast changes and recovery recommendations</li></ul></article></div>';
 }
 function peopleHtml(x,s){
- return '<div class="desk-grid"><article class="paper wide"><span class="overline">CONTRIBUTOR MAP / ACCOUNTABILITY</span><h3>'+x.people+' illustrative participants across business, IT and partners</h3>'+
+ return '<div class="desk-grid"><article class="paper wide"><span class="overline">CONTRIBUTOR MAP / ACCOUNTABILITY</span><h3>'+x.people+' modeled participants across business, IT and partners</h3>'+
  '<div class="role-table"><table><thead><tr><th>Function</th><th>Accountability / expected output</th></tr></thead><tbody>'+
  roles.map(r=>'<tr><td>'+esc(r[0])+'</td><td>'+esc(r[1])+'</td></tr>').join("")+'</tbody></table></div></article>'+
  '<article class="paper"><span class="overline">RESOURCE FORECAST</span><h3>Typical participation</h3><div class="res-list"><div><b>1</b><span>Delivery / Program PM</span></div><div><b>7–10</b><span>Agile feature delivery members</span></div><div><b>3–5</b><span>Claims/UW/business + BAs</span></div><div><b>4–6</b><span>Integration, data, QA and security</span></div><div><b>2–5</b><span>Change and third-party contributors</span></div></div><p class="small-note">Not all work full-time; do not sum these ranges into an exact staffing plan.</p></article>'+
@@ -204,9 +204,9 @@ function readControls(){
 function summaryText(){
  const x=current(),m=scenario(x,state),s=stream();
  return [
- "EXECUTIVE DELIVERY BRIEF — Independent hypothetical example",
+ "EXECUTIVE DELIVERY BRIEF — Enterprise portfolio scenario",
  "Value stream: "+s.name+" | Initiative: "+x.name+" ("+x.lob+")",
- "Business outcome: "+x.kpi+" from illustrative "+x.baseline+" to target "+x.target+" (not achieved data)",
+ "Business outcome: "+x.kpi+" from baseline "+x.baseline+" to target "+x.target+" (target outcome)",
  "Schedule: "+m.months.toFixed(1)+" months vs. "+x.duration+" baseline",
  "Financials: "+money(m.eac)+" EAC vs. "+money(x.budget)+" baseline; variance "+money(m.variance),
  "Health: "+m.rag+" | Pilot: "+(m.ready?"All modeled exit controls present":"HOLD — missing QA, operations or partner evidence"),
@@ -214,7 +214,7 @@ function summaryText(){
  "Primary risk: "+x.risk,
  "Decision: "+recommendation(x,m),
  "Cadence: weekly delivery/RAID; monthly finance EAC and business-value report; monthly steering approval review.",
- "Source data: imaginary and instructional, not QBE records."
+ "Source data: sample records for demonstration."
  ].join("\n");
 }
 function recommendation(x,m){
@@ -302,7 +302,7 @@ const tourNotes=[
  "3/6 · Inspect the charter, schedule, team responsibilities, RAID, decisions and release plan.",
  "4/6 · Simulate delays, capacity and release readiness; read the changing executive forecast.",
  "5/6 · Compare waterfall portfolio control with value-stream funding and the first 90 days.",
- "6/6 · Review direct traceability to the Program Manager job description and culture."
+ "6/6 · Explore enterprise delivery capabilities and professional operating principles."
 ];
 $("startTour").addEventListener("click",()=>{const n=state.tour%tourPages.length;route(tourPages[n]);notify(tourNotes[n]);state.tour=n+1;});
 renderAll();route(location.hash.slice(1),false);
