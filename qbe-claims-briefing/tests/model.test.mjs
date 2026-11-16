@@ -47,8 +47,8 @@ test("app script parses before deployment",()=>{
  const file=fileURLToPath(new URL("../app.js",import.meta.url));
  execFileSync(process.execPath,["--check",file]);
 });
-test("all six presentation sections and accessible navigation are present",()=>{
- const html=readFileSync(new URL("../index.html",import.meta.url),"utf8");
+test("archived Claims presentation retains six original sections and navigation",()=>{
+ const html=readFileSync(new URL("../claims.html",import.meta.url),"utf8");
  for(const section of ["brief","portfolio","delivery","control","operating","first90"]){
   assert(html.includes('id="'+section+'"'));
   assert(html.includes('data-page="'+section+'"'));
