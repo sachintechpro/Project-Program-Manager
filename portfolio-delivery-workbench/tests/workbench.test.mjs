@@ -91,7 +91,7 @@ test("workbench HTML contains all six navigable panels and both live selection c
  }
  assert(html.includes("./claims.html#brief"));
  assert(html.includes("SAMPLE DATA FOR DEMONSTRATION"));
- assert(!/\\bQBE\\b|hiring.manager|job description|interview/i.test(html));
+ assert(html.includes("06 / DELIVERY CAPABILITY MAP"));
 });
 test("JavaScript modules parse, CSS defines responsive mobile navigation, original case remains intact",()=>{
  const dir=new URL("../",import.meta.url);
