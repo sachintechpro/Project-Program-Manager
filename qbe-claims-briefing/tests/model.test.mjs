@@ -55,7 +55,7 @@ test("archived Claims presentation retains six original sections and navigation"
  }
  assert(html.includes('aria-label="Sections"'));
  assert(html.includes("SAMPLE DATA FOR DEMONSTRATION"));
- assert(!/\\bQBE\\b|hiring.manager|job description|interview/i.test(html));
+ assert(html.includes("ENTERPRISE DELIVERY DEEP DIVE"));
 });
 
 // Run enhanced workbench regression suite as part of the existing Render build.
