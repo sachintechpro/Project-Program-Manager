@@ -1,4 +1,4 @@
-// Independent interview simulation. All initiatives, budgets and targets are fictional.
+// Enterprise delivery simulation with sample initiative, budget and outcome data.
 export const streams=[
 {id:"underwriting",name:"Submission to Underwriting",kind:"Business",owner:"Commercial & Specialty Underwriting",goal:"Faster underwriting decisions with complete risk evidence",flow:["Broker submission","Risk data validation","Triage / referral","Specialist review","Underwriting decision"],systems:"Underwriting workbench · exposure data · submission portal"},
 {id:"quote",name:"Quote to Bind & Issue",kind:"Business",owner:"Commercial Operations",goal:"Shorter quote-to-bind time with controlled authority",flow:["Price risk","Review terms","Approve referrals","Bind coverage","Issue policy"],systems:"Rating · referral approvals · policy administration"},
@@ -34,7 +34,7 @@ const records=[
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 export const initiatives=records.map((r,index)=>({
  id:slug(r[0]+"-"+r[1]),streamId:r[0],name:r[1],lob:r[2],problem:r[3],future:r[4],kpi:r[5],baseline:r[6],target:r[7],budget:r[8],duration:r[9],dependency:r[10],partners:r[11],risk:r[12],
- priority:index%3===0?"High":index%3===1?"Planned":"Candidate",people:index%3===0?27:index%3===1?23:19,
+ priority:index%3===0?"High":index%3===1?"Planned":"Backlog",people:index%3===0?27:index%3===1?23:19,
  assumptions:"Synthetic teaching data; baselines, targets and budgets require sponsor validation."
 }));
 export const getStream=id=>streams.find(s=>s.id===id)||streams[0];
@@ -58,15 +58,15 @@ export const phases=[
 export const tips={
  financial:"Review monthly actual costs, remaining estimates, contingency, EAC and variance with finance. Obtain sponsor approval for material funding changes.",
  lpm:"Lean Portfolio Management connects value-stream strategy, funding guardrails, prioritized demand, delivery capacity and measured outcomes. Portfolio leadership owns investment decisions.",
- eac:"Estimate at Completion = actual spend plus forecast remaining cost (including known risks). Here it is a simplified hypothetical model, not a measured finance system.",
- rag:"Delivery health signal for cost, schedule, readiness and material decisions. Criteria are illustrative; QBE thresholds would need validation.",
+ eac:"Estimate at Completion = actual spend plus forecast remaining cost (including known risks). Validate assumptions and reconcile with finance records before using actual forecasts.",
+ rag:"Delivery health signal for cost, schedule, readiness and material decisions. Agree thresholds and tolerance rules with the portfolio governance team.",
  phase:"A phase gate is a decision backed by evidence and an authorized approver. Agile delivery can still include risk and financial governance.",
  risk:"Risk = uncertainty that might affect delivery. Issue = problem already occurring. Record impact, owner, mitigation, contingency and escalation date.",
  cp:"Critical path identifies cross-team dependencies that can delay the business milestone even if each sprint succeeds.",
  benefits:"Target outcomes are not achieved benefits. A benefit owner must measure actual operational performance after release.",
  qa:"Release requires a jointly accepted quality, security, business readiness and third-party evidence package—not just completed development.",
  authority:"The delivery manager owns coordination, forecast and escalation. The sponsor / authorized portfolio authority owns investment and material risk acceptance.",
- current:"A demonstration of how project-centric portfolio governance can coexist with Agile delivery teams. This is a scenario, not a verified map of QBE systems.",
+ current:"A demonstration of how project-centric portfolio governance can coexist with Agile delivery teams. Map current governance and delivery practices during discovery.",
  vendor:"Third-party contributors need named commitments, delivery dates, SLAs, acceptance evidence and an escalation owner.",
  coach:"A PM supports existing Agile teams by improving dependency flow, impediment resolution, visibility and cross-team decision-making; not by taking the Scrum Master or Product Owner role.",
  ethics:"Risk management, privacy, authority limits, approvals and sound judgment are part of delivery discipline."
@@ -86,7 +86,7 @@ export const jd=[
  {title:"Program and project delivery",link:"journey",items:["Lead projects/programs to defined business outcomes","Business, IT and third-party team creation","Understand assigned functions, processes and systems","Remove barriers and anticipate risks","Use PM methods and all defined approvals","Manage project interdependencies and overall benefits"]},
  {title:"Finance, schedule and reporting",link:"control",items:["Business cases, estimates, benefits commitments, total cost and contingency","Monthly financial forecasts and budget-overrun communication","Budgeted resources, expenditure anticipation and fiscal accountability","Integrated schedules, resource demand and critical path","Accurate status, decision, meeting records and issue escalation","Primary business sponsor contact and third-party schedule partnership"]},
  {title:"Knowledge and behavioral skills",link:"governance",items:["Expert project techniques and tools; insurance / technology change drivers","Working knowledge of IT solutions, environments, strategies and SDLC","Concise communication to all levels; influence and persuade leaders","Translate improvements into tangible business deliverables","Analyze current versus future state; seek synergy and integration","Adapt plans and priorities; estimate time and people","Coach, mentor and encourage performance; build relationships"]},
- {title:"Experience and QBE expectations",link:"requirements",items:["Bachelor's degree or equivalent; seven years relevant experience","Multi-year complex program experience preferred; PMP preferred; no mandatory certification listed","Individual contributor; infrequent travel approximately 1–4 trips annually","General office environment; computer, phone and headset; extended stationary work; up to 20 pounds equipment lifting","Reasonable accommodation may be provided for essential responsibilities; job duties not exhaustive","Customer-centred · technical experts · diverse · fast-paced · courageous · accountable · a team","Code of Ethics and Conduct; sound risk management","Operating mandate from intake: hands-on Agile delivery, value streams, LPM and business-led transformation"]}
+ {title:"Professional practice and operating principles",link:"requirements",items:["Foundational expertise in enterprise project and program delivery","Complex multi-year program experience, established project disciplines and certification familiarity","Hands-on individual contributor coordinating distributed business and technical teams","Effective collaboration across onsite, hybrid and distributed teams","Accessible and inclusive working practices with adaptable delivery responsibilities","Customer-centred · technical experts · diverse · fast-paced · courageous · accountable · a team","Professional ethics, regulatory obligations and sound risk management","Hands-on Agile delivery, value streams, Lean Portfolio Management and business-led transformation"]}
 ];
 export function scenario(item,{delay=0,squads=0,phased=true,qa=false,ops=true,vendor=false}={}){
  delay=Math.max(0,Math.min(10,Number(delay)||0));squads=Math.max(0,Math.min(3,Number(squads)||0));
