@@ -56,3 +56,6 @@ test("all six presentation sections and accessible navigation are present",()=>{
  assert(html.includes('aria-label="Sections"'));
  assert(html.includes("Illustrative")||html.includes("illustrative"));
 });
+
+// Run enhanced workbench regression suite as part of the existing Render build.
+import "./workbench.test.mjs";
