@@ -90,7 +90,8 @@ test("workbench HTML contains all six navigable panels and both live selection c
   assert(html.includes('id="'+id+'"'),id);
  }
  assert(html.includes("./claims.html#brief"));
- assert(html.includes("ILLUSTRATIVE")||html.includes("Illustrative"));
+ assert(html.includes("SAMPLE DATA FOR DEMONSTRATION"));
+ assert(!/\\bQBE\\b|hiring.manager|job description|interview/i.test(html));
 });
 test("JavaScript modules parse, CSS defines responsive mobile navigation, original case remains intact",()=>{
  const dir=new URL("../",import.meta.url);
