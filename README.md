@@ -15,6 +15,16 @@ It is designed to demonstrate how a SAFe-inspired organization could use AI to a
 
 ---
 
+## Context help and role-aware work assistant
+
+Select **? Help** in the header or the floating **Work assistant** on any page. Small **?** controls beside fields and CSV columns explain what to enter, give an example, and note relevant SAFe or validation rules.
+
+The assistant understands your **signed-in role, current page and selected initiative**. Ask *What should I do next?*, *Which approvals are mine?*, *What evidence is required?*, or *Explain RACI/RAID*. It points to current role decisions and can highlight assigned RAID actions with recorded due dates. Guidance is read-only: it never approves, edits or deploys anything.
+
+**Guided help works immediately without an external model.** Connected AI is optional, enabled only when an organization configures a live OpenAI connector and the user opts in for that request. Minimal role-scoped context is used rather than unrestricted records. See [Context Help and Privacy](./docs/CONTEXT_HELP.md).
+
+---
+
 ## Try the complete initiative journey
 
 1. **Start at the [live application](https://ternstone-valueops-demo.onrender.com/).** Select **Drew Silva — Program / Project Manager**, then open **How to use** for the walkthrough.
