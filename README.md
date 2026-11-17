@@ -25,6 +25,27 @@ The assistant understands your **signed-in role, current page and selected initi
 
 ---
 
+## Interactive value stream mapping
+
+From any **Value streams** card, choose **◇ Interactive value map ↗** (or open the map from an initiative journey). The six-stage workspace starts by defining **customer value**, then captures:
+
+1. **Define value** — beneficiary, trigger, accepted outcome, process boundary, exclusions and mandatory human controls.
+2. **Meet stakeholders** — Business, Product, Insurance SMEs, RTE/ART, FDE/Engineering, Integration/DevOps, QA, Security, Operations, Customer Care and Analytics. Record actual workshop notes, observed delays, decisions, actions, owners and dates.
+3. **Current-state map** — editable steps with owning role, system, touch hours, waiting hours, first-pass quality and pain points.
+4. **Bottlenecks** — ranked queue delays, improvement hypotheses and a link into the existing LPM initiative intake.
+5. **Future-state map** — a visually connected flow with proposed handling/waiting times, controls and improvement opportunities.
+6. **Validate** — record each assigned role's map confirmation or request for changes, inspect versions and export a Markdown decision packet.
+
+Every map and workshop note has version history and an audit trail. An assigned mapping facilitator may change the map; invited stakeholders can author their own meeting notes. **Changes invalidate mapping confirmations**, and each reviewer acts only in their assigned role. Mapping confirmation is **not a funding or release approval**—those stay within the existing portfolio and initiative contracts.
+
+Six domain-specific reference packs under `seed/maps/` cover underwriting, commercial claims, cyber incident response, policy servicing, risk engineering and broker distribution. They include **72 current/future process steps**, 112 role-participation records, 24 discovery prompts and 24 improvement candidates, also available as five readable CSV files.
+
+All process numbers are **modeled examples**. Touch + waiting time indicates illustrative elapsed clock hours; a sum of step estimates is *not* a measured median. No sample agenda is represented as an actual meeting. Real costs and outcomes require verified operational and financial records.
+
+[Read the value stream mapping guide](./docs/VALUE_STREAM_MAPPING.md).
+
+---
+
 ## Try the complete initiative journey
 
 1. **Start at the [live application](https://ternstone-valueops-demo.onrender.com/).** Select **Drew Silva — Program / Project Manager**, then open **How to use** for the walkthrough.
