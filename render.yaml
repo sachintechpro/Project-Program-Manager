@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: ternstone-valueops-demo
+    runtime: python
+    plan: free
+    buildCommand: tar -xJf ternstone-runtime.tar.xz && pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: DEMO_MODE
+        value: 'true'
+      - key: SECURE_COOKIES
+        value: 'true'
