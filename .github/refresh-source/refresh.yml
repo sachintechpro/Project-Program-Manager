@@ -1,0 +1,31 @@
+name: Refresh final source bundle
+on:
+  push:
+    branches: [ternstone-valueops-deploy]
+    paths:
+      - '.github/refresh-source/**'
+permissions:
+  contents: write
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rebuild source bundle from final runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf source_bundle
+          mkdir source_bundle
+          tar -xJf ternstone-runtime.tar.xz -C source_bundle
+          rm -f source_bundle/valueops.db source_bundle/raid_ui.db source_bundle/qa_browser_bridge.db
+          find source_bundle -type d -name __pycache__ -prune -exec rm -rf {} +
+          find source_bundle -type f -name '*.pyc' -delete
+          (cd source_bundle && zip -qr ../Ternstone-ValueOps-Final-Source-QA.zip .)
+          rm -rf source_bundle .github/refresh-source
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add Ternstone-ValueOps-Final-Source-QA.zip
+          git rm -r .github/refresh-source
+          git commit -m 'Refresh final source bundle with RAID UI' || exit 0
+          git push
