@@ -1,253 +1,151 @@
 # Ternstone ValueOps
 
-### 🚀 [Launch the Live Application on Render](https://ternstone-valueops-demo.onrender.com/)
+### [▶ Open the live application on Render](https://ternstone-valueops-demo.onrender.com/)
 
-**Live URL:** https://ternstone-valueops-demo.onrender.com/  
-**Demo access:** Open the application, select a stakeholder persona, and use **How to use** to follow the guided journey. No external credentials are required for the public demo.
+**Start here:** [https://ternstone-valueops-demo.onrender.com/](https://ternstone-valueops-demo.onrender.com/) · **No account required for the public demo** · **Optimized for desktop and mobile**
 
-**AI-native value stream delivery · Lean Portfolio Management · Commercial & Specialty Insurance**
+**Operating System for Value Stream SAFe Agile Delivery Tracker**  
+Commercial & specialty insurance · Lean Portfolio Management · SAFe-inspired Agile delivery · Evidence-based governance
 
-Ternstone ValueOps is an interactive enterprise delivery reference application. It connects **portfolio investment decisions → business and product requirements → FDE-assisted implementation → independent assurance → release → operations handover → benefits review** through versioned Markdown contracts, role-specific decisions, linked insurance reference data, and audit history.
+Ternstone is an interactive portfolio-to-value delivery demonstration. **Visitors should use the application—not just read its documentation.** Choose a stakeholder role, follow a realistic insurance initiative, inspect the value stream maps, and make the role-specific decisions that move work through delivery.
 
-It is designed to demonstrate how a SAFe-inspired organization could use AI to accelerate technical work **without removing human decision authority**. It does not use another insurer's proprietary data or branding.
+> **Important:** Ternstone is a fictional insurer. Customer/financial figures, KPI targets, stakeholder workshop records and operational scenarios are modeled. Real insurer policy administration, claims, finance and external collaboration systems are not connected by default.
 
-> **Demo scope:** Real, working application workflows with modeled insurance records and simulated third-party integrations. The example investments, approvals, test cases, operational baselines and projected benefits are illustrative—not live insurer outcomes.
+## Quick start — what to click
 
----
+| Time | In the application | What you will see |
+|---|---|---|
+| 0:00 | **Open the live demo** and choose **Drew Silva — Program Manager** | A role-aware command center and left-side navigation |
+| 0:30 | **Value Streams → Commercial Underwriting → Interactive Value Map** | Define value, meeting agendas, current-state map, wait-time charts, improvement ideas, future-state comparisons and reviewer decisions |
+| 1:30 | **Initiative Journeys → Workers' Compensation submission** | Eight delivery stages with owners, contract artifacts, role controls, dependencies and evidence |
+| 2:30 | **RACI Matrix** and **RAID Register** | Specific R/A/C/I stakeholder titles, risk owners, actions and due dates |
+| 3:00 | Switch to **Tessa Reed — QA Lead**, then **Rowan Ellis — Release Manager** | A different set of allowed actions and independent approvals |
+| 4:00 | Scroll the **left menu to its bottom → QA Test Bench** | Test strategy, real execution evidence, component coverage, API/performance data, known gaps, and independently recorded demo Go/No-Go decisions |
 
-## Context help and role-aware work assistant
+**Suggestion:** Start with one value stream and stay with it through its linked initiatives, artifacts, roles and test evidence. Changing personas demonstrates access control and separation of responsibilities.
 
-Select **? Help** in the header or the floating **Work assistant** on any page. Small **?** controls beside fields and CSV columns explain what to enter, give an example, and note relevant SAFe or validation rules.
+## Guided tour 1 — From a business problem to a value stream
 
-The assistant understands your **signed-in role, current page and selected initiative**. Ask *What should I do next?*, *Which approvals are mine?*, *What evidence is required?*, or *Explain RACI/RAID*. It points to current role decisions and can highlight assigned RAID actions with recorded due dates. Guidance is read-only: it never approves, edits or deploys anything.
+1. As **Program Manager**, select **Value Streams**, then **Interactive Value Map** on an insurance card.
+2. Start with **Define Value**: identify the customer, trigger, accepted outcome, scope and mandatory human review.
+3. Use **Meet Stakeholders** to see suggested Business, Product, Underwriting/Claims, Architecture, FDE, DevOps/Integration, QA, Security, Operations and Analytics involvement. Record your own notes and actions; example workshop prompts are not claimed as meetings that occurred.
+4. Inspect the **Current State** flow and graphical touch-versus-wait time. Select a process bar to see its owners, source evidence, exceptions and handoffs.
+5. Explore **Bottlenecks**, compare **Future State**, and open **Validate & Hand Off** to request information, decline or approve the map in an authorized reviewer role. This map confirmation **does not authorize portfolio funding**.
+6. Return to **Initiative Journeys** to see how improvements become governed work.
 
-**Guided help works immediately without an external model.** Connected AI is optional, enabled only when an organization configures a live OpenAI connector and the user opts in for that request. Minimal role-scoped context is used rather than unrestricted records. See [Context Help and Privacy](./docs/CONTEXT_HELP.md).
+Six usable insurance maps are included: **Commercial Underwriting, Commercial Claims, Cyber Response, Policy Servicing/Billing, Risk Engineering, and Broker Distribution**. Cycle-time numbers are illustrative hypotheses, not real measured operational results.
 
----
+## Guided tour 2 — Execute an Agile portfolio initiative
 
-## Detailed graphical maps, domain evidence and three reviewer decisions
+| Stage | Practical work | Who decides? |
+|---|---|---|
+| 1. Portfolio | Define need, value hypothesis, investment and portfolio priority | Business / Lean Portfolio leadership and Finance, per control |
+| 2. Product | Confirm requirements, business rules and acceptance criteria | Product and Business/Insurance SME roles |
+| 3. Architecture | Identify interfaces, architecture, dependencies, ART readiness | Architects, integration and RTE stakeholders |
+| 4. AI Execution | Build and document the technical implementation and review evidence | FDE / Engineering reviewers |
+| 5. QA & Security | Validate requirements, defects, security and independent evidence | QA and Security leads |
+| 6. Release | Confirm deployment, change approval and rollback | Release Manager and appropriate operations roles |
+| 7. Operations | Confirm runbooks, support ownership and customer care | Operations and Customer Care |
+| 8. Benefits | Compare verified outcomes to approved hypotheses | Business/value stream owner and Analytics |
 
-The six commercial and specialty insurance value-stream maps now include an interactive **touch-versus-wait bar chart**, a before/target comparison for each process stage, and click-to-inspect process evidence. Tooltips explain customer value, active effort, elapsed waiting, first-pass quality, process controls and modeled estimates.
+**Try this:** Open a sample initiative, use **Generate Markdown contracts**, review its stage controls, switch to the assigned reviewer using the persona selector, then approve or request changes. Return to the initiative to see what remains before the next gate. Every stage is intended to preserve the record of who did what and why.
 
-Select **Value Streams → Interactive Value Map**. Each reference map has six current and six proposed future steps. The linked CSV catalog under `seed/maps/` adds 72 process evidence records, 48 role review checklists and 30 workshop questions. The data covers commercial underwriting, commercial claims, cyber incident response, policy servicing and billing, risk engineering, and broker distribution.
+## Guided tour 3 — QA Test Bench and Go/No-Go
 
-During **Validate & Hand Off**, authorized reviewers now choose **Approve Map**, **Decline**, or **Ask for More Information** with an explanation. A separate authorized mapping facilitator answers a request, optionally naming a source document. The original reviewer must approve or decline afterward; an answer never becomes an automatic approval. Review decisions are version-specific, role-scoped, audited and included in Markdown exports. Updating the map or meeting minutes invalidates the prior review state. Approval of the map does **not** authorize LPM investment.
+At the **bottom of the left sidebar**, choose **QA Test Bench**.
 
-**Important:** Business volumes, lead times, and proposed improvements are explicitly modeled reference values. The charts are illustrative; they must not be treated as observed insurer performance or results from executed production queries.
+- **Start at Current readiness.** A **local demonstration GO candidate** is separate from **NO-GO for insurer production**.
+- **Click “Check live readiness”** to run a lightweight, safe check of the current app and evidence files. This is not a traffic generator.
+- **Examine Strategy & Adequacy**, component-level coverage, actual start/end and execution duration.
+- **Filter the test case table** by passed, failed, blocked, not run, automated or manual. Test IDs link back to the source test names and evidence files in the full source archive.
+- **Compare measured local p95 latency** with explicitly defined project test targets. Google Core Web Vitals and Google SRE benchmarks are listed for context but shown as **not measured** where no real field telemetry exists.
+- **Review integrations:** simulated provider checks are not called live integration success.
+- Switch to **Tessa Reed (QA)** to enter a demo-specific GO/NO-GO/Request Evidence decision; switch to **Rowan Ellis (Release Manager)** to make the independent release decision. All such decisions are audited and scoped **only to the demonstration**.
 
-[Full mapping and review guidance](./docs/VALUE_STREAM_MAPPING.md).
+**Latest isolated QA execution:** 88 recorded cases: **77 passed, 0 failed, 5 blocked, 6 not run**. The 77 passed cases include 34 backend tests, 38 browser interaction checks, 3 bounded local load runs and 2 visual reviews. The blocked cases require real provider credentials; production soak, field Web Vitals, backup/restore and independent security checks are outstanding. See [Final QA evidence and Go/No-Go](docs/RELEASE_QA.md).
 
----
+## Which stakeholder role should I pick?
 
-## Interactive value stream mapping
-
-From any **Value streams** card, choose **◇ Interactive value map ↗** (or open the map from an initiative journey). The six-stage workspace starts by defining **customer value**, then captures:
-
-1. **Define value** — beneficiary, trigger, accepted outcome, process boundary, exclusions and mandatory human controls.
-2. **Meet stakeholders** — Business, Product, Insurance SMEs, RTE/ART, FDE/Engineering, Integration/DevOps, QA, Security, Operations, Customer Care and Analytics. Record actual workshop notes, observed delays, decisions, actions, owners and dates.
-3. **Current-state map** — editable steps with owning role, system, touch hours, waiting hours, first-pass quality and pain points.
-4. **Bottlenecks** — ranked queue delays, improvement hypotheses and a link into the existing LPM initiative intake.
-5. **Future-state map** — a visually connected flow with proposed handling/waiting times, controls and improvement opportunities.
-6. **Validate** — record each assigned role's map confirmation or request for changes, inspect versions and export a Markdown decision packet.
-
-Every map and workshop note has version history and an audit trail. An assigned mapping facilitator may change the map; invited stakeholders can author their own meeting notes. **Changes invalidate mapping confirmations**, and each reviewer acts only in their assigned role. Mapping confirmation is **not a funding or release approval**—those stay within the existing portfolio and initiative contracts.
-
-Six domain-specific reference packs under `seed/maps/` cover underwriting, commercial claims, cyber incident response, policy servicing, risk engineering and broker distribution. They include **72 current/future process steps**, 112 role-participation records, 24 discovery prompts and 24 improvement candidates, also available as five readable CSV files.
-
-All process numbers are **modeled examples**. Touch + waiting time indicates illustrative elapsed clock hours; a sum of step estimates is *not* a measured median. No sample agenda is represented as an actual meeting. Real costs and outcomes require verified operational and financial records.
-
-[Read the value stream mapping guide](./docs/VALUE_STREAM_MAPPING.md).
-
----
-
-## Try the complete initiative journey
-
-1. **Start at the [live application](https://ternstone-valueops-demo.onrender.com/).** Select **Drew Silva — Program / Project Manager**, then open **How to use** for the walkthrough.
-2. Open **Value streams** to inspect the six reference streams or create a new one.
-3. Open **Initiative journeys → New initiative**. Select a value stream and a commercial or specialty insurance example, or start with a blank initiative.
-4. Review **Scenario data**. The example imports linked requirements, business rules, fields, interfaces, test cases, risks, dependencies, cost assumptions, metrics, release checks and handover tasks. The original intake author can edit draft records.
-5. Open **RACI matrix** and **RAID register** to create accountable assignments and track risks, assumptions, issues and dependencies. Only the record's author may revise it; authorized other roles have read-only visibility.
-6. Open **Contract library / Initiative journey** to produce the stage's Markdown deliverables. Then switch to the relevant persona and use **Approval inbox** and **My role decisions** to approve, confirm, attest or request corrections.
-7. Follow the initiative through the eight stage gates to operations handover and benefits closure. Download the initiative's evidence ZIP, review revisions and inspect **Evidence ledger**.
-
-**Recommended first walkthrough:** A Workers' Compensation underwriting submission initiative. Review its business rules, planned QA cases, modeled cycle-time baseline and target, and different underwriting/product/engineering/quality approvals. The sample data is intentionally labeled and should not be confused with real measured business outcomes.
-
-### Eight lifecycle stages
-
-| Stage | Primary output / decision |
+| Want to evaluate… | Pick this persona |
 |---|---|
-| 1. **Portfolio** | Portfolio epic, Lean business case, intake completeness and funding/sequence authorization |
-| 2. **Product** | BRD, PRD, acceptance criteria and applicable business/insurance SME decisions |
-| 3. **Architecture** | Technical plan, interface/data contract, architecture and ART dependency review |
-| 4. **AI execution** | FDE implementation handoff, build evidence and engineering reviews |
-| 5. **QA / Security** | Independent validation evidence, defects and applicable security/compliance reviews |
-| 6. **Release** | Build-specific release approval, deployment and rollback readiness |
-| 7. **Operations** | Runbook, support ownership and Customer Care handover |
-| 8. **Benefits** | Measurement evidence, accountable business acceptance and closure |
+| Integrated project/program planning, dependency and RAID tracking | **Drew Silva — Program Manager** |
+| Strategic sequencing and investment controls | **Mara Chen — Portfolio Leader** |
+| Product requirements and customer acceptance | **Leila Grant — Product Owner** |
+| Agile Release Train and PI coordination | **Emerson Gray — Release Train Engineer** |
+| Technical execution and implementation evidence | **Noah Park — FDE** |
+| Independent test cases, validation and QA readiness | **Tessa Reed — QA Lead** |
+| Deployment and release authorization | **Rowan Ellis — Release Manager** |
+| Operational handover | **Samir Wells — Operations Lead** |
+| Benefits measurement | **Olivia Kerr — Benefits Analyst** |
 
-Every required contract and mandatory role control must be satisfied before advancing. Approvals bind to a particular artifact version; later edits create a revision and can invalidate earlier approvals. Certain specialized reviews are conditional on the type and risk of the initiative.
+There are **29 modeled roles**. You can switch roles using the selector at the top of the workspace. Roles receive different documents, financial visibility and allowed actions; selecting a privileged platform role does not bypass business approvals.
 
-## What's included
+## Additional things visitors can try
 
-| Area | Capability |
+**Context help:** Select **? Help** on a page or field, or use the floating **Work assistant**. Ask *What should I do next?*, *Which approvals are assigned to me?*, or *Explain this number.* Guided answers work without external AI and do not make business decisions for you.
+
+**RACI / RAID:** Add an assignment or risk with an authorized role. The R/A/C/I columns show the chosen stakeholder titles. Record ownership and review history separately from the author who entered the row.
+
+**Evidence:** Export Markdown contracts or an initiative evidence ZIP. Inspect approvals, revision history and the audit ledger, with appropriate role visibility.
+
+**Insurance data:** The examples are supported by **16 small normalized CSV tables** and six value stream mapping packs rather than arbitrary text on disconnected cards. Schema definitions and record IDs link requirements, rules, KPIs, tests and controls.
+
+## What is working, and what is simulated?
+
+| Capability | Implementation status |
 |---|---|
-| **Insurance portfolio** | 6 example development value streams and 9 initiatives across commercial and specialty lines |
-| **Stakeholders** | 29 modeled roles with role-focused workspaces, information visibility and responsibility-specific control actions |
-| **Contracts** | 108 example Markdown contracts with requirement-to-evidence lineage |
-| **Reference data** | 16 small, normalized CSV tables; 550 modeled reference rows; schema and plain-English data dictionary |
-| **Delivery governance** | Eight sequential stage gates, approval inbox, role decisions, RACI and RAID |
-| **Editing** | Authorized creation and draft editing; author-only RACI/RAID updates; protected approved intake |
-| **Evidence** | Document revisions, audit events, evidence exports and in-app event updates |
-| **Integration center** | Simulated GitHub, Jira Cloud, Confluence Cloud, SharePoint/Microsoft Graph and OpenAI workflows |
+| Role-based workspaces, eight delivery stages, approvals and audit | Functional in-app demonstration |
+| Value stream maps, process graphics, stakeholder notes and reviews | Functional using modeled data, with editable records by authorized roles |
+| RACI/RAID, contracts, versioning, exported evidence | Functional in-app demonstration |
+| Role-aware guided help, QA Test Bench, demo Go/No-Go | Functional, scoped to the demonstration |
+| Provider adapters (GitHub, Jira, Confluence, SharePoint, OpenAI) | Default **simulated**; live integration depends on explicitly configured scoped credentials and must be separately verified |
+| Production monitoring, real insurer source-system KPIs and actual outcomes | **Not configured or verified** |
+| Durable production data, enterprise SSO, formal security certification | **Not available** in the public free-tier demo |
 
-### Example value streams
+**Persistence warning:** The public Render service uses SQLite on ephemeral storage. Data and demo sign-offs may reset after restart or redeployment. Do not put confidential information into this demo.
 
-- **Underwriting and Quoting:** submission intake, completeness, underwriting rules and quote turnaround
-- **Claims and Recovery:** commercial claims triage, evidence, reserves and coordination
-- **Cyber Incident Response:** cyber coverage, response coordination and specialist workflows
-- **Policy Servicing and Billing:** endorsements, billing reconciliation and policy service
-- **Risk Engineering and Prevention:** commercial property inspections and risk recommendations
-- **Broker and Distribution Experience:** broker submission status, document exchange and service transparency
+## Source, tests and deployment
 
-The initiatives span Workers' Compensation, Commercial Property, General Liability, Cyber, Marine Cargo, Commercial Auto, Construction and multi-line distribution. Their modeled counts, budgets, benefit hypotheses and cycle-time targets are examples for evaluating the workflow.
+**Live:** https://ternstone-valueops-demo.onrender.com/  
+**GitHub branch:** [ternstone-valueops-deploy](https://github.com/sachintechpro/Project-Program-Manager/tree/ternstone-valueops-deploy)  
+**Full source bundle:** [`Ternstone-ValueOps-Final-Source-QA.zip`](Ternstone-ValueOps-Final-Source-QA.zip)  
+**Detailed QA results:** [`docs/RELEASE_QA.md`](docs/RELEASE_QA.md)  
+**Value mapping guide:** [`docs/VALUE_STREAM_MAPPING.md`](docs/VALUE_STREAM_MAPPING.md)
 
-## RACI matrix — role-specific assignments
+This deployment branch intentionally keeps the runtime packaged as `ternstone-runtime.tar.xz` to isolate it from other tools in the shared repository. It contains `app/`, `seed/` and `requirements.txt`. The full source ZIP additionally contains the tests, QA evidence, scripts and explanatory documents.
 
-The **RACI matrix** now lists **Responsible (R)**, **Accountable (A)**, **Consulted (C)** and **Informed (I)** as separate columns, showing the exact stakeholder titles assigned to each activity. The **Recorded by** column identifies the author of the entry; that user is not automatically accountable for all the work.
-
-Each seeded insurance initiative has six relevant example activities: portfolio prioritization, business requirements, technical delivery, independent validation, release/handover and benefits management. Their RACI roles vary with the activity and line of business. New or revised entries preserve the selected role IDs in the API and display readable titles in exported Markdown.
-
-Existing user-authored RACI entries and historical revisions are **not automatically rewritten**. The original authorized author can edit a saved record to assign the correct roles.
-
----
-
-## Roles, permissions and human decisions
-
-The modeled organization includes executive leadership, Lean Portfolio Management, VMO, Finance, business owners, Epic Owners, Product Managers and Product Owners, RTEs, Project/Program Managers, Agile coaches, FDEs, engineers, architects, integration leads, QA, security, risk/legal, insurance SMEs, audit, vendors, release managers, operations, Customer Care, analytics and administrators.
-
-**Roles see only the information needed for their responsibilities.** For example, QA receives test and validation information rather than portfolio budgets; Finance and authorized portfolio roles receive investment information. Platform administration does not automatically grant business-document approval or access.
-
-A role's action may be **Approve**, **Confirm** or **Attest**, according to its authority. It is not a universal approval button. Required controls block the workflow; advisory reviews are recorded but do not independently authorize progression.
-
-These control assignments model one fictional insurer's operating policy; they are **not** universal mandatory SAFe roles or artifacts.
-
-## Editable, linked example data
-
-The reference catalog is deliberately split into small CSVs rather than one large spreadsheet or an opaque JSON fixture:
-
-```text
-seed/
-  value-streams/           # Markdown value-stream profiles
-  scenarios/               # Initiative-specific Markdown contract examples
-  contracts/               # Contract schema
-  registers/               # RACI and RAID templates
-  data/
-    schema.json            # Data types, required fields and references
-    value_streams.csv
-    initiatives.csv
-    business_steps.csv
-    requirements.csv
-    business_rules.csv
-    data_fields.csv
-    interfaces.csv
-    test_cases.csv
-    risks.csv
-    dependencies.csv
-    stakeholder_assignments.csv
-    metrics.csv
-    cost_estimates.csv
-    release_controls.csv
-    handover_tasks.csv
-    role_approval_controls.csv
-```
-
-The reference data uses stable identifiers to link requirements, tests, interfaces, costs, metrics and the originating initiative. Validation checks missing mandatory fields, duplicate IDs, foreign-key references and cost/metric consistency.
-
-**Source examples stay unchanged.** Creating an initiative copies its reference records into the application's versioned working records. The original author can update draft rows during portfolio intake. Once portfolio approval exists, the initial scope and assumptions cannot be silently rewritten. A complete controlled-change workflow remains a future enhancement.
-
-Test cases begin as **not run**, and realized benefits begin as **unmeasured**. Planned evidence is not represented as completed execution.
-
-## Application architecture
-
-```text
-Browser: role-specific responsive dashboard
-                 |
-         FastAPI application
-        /      |         \
-  Workflow   Contract    Integration
-  and RBAC   revisions   adapters
-        \      |         /
-           SQL database
- Streams, initiatives, documents, approvals,
- role controls, revision history and audit events
-                 |
-        In-app event updates
-```
-
-- **Backend:** Python, FastAPI, SQLAlchemy; PostgreSQL-capable storage, with SQLite for this public demonstration.
-- **Frontend:** Responsive HTML/CSS/JavaScript with role-scoped screens and editable forms.
-- **Contracts:** Versioned Markdown documents with traceable references and evidence ZIP export.
-- **Audit:** Application-level event history, digest checks and version-aware approvals.
-- **AI:** Can produce reviewable planning drafts when an authorized provider is configured; it does **not** autonomously modify an enterprise codebase or production data.
-- **Integrations:** Default to safe simulation. Live provider configuration supports limited credential verification and publication of approved contracts, **not full bidirectional enterprise synchronization**.
-
-### Integration options
-
-| Provider | Current supported demonstration |
-|---|---|
-| GitHub | Verify access and create an issue containing an approved contract |
-| Jira Cloud | Verify access and create a Task |
-| Confluence Cloud | Verify access and publish a Markdown-based page |
-| SharePoint / Microsoft Graph | Verify approved access and upload a Markdown document |
-| OpenAI | Generate a technical-planning draft for explicit human review |
-
-Provider credentials and permissions must be configured by an authorized administrator; none are bundled with the demo.
-
-## Run locally from this deployment branch
-
-This branch intentionally packages the deployable runtime in **[`ternstone-runtime.tar.xz`](./ternstone-runtime.tar.xz)** to isolate Ternstone from the repository's other application branches.
+For a local run from the full source bundle:
 
 ```bash
-git clone --branch ternstone-valueops-deploy --single-branch \
-  https://github.com/sachintechpro/Project-Program-Manager.git
-cd Project-Program-Manager
-
-tar -xJf ternstone-runtime.tar.xz
 python -m venv .venv
-source .venv/bin/activate   # Windows PowerShell: .venv\Scripts\Activate.ps1
+source .venv/bin/activate   # Windows: .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-
-# Example on macOS / Linux
-export DEMO_MODE=true
+export DEMO_MODE=true       # PowerShell: $env:DEMO_MODE="true"
 uvicorn app.main:app --host 127.0.0.1 --port 8000
 ```
 
-Open **http://127.0.0.1:8000**.
+Open `http://127.0.0.1:8000`. Run backend tests on an **isolated disposable database**, for example:
 
-The **complete development source package** (including tests, data validation scripts, documents, and Docker configuration) is distributed separately from this deployment-only branch. When using that package, run `pytest -q tests/` and `python scripts/validate_reference_csv.py`. The deployment archive itself contains `app/`, `seed/` and `requirements.txt`, but not the full testing/tooling tree.
+```bash
+DEMO_MODE=true SECRET_KEY=qa-local DATABASE_URL=sqlite:///./qa_fresh_test.db PYTHONPATH=. pytest -q tests/
+```
 
-### Render deployment
+To test locally, use `scripts/browser_final_qa.py` (Chromium, bridge to in-process FastAPI) and `scripts/performance_final_qa.py` (bounded local ASGI read traffic); neither script stress-tests public Render.
 
-**[Open deployed instance](https://ternstone-valueops-demo.onrender.com/)** · [Render service dashboard](https://dashboard.render.com/web/srv-dbtvhb0u01pc73d7s7eg)
+The Render service builds with:
 
-Render extracts the runtime archive, installs requirements and launches `uvicorn app.main:app --host 0.0.0.0 --port $PORT`. The current demonstration uses `DEMO_MODE=true` and SQLite on a free instance.
+```bash
+tar -xJf ternstone-runtime.tar.xz && pip install -r requirements.txt
+```
 
-**Important:** SQLite data on this instance is not durable across restarts or redeployments. Do not rely on the public demonstration for permanent project records.
+and starts with:
 
-## Production-readiness boundary
+```bash
+uvicorn app.main:app --host 0.0.0.0 --port $PORT
+```
 
-This is a functional, auditable **reference implementation**, not a certified production insurance platform. Before connecting actual company data or operating a real insurer's delivery process, the implementation needs:
-
-- Persistent managed PostgreSQL, schema migrations, backups, restore/DR procedures and monitoring.
-- Enterprise SSO/MFA, user lifecycle management, initiative/LOB-level authorization and regular access reviews.
-- Hardened secrets, encrypted data handling, rate limits, penetration testing and accessibility validation.
-- Independent, durable audit retention beyond application-local event digests.
-- Secure, organization-approved integrations, webhook verification, retries, reconciliation and provider-specific scopes.
-- Real source-system operational telemetry and Finance-validated financial actuals/realized benefits.
-- Production AI execution controls, independent quality evidence and explicit change-management authority.
-
-The application demonstrates **how the governance, role decisions, documents and evidence connect**. It does not claim to be connected to a live carrier's underwriting, claims, billing or financial systems.
+For production use, implement managed PostgreSQL, migrations, backups and restore verification; SSO/MFA and finer-grained authorization; separate durable audit retention; production-grade security controls and monitoring; actual enterprise connectors; and business-verified source telemetry and benefit measurements.
 
 ---
 
-**[▶ Launch Ternstone ValueOps](https://ternstone-valueops-demo.onrender.com/)** · **[View deployment branch source](https://github.com/sachintechpro/Project-Program-Manager/tree/ternstone-valueops-deploy)**
+**[▶ Start the interactive Ternstone ValueOps demo](https://ternstone-valueops-demo.onrender.com/)** · **[View the final QA report](docs/RELEASE_QA.md)**
