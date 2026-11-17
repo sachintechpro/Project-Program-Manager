@@ -37,3 +37,22 @@ The Markdown export includes value definition, process steps, modeled KPI calcul
 Elapsed = active touch + waiting **clock hours**. Modeled flow efficiency = touch / elapsed × 100. Modeled first-pass yield multiplies step rates under a simplifying assumption. Do not claim the end-to-end median equals a sum of stage medians; measure actual case start/finish events with source-system telemetry. Monthly volumes, current/future durations, and improvement ideas are *fictional planning assumptions*.
 
 The public Render demonstration uses ephemeral SQLite and simulated third-party data. For real enterprise use, deploy managed Postgres, SSO/ABAC, independent audit retention, secure event integrations and verified financial/operational measurements.
+
+## Evidence-rich graphs and role decisions
+
+Every process step now offers an interactive time bar on the **same scale** for current and future flows, showing active handling separately from waiting time. Select a bar to inspect the business input or outcome, system-of-record source to check, stakeholder handoff, required control, negative path and proposed improvement. An equivalent before/target paired chart highlights potential changes at each handoff. Every chart explicitly distinguishes modeled estimates from measured insurer performance.
+
+The three additional small CSVs in `seed/maps/` are:
+- `step_evidence.csv`: **72 rows**, keyed by value stream, current/future state and process-step ID, with operational artifacts, source evidence, handoff and exception.
+- `role_review_guidance.csv`: **48 rows**, keyed by value stream and assigned review role, with the reviewer's decision question and required evidence.
+- `workshop_questions.csv`: **30 rows**, keyed by value stream and agenda order; these are discussion prompts, not records of meetings held.
+
+Review choices:
+- **Approve**: a role-specific, evidence-supported acceptance of the mapping facts. A genuine recorded discovery workshop is required.
+- **Decline**: formal rejection with the specific correction needed. A revision is needed before the rejected map can be approved by all.
+- **Ask for more information**: an assigned reviewer requests particular data or evidence; the assigned mapping facilitator (never the same reviewer) replies with a traceable answer and optional source. The reviewer then issues a new decision. No automatic acceptance follows an answer.
+
+The server checks assigned roles, evidence comment length, current map version and facilitator/reviewer separation. Each action enters the audit history. A map or meeting edit changes the mapping version and makes earlier role approvals stale. Mapping approvals and **LPM funding approvals remain separate**.
+
+Use `pytest -q tests/` to run the 30 regression tests and `PYTHONPATH=. python scripts/browser_vsm_mobile_review.py` to exercise the mobile graphical views. The application source zip contains these test scripts and the supporting data catalog.
+

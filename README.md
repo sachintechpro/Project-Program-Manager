@@ -25,6 +25,20 @@ The assistant understands your **signed-in role, current page and selected initi
 
 ---
 
+## Detailed graphical maps, domain evidence and three reviewer decisions
+
+The six commercial and specialty insurance value-stream maps now include an interactive **touch-versus-wait bar chart**, a before/target comparison for each process stage, and click-to-inspect process evidence. Tooltips explain customer value, active effort, elapsed waiting, first-pass quality, process controls and modeled estimates.
+
+Select **Value Streams → Interactive Value Map**. Each reference map has six current and six proposed future steps. The linked CSV catalog under `seed/maps/` adds 72 process evidence records, 48 role review checklists and 30 workshop questions. The data covers commercial underwriting, commercial claims, cyber incident response, policy servicing and billing, risk engineering, and broker distribution.
+
+During **Validate & Hand Off**, authorized reviewers now choose **Approve Map**, **Decline**, or **Ask for More Information** with an explanation. A separate authorized mapping facilitator answers a request, optionally naming a source document. The original reviewer must approve or decline afterward; an answer never becomes an automatic approval. Review decisions are version-specific, role-scoped, audited and included in Markdown exports. Updating the map or meeting minutes invalidates the prior review state. Approval of the map does **not** authorize LPM investment.
+
+**Important:** Business volumes, lead times, and proposed improvements are explicitly modeled reference values. The charts are illustrative; they must not be treated as observed insurer performance or results from executed production queries.
+
+[Full mapping and review guidance](./docs/VALUE_STREAM_MAPPING.md).
+
+---
+
 ## Interactive value stream mapping
 
 From any **Value streams** card, choose **◇ Interactive value map ↗** (or open the map from an initiative journey). The six-stage workspace starts by defining **customer value**, then captures:
