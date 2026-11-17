@@ -1,0 +1,29 @@
+name: One-time Ternstone copy audit
+on:
+  push:
+    branches: [ternstone-valueops-deploy]
+permissions:
+  contents: write
+jobs:
+  sanitize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Audit and repack deployed sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          tar -xJf ternstone-runtime.tar.xz
+          python branding_cleanup.py
+          python -m compileall -q app
+          node --check app/static/app.js
+          tar -cJf ternstone-runtime.tar.xz app seed requirements.txt
+          rm -rf app seed requirements.txt
+          git rm -f branding_cleanup.py .github/workflows/ternstone-copy-audit.yml
+          git add ternstone-runtime.tar.xz
+          git config user.name "ValueOps Release Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Remove outside insurer references from ValueOps demo and contract catalog"
+          git push origin HEAD:ternstone-valueops-deploy
