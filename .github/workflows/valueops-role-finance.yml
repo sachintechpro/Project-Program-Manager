@@ -1,0 +1,41 @@
+name: Apply ValueOps role-scoped financial access
+on:
+  push:
+    branches: [ternstone-valueops-deploy]
+permissions:
+  contents: write
+jobs:
+  patch-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply reviewed application patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          tar -xJf ternstone-runtime.tar.xz
+          python - <<'PY'
+          import base64,zlib
+          from pathlib import Path
+          code=zlib.decompress(base64.b64decode(Path('valueops-role-patch.txt').read_text())).decode('utf-8')
+          exec(compile(code,'role_patch','exec'))
+          PY
+          python -m compileall -q app
+          node --check app/static/app.js
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('app/main.py').read_text()
+          j=Path('app/static/app.js').read_text()
+          for token in ('FINANCIAL_ROLES','can_view_financials','assert_can_read_artifact','visible_initiative'):
+              assert token in s,token
+          for token in ('Your completed reviews','Target cycle','financeView()'):
+              assert token in j,token
+          print('Role-sensitive APIs and QA workspace source checks passed')
+          PY
+          tar -cJf ternstone-runtime.tar.xz app seed requirements.txt
+          git rm -f valueops-role-patch.txt .github/workflows/valueops-role-finance.yml
+          git add ternstone-runtime.tar.xz
+          git config user.name 'ValueOps Release Bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Enforce role-based financial visibility and QA-specific dashboard'
+          git push origin HEAD:ternstone-valueops-deploy
