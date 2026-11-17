@@ -1,0 +1,94 @@
+--- /tmp/old/app/static/app.js	2026-11-17 19:24:49.000000000 +0000
++++ /tmp/new/app/static/app.js	2026-11-17 20:10:43.081891072 +0000
+@@ -80,21 +80,62 @@
+  const list=Array.isArray(roles)?roles:[];
+  return `<td class="raci-role-col"><div class="raci-mobile-label">${heading}</div>${list.length?list.map(r=>`<span class="raci-role-tag">${H(roleName(r))}</span>`).join(''):'<span class="muted">—</span>'}</td>`;
+ }
++function raidColor(value, kind='status'){
++ const v=String(value||'').toLowerCase();
++ const palette=kind==='type'?{risk:'raid-risk',assumption:'raid-assumption',issue:'raid-issue',dependency:'raid-dependency'}:kind==='priority'?{low:'raid-low',medium:'raid-medium',high:'raid-high',critical:'raid-critical'}:{open:'raid-open',monitoring:'raid-monitoring',mitigating:'raid-mitigating',escalated:'raid-escalated',resolved:'raid-resolved',closed:'raid-closed'};
++ return palette[v]||'raid-neutral';
++}
++function raidTip(label){
++ const tips={
++  context:'The value stream or initiative this RAID item belongs to. Use one clear scope so the owner knows where to act.',
++  title:'Write the issue in plain English: cause, condition or decision that needs attention.',
++  type:'Risk = may happen. Assumption = believed true. Issue = already happened. Dependency = another party or activity must deliver first.',
++  priority:'How urgent and consequential the item is. Critical can threaten a committed milestone, regulatory need or major business outcome.',
++  status:'Current condition of the item. Keep it current as the work moves from open to mitigation or resolution.',
++  owner_role:'The named role accountable for driving the next action. This is not automatically the person who created the record.',
++  due_date:'Date by which the next action or resolution is needed. Escalate if this date threatens a delivery milestone.',
++  evidence_ref:'Reference to the contract, decision, test, meeting note or other evidence that supports the item. The reference itself is not proof unless it exists and is current.',
++  response:'What will happen next: impact, mitigation, decision needed, owner action and escalation path.'
++ };
++ return tips[label]||'';
++}
++function raidRecordCard(x){
++ const f=x.fields||{};
++ const scope=x.initiative_id?`INIT-${x.initiative_id}`:`VS-${x.value_stream_id}`;
++ const owner=f.owner_role?roleName(f.owner_role):'Unassigned';
++ const due=f.due_date||'No date set';
++ const overdue=f.due_date&&f.due_date<new Date().toISOString().slice(0,10)&&!['resolved','closed'].includes(f.status);
++ return `<article class="raid-record ${raidColor(f.priority,'priority')}" data-raid-record data-type="${H(f.type)}" data-priority="${H(f.priority)}" data-status="${H(f.status)}" data-search="${H([x.title,scope,owner,f.response,f.evidence_ref].join(' '))}">
++   <div class="raid-record-top"><div><span class="raid-scope">${H(scope)} · RAID-${x.id}</span><h3>${H(x.title)}</h3></div><div class="raid-badges"><span class="raid-badge ${raidColor(f.type,'type')}" title="${H(raidTip('type'))}">${H(f.type)}</span><span class="raid-badge ${raidColor(f.priority,'priority')}" title="${H(raidTip('priority'))}">${H(f.priority)}</span><span class="raid-badge ${raidColor(f.status)}" title="${H(raidTip('status'))}">${H(f.status)}</span></div></div>
++   <div class="raid-record-grid">
++     <div><span class="raid-label">Responsible owner <span class="raid-tip" title="${H(raidTip('owner_role'))}">?</span></span><strong>${H(owner)}</strong></div>
++     <div><span class="raid-label">Target date <span class="raid-tip" title="${H(raidTip('due_date'))}">?</span></span><strong class="${overdue?'raid-overdue':''}">${H(due)}${overdue?' · overdue':''}</strong></div>
++     <div><span class="raid-label">Evidence <span class="raid-tip" title="${H(raidTip('evidence_ref'))}">?</span></span><strong>${H(f.evidence_ref||'Not linked')}</strong></div>
++     <div class="raid-response"><span class="raid-label">Next action / mitigation <span class="raid-tip" title="${H(raidTip('response'))}">?</span></span><p>${H(f.response||'No response recorded yet.')}</p></div>
++   </div>
++   <div class="raid-record-foot"><span class="tiny muted">${H(roleName(x.author_role))} · v${x.version} · ${when(x.updated_at)}</span><div class="pill-row">${x.can_edit?`<button class="btn sm" data-reg-edit="${x.id}">Edit</button>`:'<span class="tag">Read only</span>'}<button class="btn sm" data-reg-export="${x.id}">MD ↓</button><button class="btn sm" data-register-rev="${x.id}">History</button></div></div>
++ </article>`;
++}
+ async function registerPage(kind){
+  const [rows,streams,inits]=await Promise.all([api('/api/registers?kind='+kind),api('/api/streams'),api('/api/initiatives')]);
+  registerRows=rows;S.streamRows=streams;S.initiativeRows=inits;
+  const canAuthor=!!S.user.permissions?.[kind==='raci'?'register_author_raci':'register_author_raid'];
+  const available=S.regScope?.initiative_id?rows.filter(x=>x.initiative_id===S.regScope.initiative_id):rows;
+- const explanation=kind==='raci'?'R does the work; A owns the outcome (one role); C gives advice; I receives updates. These assignments are separate from who entered the record.':'Track risks, assumptions, issues and dependencies by assigned owner, impact and action.';
++ if(kind==='raid'){
++   const counts={risk:0,assumption:0,issue:0,dependency:0,critical:0,high:0,open:0,escalated:0};
++   available.forEach(x=>{const f=x.fields||{};if(counts[f.type]!=null)counts[f.type]++;if(counts[f.priority]!=null)counts[f.priority]++;if(counts[f.status]!=null)counts[f.status]++});
++   const intro=title('MANAGEMENT / RAID','RAID — Delivery controls','See the complete accessible register first. Use the filters to find what needs action, then open one record only when you need to create or revise it.',canAuthor?`<button class="btn primary" data-register-new="raid">+ New RAID entry</button>`:'');
++   const filter=`<div class="raid-toolbar"><div class="raid-filter-group"><label>Type <span class="raid-tip" title="${H(raidTip('type'))}">?</span><select id="raid-type-filter"><option value="">All types</option><option value="risk">Risk</option><option value="assumption">Assumption</option><option value="issue">Issue</option><option value="dependency">Dependency</option></select></label><label>Priority <span class="raid-tip" title="${H(raidTip('priority'))}">?</span><select id="raid-priority-filter"><option value="">All priorities</option><option value="critical">Critical</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select></label><label>Status <span class="raid-tip" title="${H(raidTip('status'))}">?</span><select id="raid-status-filter"><option value="">All statuses</option><option value="open">Open</option><option value="monitoring">Monitoring</option><option value="mitigating">Mitigating</option><option value="escalated">Escalated</option><option value="resolved">Resolved</option><option value="closed">Closed</option></select></label><label class="raid-search">Find <input id="raid-search" placeholder="Search item, owner or action"></label></div><span id="raid-filter-count" class="tag">${available.length} records</span></div>`;
++   const summary=`<div class="grid cols4 raid-summary"><div class="card"><div class="stat-label">Accessible records</div><div class="stat-num">${available.length}</div><div class="stat-note">All records in your current scope</div></div><div class="card"><div class="stat-label">High / critical</div><div class="stat-num">${counts.high+counts.critical}</div><div class="stat-note">Items needing priority attention</div></div><div class="card"><div class="stat-label">Open / escalated</div><div class="stat-num">${counts.open+counts.escalated}</div><div class="stat-note">Not yet closed</div></div><div class="card"><div class="stat-label">Owners assigned</div><div class="stat-num">${available.filter(x=>x.fields?.owner_role).length}</div><div class="stat-note">Named responsible roles</div></div></div>`;
++   const legend=`<div class="raid-legend"><strong>How to read RAID</strong><span><i class="raid-dot raid-risk"></i> Risk — may happen</span><span><i class="raid-dot raid-issue"></i> Issue — already happened</span><span><i class="raid-dot raid-dependency"></i> Dependency — another delivery is required</span><span><i class="raid-dot raid-critical"></i> Critical — material delivery threat</span></div>`;
++   const records=available.length?`<div id="raid-record-list" class="raid-record-list">${available.map(raidRecordCard).join('')}</div>`:empty('No RAID records in this scope. An authorized owner can create the first record.');
++   $('view').innerHTML=intro+summary+filter+legend+`<div id="register-form-panel" class="form-panel hidden"></div><div id="register-revisions" class="card hidden"></div><div class="grid-heading"><h2>${S.regScope?.initiative_id?'Initiative-specific':'All accessible'} records</h2><span class="tag">Read the register here; create/edit only when needed.</span></div>${records}`;
++   return;
++ }
++ const explanation='R does the work; A owns the outcome (one role); C gives advice; I receives updates. These assignments are separate from who entered the record.';
+  const intro=title('MANAGEMENT / '+kind.toUpperCase(),kind==='raci'?'RACI — Assigned responsibilities':'RAID — Delivery controls',explanation,canAuthor?`<button class="btn primary" data-register-new="${kind}">+ New ${kind.toUpperCase()} entry</button>`:'');
+  const head=kind==='raci'?'<th>Activity / decision</th><th>R — Responsible</th><th>A — Accountable</th><th>C — Consulted</th><th>I — Informed</th><th>Recorded by / version</th><th>Actions</th>':'<th>Record / context</th><th>Category / Priority / Status</th><th>Recorded by / version</th><th>Actions</th>';
+- const rowsHtml=available.map(x=>{
+-  const rowInfo=`<td><strong>${H(x.title)}</strong><div class="tiny muted">${x.initiative_id?'INIT-'+x.initiative_id:'VS-'+x.value_stream_id} · ${kind.toUpperCase()}-${x.id}</div></td>`;
+-  const assignment=kind==='raci'?[['responsible','Responsible'],['accountable','Accountable'],['consulted','Consulted'],['informed','Informed']].map(([k,label])=>raciRoleCell(x.fields[k],label)).join(''):`<td><span class="tag">${H(x.fields.type)}</span> <span class="tag">${H(x.fields.priority)}</span> ${pill(x.fields.status)}<p class="tiny muted">${H(x.fields.response)}</p></td>`;
+-  const recorder=`<td><div class="tiny">${H(roleName(x.author_role))}</div><div class="tiny muted">Author, not RACI assignment · v${x.version}<br>${when(x.updated_at)}</div></td>`;
+-  const actions=`<td><div class="pill-row">${x.can_edit?`<button class="btn sm" data-reg-edit="${x.id}">Edit</button>`:'<span class="tag">Read only</span>'}<button class="btn sm" data-reg-export="${x.id}">MD ↓</button><button class="btn sm" data-register-rev="${x.id}">History</button></div></td>`;
+-  return `<tr>${rowInfo}${assignment}${recorder}${actions}</tr>`;
+- }).join('');
++ const rowsHtml=available.map(x=>{const rowInfo=`<td><strong>${H(x.title)}</strong><div class="tiny muted">${x.initiative_id?'INIT-'+x.initiative_id:'VS-'+x.value_stream_id} · ${kind.toUpperCase()}-${x.id}</div></td>`;const assignment=kind==='raci'?[['responsible','Responsible'],['accountable','Accountable'],['consulted','Consulted'],['informed','Informed']].map(([k,label])=>raciRoleCell(x.fields[k],label)).join(''):`<td><span class="tag">${H(x.fields.type)}</span> <span class="tag">${H(x.fields.priority)}</span> ${pill(x.fields.status)}<p class="tiny muted">${H(x.fields.response)}</p></td>`;const recorder=`<td><div class="tiny">${H(roleName(x.author_role))}</div><div class="tiny muted">Author, not RACI assignment · v${x.version}<br>${when(x.updated_at)}</div></td>`;const actions=`<td><div class="pill-row">${x.can_edit?`<button class="btn sm" data-reg-edit="${x.id}">Edit</button>`:'<span class="tag">Read only</span>'}<button class="btn sm" data-reg-export="${x.id}">MD ↓</button><button class="btn sm" data-register-rev="${x.id}">History</button></div></td>`;return `<tr>${rowInfo}${assignment}${recorder}${actions}</tr>`}).join('');
+  $('view').innerHTML=intro+`<div class="callout">${canAuthor?'You can create a record within your authority.':'You have read-only access.'} Only the original author can revise a saved entry. Changes are versioned; selected R/A/C/I roles are shown in separate columns.</div><div id="register-form-panel" class="form-panel hidden"></div><div id="register-revisions" class="card hidden"></div><div class="grid-heading"><h2>${S.regScope?.initiative_id?'Initiative-specific':'All accessible'} records</h2><span class="tag">${available.length} entries</span></div>${available.length?`<div class="table-wrap raci-table-wrap"><table><thead><tr>${head}</tr></thead><tbody>${rowsHtml}</tbody></table></div>`:empty('No records yet. An authorized owner can create the first record for a value stream or initiative.')}`;
+ }
+ 
+@@ -302,6 +343,16 @@
+ if(t.dataset.publish)return run(async()=>{const p=$('publish-provider').value;if(!confirm(`Publish approved artifact via ${p}? In live mode, this writes to an external system.`))return;const r=await api('/api/connectors/publish',{method:'POST',body:{artifact_id:Number(t.dataset.publish),provider:p}});toast(r.message+(r.remote_ref?' · '+r.remote_ref:''))});
+ if(t.dataset.approvalFilter){S.approvedFilter=t.dataset.approvalFilter==='all';return run(()=>render())}
+ });
++function filterRaidRecords(){
++ const type=$('raid-type-filter')?.value||'',priority=$('raid-priority-filter')?.value||'',status=$('raid-status-filter')?.value||'',q=($('raid-search')?.value||'').trim().toLowerCase();
++ let shown=0;
++ for(const row of document.querySelectorAll('[data-raid-record]')){
++  const ok=(!type||row.dataset.type===type)&&(!priority||row.dataset.priority===priority)&&(!status||row.dataset.status===status)&&(!q||row.dataset.search.toLowerCase().includes(q));
++  row.classList.toggle('hidden',!ok);if(ok)shown++;
++ }
++ const c=$('raid-filter-count');if(c)c.textContent=`${shown} of ${document.querySelectorAll('[data-raid-record]').length} records`;
++}
++document.addEventListener('input',ev=>{if(ev.target.id==='raid-search')filterRaidRecords()});
+ document.addEventListener('change',ev=>{const t=ev.target;if(t.id==='stream-template'){const data=S.catalog.streams.find(x=>x.key===t.value);if(data)fillFields($('stream-form'),data)}
+ if(t.id==='init-template'){const data=S.catalog.initiatives.find(x=>x.value_stream_id===t.value);if(data){const st=S.catalog.streams.find(x=>x.key===data.stream);fillFields($('init-form'),data);if(st){api('/api/streams').then(rows=>{const rec=rows.find(v=>v.key===st.key);if(rec)$('init-form').elements.namedItem('stream_id').value=rec.id})}}}
+ if(t.id==='initiative-stream-filter'){S.stream=Number(t.value);run(()=>render())}
+ if(t.id==='reference-initiative'){S.referenceInitiative=Number(t.value);run(()=>render())}
+ if(t.id==='connector-mode')$('connector-live-fields').classList.toggle('hidden',t.value==='simulated');
+ if(t.id==='persona-switch'&&S.user?.demo)run(()=>login({role:t.value}));
+});

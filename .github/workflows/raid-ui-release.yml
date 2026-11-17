@@ -1,0 +1,39 @@
+name: Apply RAID UI patch
+on:
+  push:
+    branches: [ternstone-valueops-deploy]
+    paths:
+      - '.github/raid-ui/**'
+permissions:
+  contents: write
+jobs:
+  patch-runtime:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply surgical UI patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p work
+          tar -xJf ternstone-runtime.tar.xz -C work
+          cp .github/raid-ui/app.patch /tmp/app.patch
+          cp .github/raid-ui/style.patch /tmp/style.patch
+          (cd work && patch -p3 < /tmp/app.patch && patch -p3 < /tmp/style.patch)
+          cp .github/raid-ui/browser_raid_ui.py work/scripts/browser_raid_ui.py
+          node --check work/app/static/app.js
+          python -m py_compile work/app/main.py
+          rm -f work/valueops.db work/raid_ui.db work/qa_browser_bridge.db
+          tar -cJf ternstone-runtime.new.tar.xz -C work .
+          mv ternstone-runtime.new.tar.xz ternstone-runtime.tar.xz
+          rm -rf .github/raid-ui work
+      - name: Commit final runtime and cleanup
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add ternstone-runtime.tar.xz
+          git rm -r .github/raid-ui
+          git commit -m 'Improve RAID register usability and visibility' || exit 0
+          git push
