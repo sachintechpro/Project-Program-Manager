@@ -111,6 +111,16 @@ Every required contract and mandatory role control must be satisfied before adva
 
 The initiatives span Workers' Compensation, Commercial Property, General Liability, Cyber, Marine Cargo, Commercial Auto, Construction and multi-line distribution. Their modeled counts, budgets, benefit hypotheses and cycle-time targets are examples for evaluating the workflow.
 
+## RACI matrix — role-specific assignments
+
+The **RACI matrix** now lists **Responsible (R)**, **Accountable (A)**, **Consulted (C)** and **Informed (I)** as separate columns, showing the exact stakeholder titles assigned to each activity. The **Recorded by** column identifies the author of the entry; that user is not automatically accountable for all the work.
+
+Each seeded insurance initiative has six relevant example activities: portfolio prioritization, business requirements, technical delivery, independent validation, release/handover and benefits management. Their RACI roles vary with the activity and line of business. New or revised entries preserve the selected role IDs in the API and display readable titles in exported Markdown.
+
+Existing user-authored RACI entries and historical revisions are **not automatically rewritten**. The original authorized author can edit a saved record to assign the correct roles.
+
+---
+
 ## Roles, permissions and human decisions
 
 The modeled organization includes executive leadership, Lean Portfolio Management, VMO, Finance, business owners, Epic Owners, Product Managers and Product Owners, RTEs, Project/Program Managers, Agile coaches, FDEs, engineers, architects, integration leads, QA, security, risk/legal, insurance SMEs, audit, vendors, release managers, operations, Customer Care, analytics and administrators.
