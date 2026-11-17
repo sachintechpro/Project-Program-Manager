@@ -56,6 +56,8 @@ test("archived Claims presentation retains six original sections and navigation"
  assert(html.includes('aria-label="Sections"'));
  assert(html.includes("SAMPLE DATA FOR DEMONSTRATION"));
  assert(html.includes("ENTERPRISE DELIVERY DEEP DIVE"));
+ assert(html.includes('href="./index.html#portfolio"'));
+ assert(html.includes('class="return-portfolio"'));
 });
 
 // Run enhanced workbench regression suite as part of the existing Render build.
