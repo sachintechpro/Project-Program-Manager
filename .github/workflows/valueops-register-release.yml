@@ -1,0 +1,59 @@
+name: Apply Ternstone registers and editable intake
+on:
+  push:
+    branches: [ternstone-valueops-deploy]
+permissions:
+  contents: write
+jobs:
+  package-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Apply, verify, and repack runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          tar -xJf ternstone-runtime.tar.xz
+          python - <<'PY'
+          from pathlib import Path
+          import tarfile,base64,io
+          data=base64.b64decode(Path('valueops-register-release.b64').read_text().strip(),validate=True)
+          allowed={'app/main.py','app/role_policy.py','app/static/app.js','seed/registers/raci-template.md','seed/registers/raid-template.md'}
+          with tarfile.open(fileobj=io.BytesIO(data),mode='r:gz') as t:
+              assert {e.name for e in t.getmembers()}==allowed
+              assert all(e.isfile() for e in t.getmembers())
+              t.extractall('.')
+          PY
+          python -m compileall -q app
+          node --check app/static/app.js
+          python -m pip install -q -r requirements.txt
+          DEMO_MODE=true SECRET_KEY=release-test-secret DATABASE_URL=sqlite:///./ci_smoke.db python - <<'PY'
+          from fastapi.testclient import TestClient
+          from app.main import app
+          with TestClient(app) as c:
+              assert c.get('/health').status_code==200
+              login=c.post('/api/login',json={'role':'program_manager'})
+              assert login.status_code==200
+              headers={'X-CSRF-Token':login.json()['csrf']}
+              me=c.get('/api/me').json()
+              assert me['permissions']['create_stream'] and me['permissions']['register_author_raci']
+              stream=c.post('/api/streams',headers=headers,json={'name':'Release Smoke Stream'})
+              assert stream.status_code==200,stream.text
+              register=c.post('/api/registers',headers=headers,json={'kind':'raci','value_stream_id':stream.json()['id'],'title':'Release acceptance roles','fields':{'responsible':['fde'],'accountable':['program_manager'],'consulted':['qa'],'informed':['rte']}})
+              assert register.status_code==200,register.text
+              login=c.post('/api/login',json={'role':'qa'})
+              qa={'X-CSRF-Token':login.json()['csrf']}
+              assert c.put('/api/registers/'+str(register.json()['id']),headers=qa,json={'expected_version':1,'title':'Unapproved edit','fields':{}}).status_code==403
+              assert c.get('/api/audit/verify').json()['valid']
+              print('CI smoke checks passed')
+          PY
+          rm -f ci_smoke.db
+          tar -cJf ternstone-runtime.tar.xz app seed requirements.txt
+          git rm -f valueops-register-release.b64 .github/workflows/valueops-register-release.yml
+          git add ternstone-runtime.tar.xz
+          git config user.name 'ValueOps Release Bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Add auditable RACI RAID and PM-editable new delivery intake'
+          git push origin HEAD:ternstone-valueops-deploy
